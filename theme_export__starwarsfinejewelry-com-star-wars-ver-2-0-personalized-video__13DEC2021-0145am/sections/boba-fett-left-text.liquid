@@ -1,0 +1,91 @@
+<section class="boba-fett-left-right-text">
+  {% assign image_desktop = section.settings.banner_large | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+  {% assign image_small = section.settings.banner_small | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+    <div class="image-content">
+      {% unless section.settings.banner_large == nil %}
+      <div class="image-wrapper small--hide" style="padding-top:{{ 1 | divided_by: section.settings.banner_large.aspect_ratio | times: 100}}%;">
+        <img class="lazyload custom__image"
+        data-src="{{ image_desktop }}" data-widths="[767, 800, 1020, 1200, 1280, 1370,1440 ,1600, 1920, 2048]" data-sizes="auto" data-image />
+      </div>
+      {% endunless %}
+      
+      {% if section.settings.banner_small != blank %}
+      <div class="image-wrapper medium-up--hide" style="padding-top:{{ 1 | divided_by: section.settings.banner_small.aspect_ratio | times: 100}}%;">
+        <img class="lazyload custom__image" data-src="{{ image_small }}"
+        data-widths="[180, 360,414, 540, 720, 900]" data-sizes="auto" data-image />
+      </div>
+      {% endif %}
+    </div>
+    <div class="left_text_container">
+      <div class="medium-up--one-half text-content">
+        {% if section.settings.title_text != blank %}
+        <h2>{{ section.settings.title_text }}</h2>
+        {% endif %}
+        {% if section.settings.paragraph_txt != blank %}
+        <p>{{ section.settings.paragraph_txt }}</p>
+        {% endif %}
+        {% if section.settings.jewelry_link_txt != blank %}
+        <a class="boba-fett-btn" {% if section.settings.jewelry_link != blank %}href="{{ section.settings.jewelry_link }}"{% endif %}>{{ section.settings.jewelry_link_txt }}</a>
+        {% endif %}
+      </div>
+      
+      <div class="medium-up--one-half jewelry-content">
+        {% if section.settings.jewelry_img != blank %}
+        <img class="lazyload small--hide" data-src="{{ section.settings.jewelry_img | img_url: 'master' }}" data-widths="[180, 360,414, 540, 720, 900]" data-sizes="auto" alt="{{ section.settings.title_text }}" data-image />
+        {% endif %}
+        {% if section.settings.jewelry_img_mob != blank %}
+        <img class="lazyload medium-up--hide" data-src="{{ section.settings.jewelry_img_mob | img_url: 'master' }}" data-widths="[180, 360,414, 540, 720, 900]" data-sizes="auto" alt="{{ section.settings.title_text }}" data-image />
+        {% endif %}
+      </div>      
+    </div>
+    {% if section.settings.jewelry_link != blank %}<a class="left_right-banner_link" href="{{ section.settings.jewelry_link }}"></a>{% endif %}
+  </section>
+  
+  {% schema %}
+  {
+    "name": "Boba Fett Left Text",
+    "class": "text-left-right",
+    "settings": [
+    {
+      "type": "image_picker",
+      "id": "banner_large",
+      "label": "Banner Image (Desktop)"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_small",
+      "label": "Banner Image (Mobile)"
+    },
+    {
+      "type": "text",
+      "id": "title_text",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "paragraph_txt",
+      "label": "Sub Title"
+    },
+    {
+      "type": "text",
+      "id": "jewelry_link_txt",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "jewelry_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "jewelry_img",
+      "label": "Jewelry Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "jewelry_img_mob",
+      "label": "Mobile Jewelry image"
+    }
+    ]
+  }
+  {% endschema %}

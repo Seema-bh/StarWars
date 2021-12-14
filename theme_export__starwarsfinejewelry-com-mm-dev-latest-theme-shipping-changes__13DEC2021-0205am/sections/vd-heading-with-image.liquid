@@ -1,0 +1,48 @@
+<div class="section-wrapper">
+  <div class="page-width">
+    {% if section.settings.title != blank %}
+    <h1 class="heading text-center">{{ section.settings.title }}</h1>
+    {% endif %}
+    <a href="https://online.flippingbook.com/view/345265/" class="fbo-embed" data-fbo-id="345265" data-fbo-lightbox="yes" data-fbo-width="100%" data-fbo-height="600px" data-fbo-version="1" style="max-width: 100%">2021_StarWars_Catalog_Final</a><script async defer src="https://online.flippingbook.com/EmbedScriptUrl.aspx?m=redir&hid=345265"></script>
+  </div>
+</div>
+<style>
+  .embed-responsive {
+    position: relative;
+    display: block;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  .embed-responsive iframe{
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Heading with image",
+	"class": "vd-heading-with-image-section",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Desktop Image"
+      },
+	  {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+		"default": "Heading"
+      }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

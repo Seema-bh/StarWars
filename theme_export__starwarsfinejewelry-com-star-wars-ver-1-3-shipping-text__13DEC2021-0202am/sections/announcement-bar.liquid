@@ -1,0 +1,96 @@
+{% if section.settings.message %}
+{% if section.settings.home_page_only == false or request.page_type == 'index' %}
+<div class="announcement-bar" role="region" aria-label="{{ 'sections.header.announcement_bar_label' | t }}">
+  <a class="also_visit" href="https://www.enchantedfinejewelry.com/">Also Visit<p><img class="lazyload" data-src="https://cdn.shopify.com/s/files/1/0267/0523/1943/files/Enchanted_Logo.svg?33497" data-sizes="auto"></p></a>
+  <div class="announcement-text-wrapper">
+    {% for block in section.blocks %}
+    {% unless block.settings.message_text == blank %}
+    <div class="announcement-text">
+      {%- unless block.settings.message_link == blank -%}
+      <a href="{{ block.settings.message_link }}" class="announcement-bar__link">
+        {%- endunless -%}
+        <p class="announcement-bar__message">{{ block.settings.message_text }}</p>
+        {%- unless block.settings.message_link == blank -%}
+      </a>
+      {%- endunless -%}
+    </div>
+    {% endunless %}
+    {% endfor %}
+  </div>
+</div>
+<style>
+  .announcement-bar {
+    background-color: {{ section.settings.color_bg }};
+  }
+  
+  .announcement-bar__link:hover {
+    {% assign brightness = section.settings.color_bg | color_brightness %}
+    
+    {% if brightness <= 192 %}
+    {% assign lightenAmount = 255 | minus: brightness | divided_by: 255 | times: 16 %}
+    background-color: {{ section.settings.color_bg | color_lighten: lightenAmount }};
+    {% else %}
+    {% assign darkenAmount = 255 | divided_by: brightness | times: 8 %}
+    background-color: {{ section.settings.color_bg | color_darken: darkenAmount }};
+    {% endif %}
+  }
+  
+  .announcement-bar__message {
+    color: {{ section.settings.color_text }};
+  }
+</style>
+{% endif %}
+{% endif %}
+{% schema %}
+{
+  "name": "Announcement Header",
+  "settings": [
+  {
+    "type": "header",
+    "content": "Announcement bar"
+  },
+  {
+    "type": "checkbox",
+    "id": "message",
+    "label": "Show announcement",
+    "default": false
+  },
+  {
+    "type": "checkbox",
+    "id": "home_page_only",
+    "label": "Home page only",
+    "default": true
+  },
+  {
+    "type": "color",
+    "id": "color_bg",
+    "label": "Bar",
+    "default": "#3a3a3a"
+  },
+  {
+    "type": "color",
+    "id": "color_text",
+    "label":  "Text",
+    "default": "#ffffff"
+  }
+  ],
+  "blocks": [
+  {
+    "type": "text_block",
+    "name": "Column",
+    "settings": [
+    {
+      "type": "textarea",
+      "id": "message_text",
+      "label": "Text"
+    },
+    {
+      "type": "url",
+      "id": "message_link",
+      "label": "Link"
+    }
+    ]
+  }
+  ]
+}
+{% endschema %}

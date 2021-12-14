@@ -1,0 +1,400 @@
+{% assign Personalized = false  %}
+{% assign Mandalorian_Font = false  %}
+{% assign Aurebesh_Font = false  %}
+
+{% for tag in product.tags %}
+{% if tag contains 'collections_' %}
+{% assign tagHandle = tag | split:"collections_" | last | handle %}
+{% endif %}
+
+{% if tag contains 'pre-order' %}
+{% assign preorder = true  %}
+{% endif %}
+
+
+{% if tag contains 'Personalized Collection' %}
+{% assign Personalized = true  %}
+{% endif %}
+
+{% if tag contains 'Mandalorian' %}
+{% assign Mandalorian_Font = true  %}
+{% endif %}
+
+{% if tag contains 'Arubesh' %}
+{% assign Aurebesh_Font = true  %}
+{% endif %}
+
+{% endfor %}
+
+
+
+{% capture "form_classes" -%}
+product-form product-form-{{ section.id }}
+{%- unless section.settings.show_variant_labels %} product-form--hide-variant-labels {% endunless %}
+{%- if section.settings.enable_payment_button and product.has_only_default_variant %} product-form--payment-button-no-variants {%- endif -%}
+{%- if current_variant.available == false %} product-form--variant-sold-out {%- endif -%}
+{%- endcapture %}
+
+{% form 'product', product, class:form_classes, novalidate: 'novalidate', data-product-form: '' %}
+<div class="product-title-description-wrapper">
+  {% if tagHandle == "the-mandalorian" %}
+  <a href="/collections/star-wars-the-mandalorian/" class="product-single__collection">{% if localName == 'english' %}The Mandalorian{% else %}マンダロリアン{% endif %}</a>
+  {% elsif tagHandle == "into-the-galaxy" %}
+  <a href="/collections/star-wars-into-the-galaxy-jewelry/" class="product-single__collection">{% if localName == 'english' %}Into The Galaxy{% else %}ギャラクシーへ{% endif %}</a>
+  {% elsif tagHandle == "balance-of-nature" %}
+  <a href="/collections/balance-of-nature-jewelry/" class="product-single__collection">{% if localName == 'english' %}Balance of Nature{% else %}自然のバランス{% endif %}</a>
+  {% elsif tagHandle == "balance-of-the-force" %}
+  <a href="/collections/star-wars-balance-of-the-force-jewelry/" class="product-single__collection">{% if localName == 'english' %}Balance of the Force{% else %}バランス・オブ・ザ・フォース{% endif %}</a>
+  {% elsif tagHandle == "celestial-love" %}
+  <a href="/collections/star-wars-princess-leia-han-solo-celestial-love-jewelry/" class="product-single__collection">{% if localName == 'english' %}Celestial Love{% else %}神聖な愛{% endif %}</a>
+  {% elsif tagHandle == "forces-of-the-galaxy" %}
+  <a href="/collections/star-wars-forces-of-the-galaxy-jewelry/" class="product-single__collection">{% if localName == 'english' %}Forces of the Galaxy{% else %}銀河の力{% endif %}</a>
+  {% elsif tagHandle == "friendship" %}
+  <a href="/collections/star-wars-r2-d2-c-3po-friendship-jewelry/" class="product-single__collection">{% if localName == 'english' %}Friendship{% else %}友情{% endif %}</a>
+  {% endif %}
+
+  <h1 class="product-single__title">{{ product.title }}</h1>
+
+  <p class="product-single__sku">{% if localName == 'english' %}Style #{% else %}スタイル #{% endif %} <span class="variant-sku">{{ current_variant.sku }}</span></p>
+
+  <div class="product__price">
+    {% include 'product-price', variant: current_variant, show_vendor: section.settings.show_vendor %}
+    <div class="stock__message {% if preorder %}hide{% endif %}">
+      <script>       
+        var inv_qty = {};
+        {% for var in product.variants %}
+        inv_qty[{{- var.id -}}] = {{ var.inventory_quantity | default: 0 }};
+        {% endfor %}
+      </script> 
+      {% assign stockAlert = 2 %}
+      {% assign qty = current_variant.inventory_quantity %}
+      {% if qty == 0 %}
+      <p class="variant-inventory" data-min-qty="{{ stockAlert }}" style="color: #E62900">{% if localName == 'english' %}Out of Stock!{% else %}在庫切れ！{% endif %}</p>
+      {% elsif qty > stockAlert %}
+      <p class="variant-inventory" data-min-qty="{{ stockAlert }}" style="color: #20B25B">{% if localName == 'english' %}In Stock!{% else %}在庫あり！{% endif %}</p>
+      {% else %}
+      <p class="variant-inventory" data-min-qty="{{ stockAlert }}" style="color: #E62900">{% if localName == 'english' %}Only {{ qty }} left in Stock!{% else %}{{qty}}のみ在庫が残っています！{% endif %}</p>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if current_variant.price > 50000 %}
+  <div class="monthly-payment {{ shop.currency | handle }}">
+    <p class="price-bar">
+      <span class="price-title">
+        {% if localName == 'english' %}
+        Easy monthly payments of {{ product.price | divided_by: 6 | money  }}/month. <a href="/pages/monthly-payment-option" target="_blank">Know More</a>
+        {% else %}
+        簡単な毎月の支払い {{ product.price | divided_by: 6 | money  }}/month.
+        {% endif %}
+      </span>
+    </p>
+  </div>
+  {% endif %}
+
+
+  <div class="free-shipping-text">
+    <p>
+      <span>
+        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 491.1 491.1" style="enable-background:new 0 0 491.1 491.1;" xml:space="preserve"><path transform="translate(0 -540.36)" d="M401.5,863.31c-12,0-23.4,4.7-32,13.2c-8.6,8.6-13.4,19.8-13.4,31.8s4.7,23.2,13.4,31.8c8.7,8.5,20,13.2,32,13.2c24.6,0,44.6-20.2,44.6-45S426.1,863.31,401.5,863.31z M401.5,933.31c-13.8,0-25.4-11.4-25.4-25s11.6-25,25.4-25c13.6,0,24.6,11.2,24.6,25S415.1,933.31,401.5,933.31z M413.1,713.41c-1.8-1.7-4.2-2.6-6.7-2.6h-51.3c-5.5,0-10,4.5-10,10v82c0,5.5,4.5,10,10,10h81.4c5.5,0,10-4.5,10-10v-54.9c0-2.8-1.2-5.5-3.3-7.4L413.1,713.41z M426.5,792.81h-61.4v-62.1h37.4l24,21.6V792.81z M157.3,863.31c-12,0-23.4,4.7-32,13.2c-8.6,8.6-13.4,19.8-13.4,31.8s4.7,23.2,13.4,31.8c8.7,8.5,20,13.2,32,13.2c24.6,0,44.6-20.2,44.6-45S181.9,863.31,157.3,863.31z M157.3,933.31c-13.8,0-25.4-11.4-25.4-25s11.6-25,25.4-25c13.6,0,24.6,11.2,24.6,25S170.9,933.31,157.3,933.31z M90.6,875.61H70.5v-26.6c0-5.5-4.5-10-10-10s-10,4.5-10,10v36.6c0,5.5,4.5,10,10,10h30.1c5.5,0,10-4.5,10-10S96.1,875.61,90.6,875.61z M141.3,821.11c0-5.5-4.5-10-10-10H10c-5.5,0-10,4.5-10,10s4.5,10,10,10h121.3C136.8,831.11,141.3,826.71,141.3,821.11z M30.3,785.01l121.3,0.7c5.5,0,10-4.4,10.1-9.9c0.1-5.6-4.4-10.1-9.9-10.1l-121.3-0.7c-0.1,0-0.1,0-0.1,0c-5.5,0-10,4.4-10,9.9C20.3,780.51,24.8,785.01,30.3,785.01z M50.7,739.61H172c5.5,0,10-4.5,10-10s-4.5-10-10-10H50.7c-5.5,0-10,4.5-10,10S45.2,739.61,50.7,739.61z M487.4,726.11L487.4,726.11l-71.6-59.3c-1.8-1.5-4-2.3-6.4-2.3h-84.2v-36c0-5.5-4.5-10-10-10H60.5c-5.5,0-10,4.5-10,10v73.2c0,5.5,4.5,10,10,10s10-4.5,10-10v-63.2h234.8v237.1h-82c-5.5,0-10,4.5-10,10s4.5,10,10,10h122.1c5.5,0,10-4.5,10-10s-4.5-10-10-10h-20.1v-191.1h80.6l65.2,54l-0.7,136.9H460c-5.5,0-10,4.5-10,10s4.5,10,10,10h20.3c5.5,0,10-4.4,10-9.9l0.8-151.6C491,730.91,489.7,728.01,487.4,726.11z"></path><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>
+      </span>
+      <span>{% if localName == 'english' %}Free Shipping on all orders in the US{% else %}アメリカ合衆国内送料無料{% endif %}</span>
+    </p>
+  </div>
+
+  {% assign days = 6 | times: 86400 %}
+  <div class="free-shipping-text delivery-date-text">
+    {% if product.tags contains 'pre-order' %}
+    <p class="pre-order-available"{% if current_variant.available %} {% else %}style="display:none;"{% endif %}>
+      <span>
+        <svg id="Capa_1" enable-background="new 0 0 443.294 443.294" width="30" height="30" viewBox="0 0 443.294 443.294" xmlns="http://www.w3.org/2000/svg" style="fill: #fff;"><path d="m221.647 0c-122.214 0-221.647 99.433-221.647 221.647s99.433 221.647 221.647 221.647 221.647-99.433 221.647-221.647-99.433-221.647-221.647-221.647zm0 415.588c-106.941 0-193.941-87-193.941-193.941s87-193.941 193.941-193.941 193.941 87 193.941 193.941-87 193.941-193.941 193.941z"></path><path d="m235.5 83.118h-27.706v144.265l87.176 87.176 19.589-19.589-79.059-79.059z"></path></svg>
+      </span>
+      {% if localName == 'english' %}
+      <span>This product will ship on August 20, 2021</span>
+      {% else %}
+      <span>この製品は2021年8月20日に出荷されます</span>
+      {% endif %}
+    </p>
+    <p class="pre-order-soldout"{% if current_variant.available %}style="display:none;"{% endif %}>
+      {% if localName == 'english' %}
+      <span>We have temporarily closed pre-orders for this style. Please join our waiting list to be notified when this style will be available.</span>
+      {% else %}
+      <span>このスタイルの予約注文は一時的に締め切らせていただきました。 このスタイルが利用可能になったときに通知を受けるには、順番待ちリストに参加してください。</span>
+      {% endif %}
+    </p>
+    {% else %}
+    <p>
+      <span>
+        <svg id="Capa_1" enable-background="new 0 0 443.294 443.294" width="30" height="30" viewBox="0 0 443.294 443.294" xmlns="http://www.w3.org/2000/svg" style="fill: #fff;"><path d="m221.647 0c-122.214 0-221.647 99.433-221.647 221.647s99.433 221.647 221.647 221.647 221.647-99.433 221.647-221.647-99.433-221.647-221.647-221.647zm0 415.588c-106.941 0-193.941-87-193.941-193.941s87-193.941 193.941-193.941 193.941 87 193.941 193.941-87 193.941-193.941 193.941z"></path><path d="m235.5 83.118h-27.706v144.265l87.176 87.176 19.589-19.589-79.059-79.059z"></path></svg>
+      </span>
+      {% assign daysPersonalized = 14 | times: 86400 %}
+      {% if localName == 'english' %}
+      {% if Personalized %}
+      <span>Estimated Delivery by {{ "now" | date: "%s" | plus: daysPersonalized | date: format: 'abbreviated_date' }}</span>
+      {% else %}
+      <span>Estimated Delivery by {{ "now" | date: "%s" | plus: days | date: format: 'abbreviated_date' }}</span>
+      {% endif %}
+      {% else %}
+      {% if Personalized %}
+      <span>予定配達日 {{ "now" | date: "%s" | plus: daysPersonalized | date: format: 'abbreviated_date' }}頃</span>
+      {% else %}
+      <span>予定配達日 {{ "now" | date: "%s" | plus: days | date: format: 'abbreviated_date' }}頃</span>
+      {% endif %}
+      {% endif %}
+    </p>
+    {% endif %}    
+  </div>
+</div>
+{%- if shop.taxes_included or shop.shipping_policy.body != blank -%}
+<div class="product__policies rte" data-product-policies>
+  {%- if shop.taxes_included -%}
+  {{ 'products.product.include_taxes' | t }}
+  {%- endif -%}
+  {%- if shop.shipping_policy.body != blank -%}
+  {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+  {%- endif -%}
+</div>
+{%- endif -%}
+<div class="sw__product-meta">
+  {% unless product.has_only_default_variant %}
+  <div class="product-form__controls-group product-variant__ring-size">
+    {% for option in product.options_with_values %}
+    <div class="selector-wrapper js product-form__item">
+      <label {% if option.name == 'default' %}class="label--hidden" {% endif %}for="SingleOptionSelector-{{ forloop.index0 }}">
+        {{ option.name }}<span class="infor" style="display:none;">(Extra 7 days to ship)</span>
+      </label>
+      
+      {% assign productVariant = option.values | sort %}
+      {% include 'custom-size-dropdown' %}
+      
+      
+    </div>
+    {% endfor %}
+  </div>
+  {% endunless %}
+  
+  <select name="id" id="ProductSelect-{{ section.id }}" class="product-form__variants no-js">
+    {% for variant in product.variants %}
+    <option value="{{ variant.id }}"{%- if variant == current_variant %} selected="selected" {%- endif -%}>
+      {{ variant.title }}  {%- if variant.available == false %} - {{ 'products.product.sold_out' | t }}{% endif %}
+    </option>
+    {% endfor %}
+  </select>
+  
+  {% if section.settings.show_quantity_selector and current_variant.available %}
+  <div class="product-form__controls-group">
+    <div class="product-form__item">
+      <label for="Quantity-{{ section.id }}">{{ 'products.product.quantity' | t }}</label>
+      <div class="product-quantity-box">
+        <span class="icon-minus">{% include 'icon-minus' %}</span>
+        <input type="text" id="Quantity-{{ section.id }}"
+        name="quantity" value="1" min="1" pattern="[0-9]*"
+        class="product-form__input product-form__input--quantity" data-quantity-input
+        >
+        <span class="icon-plus">{% include 'icon-plus' %}</span>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  
+  
+  {% if product.type == 'Ring' %}
+  <div class="product-form__controls-group size-chart-popup">
+    {% comment %}<a href="#sizechart-popup" class="ring_size js-content-popup" target="_blank">{% include 'icon-ring-size' %}Ring Size Chart</a>{% endcomment %}
+    {% if localName == 'english' %}
+    <a href="https://cdn.shopify.com/s/files/1/0465/8787/1396/files/Star_Wars_Size_Guide_A4.pdf?v=1609136956" class="ring_size" target="_blank">{% include 'icon-ring-size' %}Ring Size Chart</a>
+    {% else %}
+    <a href="https://cdn.shopify.com/s/files/1/0465/8787/1396/files/Starwar_japanese.pdf?v=1627022056" class="ring_size" target="_blank">{% include 'icon-ring-size' %}リングサイズチャート</a>
+    {% endif %}
+  </div>
+  <div id="sizechart-popup" class="mfp-hide">
+    <div class="sizechart_header">
+      <h2>Size chart</h2>
+      <p>Find out the right size that fits you perfect.</p>
+    </div>
+    <div class="sizechart_body">
+      <div class="sizechart_left">
+        <ul>
+          <li>US Size</li>
+          <li>4</li>
+          <li>5</li>
+          <li>6</li>
+          <li>7</li>
+          <li>8</li>
+          <li>9</li>
+          <li>10</li>
+          <li>11</li>
+          <li>12</li>
+          <li>13</li>
+        </ul>
+        <ul>
+          <li>Inside Diameter in mm</li>
+          <li>46.8</li>
+          <li>49.3</li>
+          <li>51.9</li>
+          <li>54.4</li>
+          <li>57.0</li>
+          <li>59.5</li>
+          <li>62.1</li>
+          <li>64.6</li>
+          <li>67.2</li>
+          <li>69.7</li>
+        </ul>
+      </div>
+      <div class="sizechart_right">
+        <div class="ring_container">
+          <img class="lazyload"
+          src="https://cdn.shopify.com/s/files/1/0465/8787/1396/files/Box_1_-svg.png?v=1602607031"
+          data-src="https://cdn.shopify.com/s/files/1/0465/8787/1396/files/Box_1_-svg.png?v=1602607031"
+          data-sizes="auto"
+          alt="" />
+        </div>
+        <p>Star Wars Fine Jewelry uses standard US rings sizes. Refer to our measurement chart or the ruler found in our size guide. You can also download the ruler below.</p>
+        {% if product.metafields.global.size_chart %}
+        <a href="{{ product.metafields.global.size_chart }}" class="btn">Download pdf</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+{% if Personalized %}
+<div class="name_engraving " data-tag="{{Personalized}}">
+  <p class="engraving_heading">
+    Personalization
+  </p>
+  <div class="line_btn">
+    <div class="txt_line">
+      {% if product.tags contains '10 characters' %}
+      <label class="First_line">
+        Text<br><span>(Upto 10 Characters)</span>
+      </label>
+      <input id="embros_txt" name="properties[Engraved Text]" type="text" placeholder="Enter text to embrose" value="" maxlength="10">
+      {% else %}
+      <label class="First_line">
+        Text <br><span>(Upto 8 Characters)</span>
+      </label>
+      <input id="embros_txt" name="properties[Engraved Text]" type="text" placeholder="Enter text to embrose" value="" maxlength="8">
+      {% endif %}
+    </div>
+    <div class="font-family-sec">
+      <div class="font-familt-grid">
+        <div class="font_btn">
+          <h4>Righteous<br> Font</h4>
+          <input type="radio" name="properties[Font]" id="english_font" value="Righteous Font" class="font-family-btn" checked> 
+          <label for="english_font" style="font-family: Righteous">Abc</label>
+        </div>
+        {% if Mandalorian_Font %}
+        <div class="font_btn">
+          <h4>Mandalorian Font</h4>
+          <input type="radio" name="properties[Font]" id="dancing_font" value="MandalorianFormal" class="font-family-btn"> 
+          <label for="dancing_font" style="font-family: MandalorianFormal;">Abc</label>
+        </div>
+        {% endif %}
+        {% if Aurebesh_Font %}
+        <div class="font_btn">
+          <h4>Aurebesh Font</h4>
+          <input type="radio" name="properties[Font]" id="tinos_reg" value="Aurebesh font" class="font-family-btn">
+          <label for="tinos_reg" style="font-family: Aurebesh;">Abc</label>
+        </div>
+        {% endif %}
+      </div>
+      <p class="font-error-msg">Please select font</p>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<div class="product-form__error-message-wrapper product-form__error-message-wrapper--hidden{% if section.settings.enable_payment_button %} product-form__error-message-wrapper--has-payment-button{% endif %}"
+data-error-message-wrapper
+role="alert"
+>
+<span class="visually-hidden">{{ 'general.accessibility.error' | t }} </span>
+{% include 'icon-error' %}
+<span class="product-form__error-message" data-error-message>{{ 'products.product.quantity_minimum_message' | t }}</span>
+</div>
+
+<div class="product-form__controls-group product-form__controls-group--submit">
+  <div class="product-form__item product-form__item--submit
+  {%- if section.settings.enable_payment_button %} product-form__item--payment-button {%- endif -%}
+  {%- if product.has_only_default_variant %} product-form__item--no-variants {%- endif -%}"
+  >
+  {% comment %}
+  <button type="submit" name="add"
+  {% unless current_variant.available %} aria-disabled="true"{% endunless %}
+  aria-label="{% unless current_variant.available %}{{ 'products.product.sold_out' | t }}{% else %}{{ 'products.product.add_to_cart' | t }}{% endunless %}"
+  class="btn product-form__cart-submit{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}"
+  {% if settings.enable_ajax %}aria-haspopup="dialog"{% endif %}
+  data-add-to-cart>
+  {% include 'icon-cart' %}
+  <span data-add-to-cart-text>
+    {% unless current_variant.available %}
+    {{ 'products.product.sold_out' | t }}
+    {% else %}
+    {{ 'products.product.add_to_cart' | t }}
+    {% endunless %}
+  </span>
+  <span class="hide" data-loader>
+    {% include 'icon-spinner' %}
+  </span>
+</button>
+{% endcomment %}
+
+
+<div id='mhaRnProduct' {% if current_variant.available %} style="display:none;" {% else %}  {% endif %}></div>
+<div class="button-wrapper" {% if current_variant.available %}  {% else %} style="display:none;" {% endif %}>
+  <div class="buy-now-button">
+    <!--                 <p><span style="color:red;">* Notice:</span> Due to high demand, orders will be shipped in 4-5 business days.</p> -->
+    <a class="btn" href="javascript:void(0);">
+      <span class="before-touch">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><defs><style>.buy-now-button .a{fill:none;}.buy-now-button .b{fill:#151515;}</style></defs><g transform="translate(-186.14 -109.93)"><rect class="a" width="22" height="22" transform="translate(186.14 109.93)"/><path class="b" d="M311.945,1621.156a.271.271,0,0,0-.392.334,14.47,14.47,0,0,1,1.213,5c0,2.083-.8,3.278-2.194,3.278-1.135,0-1.9-1.307-1.9-3.253a2.824,2.824,0,0,1,1.46-2.732.27.27,0,0,0,.121-.4l-.542-.813a.271.271,0,0,0-.176-.117.266.266,0,0,0-.206.046l-.7.5-.167-.265.7-.935a.271.271,0,0,0,0-.332l-1.084-1.355a.281.281,0,0,0-.424,0l-1.084,1.355a.271.271,0,0,0,0,.332l.7.935-.167.265-.7-.5a.27.27,0,0,0-.382.071l-.542.813a.271.271,0,0,0,.12.4,2.824,2.824,0,0,1,1.461,2.733c0,1.946-.762,3.253-1.9,3.253-1.394,0-2.194-1.2-2.194-3.278a14.47,14.47,0,0,1,1.213-5,.271.271,0,0,0-.392-.334,7.862,7.862,0,1,0,8.167,0Z" transform="translate(-110.611 -1505.823)"/></g></svg>
+        {% if localName == 'english' %}
+        {% if product.tags contains 'pre-order' %}
+        <span>Pre-order</span>
+        {% else %}
+        <span>Buy now</span>
+        {% endif %}
+        {% else %}
+        {% if product.tags contains 'pre-order' %}
+        <span>予約注文</span>
+        {% else %}
+        <span>すぐに買ってください</span>
+        {% endif %}
+        
+        {% endif %}
+      </span>
+      <span class="after-touch">
+        {% include 'icon-spinner' %}
+      </span>
+    </a>
+  </div>
+</div>
+<div class="wishlish-button-wrapper">
+  <div class="add-to-cart-wrapper" {% if current_variant.available %}  {% else %} style="display:none;" {% endif %}>
+    <button type="submit" name="add"
+    aria-label="{{ 'products.product.add_to_cart' | t }}"
+    class="btn product-form__cart-submit{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}"
+    {% if settings.enable_ajax %}aria-haspopup="dialog"{% endif %}
+    data-add-to-cart>
+    {% include 'icon-cart' %}
+    <span data-add-to-cart-text>
+      {{ 'products.product.add_to_cart' | t }}
+    </span>
+    <span class="hide" data-loader>
+      {% include 'icon-spinner' %}
+    </span>
+  </button>
+</div>
+{% include 'iwish_v2' with 'iwishproduct' %}
+</div>
+<div class="iwishAddWrap">
+  {% unless customer %}
+  <p class="iWishLoginMsg" style="display: none;">Your wishlist has been temporarily saved. Please <a href="/account/login">Log in</a> to save it permanently.</p>
+  {% endunless %}
+</div>
+
+</div>
+</div>
+
+{% endform %}

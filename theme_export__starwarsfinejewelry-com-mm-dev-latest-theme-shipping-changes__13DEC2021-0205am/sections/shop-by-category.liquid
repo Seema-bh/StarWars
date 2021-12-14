@@ -1,0 +1,84 @@
+<section data-section-id="{{ section.id }}" data-section-type="starwars-category-section">
+  <div class="page-width">
+    <div class="section-header text-center">
+      {% unless section.settings.title == blank %}
+        <h2>{{ section.settings.title }}</h2>
+      {% endunless %}
+    </div>
+    <div class="sw__category_container">
+      {% for block in section.blocks %}
+        <div class="starwars-category">
+		  {% unless block.settings.category_image == nil %}
+            <img src="{{ block.settings.category_image | img_url: "x260" }}" />
+          {% endunless %}
+          {% unless block.settings.title == blank %}
+            <h4>{{ block.settings.title }}</h4>
+          {% endunless %}
+          {% unless block.settings.button_text == blank %}
+            {% unless block.settings.button-url == blank %}
+              <a href="{{ block.settings.button-url }}" class="btn btn_secondary">{{ block.settings.button_text }}</a>
+            {% endunless %}
+          {% endunless %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Shop by Category",
+	"class": "index-section index_category-section",
+	"max_blocks": 6,
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "Title"
+      }
+    ],
+	"blocks": [
+      {
+        "type": "starwars-category",
+        "name": "Category",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "category_image",
+            "label": "Category Image"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Category Title",
+            "default": "Category Title"
+          },
+		  {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button",
+            "default": "Shop Now"
+          },
+          {
+            "type": "url",
+            "id": "button-url",
+            "label": "Button URL"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Shop by Category",
+        "category": "Collection"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

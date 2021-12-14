@@ -1,0 +1,49 @@
+<div class="section-wrapper" style="background: {{ section.settings.background_color }};">
+  <div class="page-width">
+    <div class="content text-center">
+      {% if section.settings.text != blank %}
+      {{ section.settings.text }}
+      {% endif %}
+      {% if section.settings.button_text != blank and section.settings.button_link != blank %}
+      <a href="{{ section.settings.button_link }}" class="btn">{{ section.settings.button_text }}</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Content",
+	"class": "content-section",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background color",
+        "default": "#F9F5F4"
+      },
+	  {
+        "type": "richtext",
+        "id": "text",
+        "label": "text",
+		"default": "<p>Text goes here.</p>"
+      },
+	  {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button"
+      },
+	  {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button link"
+      }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,87 @@
+{% assign localName = request.locale.name | handle %}
+<div class="page-width">
+  <div class="section-header text-center">
+    <h1>{{ 'customer.account.title' | t }}</h1>
+    {{ 'layout.customer.log_out' | t | customer_logout_link }}
+  </div>
+
+  <div class="grid myaccount">
+    <div class="grid__item myaccount__order-history">
+      <p class="customer-name">
+        <span>{% if localName == 'english' %}Welcome,{% else %}ようこそ、{% endif %} {{ customer.first_name }} {{ customer.last_name }}..</span>
+        <a href="{{ routes.account_addresses_url }}" class="btn btn--small">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28"><defs><style>.a{fill:none;}.b{fill:#fff;}</style></defs><g transform="translate(0.066)"><rect class="a" width="28" height="28" transform="translate(-0.066)"/><g transform="translate(-1194.565 -2599.134)"><g transform="translate(1200 2605.029)"><path class="b" d="M1201.364,2625.819l-1.353,4.736a.277.277,0,0,0,.07.272.281.281,0,0,0,.2.081.252.252,0,0,0,.076-.011l4.736-1.353Z" transform="translate(-1200 -2614.294)"/><path class="b" d="M1217.487,2607.021l-1.518-1.518a1.715,1.715,0,0,0-2.369,0l-10.578,10.578,3.887,3.887,10.578-10.579A1.677,1.677,0,0,0,1217.487,2607.021Zm-1.687.561-9.786,9.785a.277.277,0,0,1-.392-.392l9.786-9.786a.277.277,0,0,1,.392.392Z" transform="translate(-1201.347 -2605.029)"/></g></g></g></svg>
+          {% if localName == 'english' %}
+          EDIT
+          {% else %}
+          編集
+          {% endif %}
+        </a>
+      </p>
+      <div class="your-information">
+        <p class="order-title">{% if localName == 'english' %}Your information{% else %}あなたの情報{% endif %}</p>
+        <table class="responsive-table">
+          <thead>
+            <tr>
+              <th scope="col">{% if localName == 'english' %}Name{% else %}名前{% endif %}</th>
+              <th scope="col">{% if localName == 'english' %}Email{% else %}Eメール{% endif %}</th>
+              <th scope="col">{% if localName == 'english' %}Phone Number{% else %}電話番号{% endif %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>
+                {{ customer.name }}
+              </th>
+              <td>{{ customer.email }}</td>
+              <td>{% if customer.phone != blank%}{{ customer.phone }}{% else %} - {% endif %}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="order-infromation">
+        <p class="order-title">{{ 'customer.orders.title' | t }}</p>
+
+        {% paginate customer.orders by 20 %}
+        {% if customer.orders.size != 0 %}
+
+        <table class="responsive-table">
+          <thead>
+            <tr>
+              <th scope="col">{{ 'customer.orders.order_number' | t }}</th>
+              <th scope="col">{{ 'customer.orders.date' | t }}</th>
+              <th scope="col">{% if localName == 'english' %}Order status{% else %}注文の状況{% endif %}</th>
+              <th scope="col">{{ 'customer.orders.total' | t }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for order in customer.orders %}
+            <tr>
+              <th data-label="{{ 'customer.orders.order_number' | t }}" scope="row">
+                <a href="{{ order.customer_url }}" aria-label="{{ 'customer.orders.order_number_link' | t: number: order.name }}">{{ order.name }}</a>
+              </th>
+              <td data-label="{{ 'customer.orders.date' | t }}">{{ order.created_at | time_tag: format: 'date' }}</td>
+              {% if localName == 'english' %}
+              <td data-label="{{ 'customer.orders.fulfillment_status' | t }}">{% if order.fulfillment_status == "unfulfilled" %}Pending{% else %}Out for delivery{% endif %}</td>
+              {% else %}
+              <td data-label="{{ 'customer.orders.fulfillment_status' | t }}">{% if order.fulfillment_status == "unfulfilled" %}保留中{% else %}配達中{% endif %}</td>
+              {% endif %}
+              <td data-label="{{ 'customer.orders.total' | t }}">{{ order.total_price | money }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        {% else %}
+
+        <p>{{ 'customer.orders.none' | t }}</p>
+
+        {% endif %}
+        {%- if paginate.pages > 1 -%}
+        {% include 'pagination', paginate: paginate %}
+        {%- endif -%}
+        {% endpaginate %}
+      </div>
+    </div>
+  </div>
+</div>

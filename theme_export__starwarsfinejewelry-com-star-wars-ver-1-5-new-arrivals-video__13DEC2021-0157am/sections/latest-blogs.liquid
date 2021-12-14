@@ -1,0 +1,183 @@
+<section class="latest-blogs-section">
+  <div class="page-width">
+    {% if section.settings.dynamic_blog %}
+    <div class="latest_blog_slider">
+      {%- assign blog = blogs[section.settings.blog] -%}
+      {%- for article in blog.articles limit: 4 -%}
+      <div class="grid image-text">
+        <div class="grid__item small--one-whole medium-up--one-half text-container">
+          <div class="title_block">
+            {% if article.published_at != blank %}
+            <span class="article__date">PUBLISHED {{ article.published_at | date: "%d/%m/%Y"  }}</span>
+            {% endif %}
+            {% if article.title != blank %}
+            <h3 class="article__title">
+              {{ article.title }}
+            </h3>
+            {% endif %}
+          </div>
+          <div class="desc_block">
+            {% if article.excerpt.size > 0 %}
+            <div class="article__description">{{ article.excerpt }}</div>
+            {% else %}
+            <div class="article__description">{{ article.content | strip_html | truncate: 180 }}</div>
+            {% endif %}
+            <a href="{{ article.url }}" class="btn btn--tertiary btn--small article__link" aria-label="{{ 'blogs.article.read_more_title' | t: title: article.title }}">
+              {{ 'blogs.article.read_more' | t }}
+              <svg class="article_right_arrow" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><defs><style>.article_right_arrow .a,.article_right_arrow .b{fill:none;}.article_right_arrow .b{stroke:#242424;stroke-width:1.5px;}</style></defs><rect class="a" width="24" height="24"/><g transform="translate(4.286 5.143)"><path class="b" d="M5.439,6.66l6.305,6.305-6.6,6.6" transform="translate(4.299 -6.66)"/><path class="b" d="M5.526,13.837H21.246" transform="translate(-5.526 -7.685)"/></g></svg>
+            </a>
+          </div>
+        </div>
+        <div class="grid__item small--one-whole medium-up--one-half image-container">
+          {% if article.image %}
+          {% capture img_id %}LatestArticleImage-{{ article.image.id }}{% endcapture %}
+          {% capture img_wrapper_id %}LatestArticleImageWrapper-{{ article.image.id }}{% endcapture %}
+          {%- assign img_url = article.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+          
+          {% include 'image-style', image: article.image, height: 600, wrapper_id: img_wrapper_id, img_id: img_id %}
+          
+          <div id="{{ img_wrapper_id }}" class="article__image-wrapper js">
+            <a href="{{ article.url }}" style="padding-top:{{ 1 | divided_by: article.image.aspect_ratio | times: 100 }}%;" class="article__list-image-container">
+              <img id="{{ img_id }}"
+              class="article__list-image lazyload"
+              src="{{ article.image | img_url: '300x300' }}"
+              data-src="{{ img_url }}"
+              data-widths="[180, 360, 540, 720, 905, 1090, 1296, 1512, 1728, 2048]"
+              data-aspectratio="{{ article.image.aspect_ratio }}"
+              data-sizes="auto"
+              alt="{{ article.title }}">
+            </a>
+          </div>
+          
+          <noscript>
+            <p>
+              <a href="{{ article.url }}">
+                {{ article | img_url: '455x300', scale: 2 | img_tag: article.title }}
+              </a>
+            </p>
+          </noscript>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    
+    <div class="latest_blog_slider custom_articles">
+      {%- for block in section.blocks -%}
+      <div class="grid image-text">
+        <div class="grid__item small--one-whole medium-up--one-half text-container">
+          <div class="title_block">
+            {% if block.settings.article_date != blank %}
+            <span class="article__date">PUBLISHED {{ block.settings.article_date  }}</span>
+            {% endif %}
+            {% if block.settings.article_title != blank %}
+            <h3 class="article__title">{{ block.settings.article_title }}</h3>
+            {% endif %}
+          </div>
+          <div class="desc_block">
+            {% if block.settings.article_content != blank %}
+            <div class="article__description">{{  block.settings.article_content | truncate: 180 }}</div>
+            {% endif %}
+            
+            <a href="{{ block.settings.article_url }}" class="btn btn--tertiary btn--small article__link" aria-label="{{ 'blogs.article.read_more_title' }}">
+              {{ 'blogs.article.read_more' | t }}
+              <svg class="article_right_arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><defs><style>.article_right_arrow .a,.article_right_arrow .b{fill:none;}.article_right_arrow .b{stroke:#242424;stroke-width:1.5px;}</style></defs><rect class="a" width="24" height="24"/><g transform="translate(4.286 5.143)"><path class="b" d="M5.439,6.66l6.305,6.305-6.6,6.6" transform="translate(4.299 -6.66)"/><path class="b" d="M5.526,13.837H21.246" transform="translate(-5.526 -7.685)"/></g></svg>
+            </a>
+          </div>
+        </div>
+        <div class="grid__item small--one-whole medium-up--one-half image-container">
+          {% if block.settings.article_image %}
+          {% capture img_id %}ArticleImage-{{ block.id }}{% endcapture %}
+          {% capture img_wrapper_id %}ArticleImageWrapper-{{ block.id }}{% endcapture %}
+          {%- assign img_url = block.settings.article_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+          
+          {% include 'image-style', image: block.settings.article_image, height: 600, wrapper_id: img_wrapper_id, img_id: img_id %}
+          
+          <div id="{{ img_wrapper_id }}" class="article__image-wrapper js">
+            <a href="{{ block.settings.article_url }}" style="padding-top:{{ 1 | divided_by: block.settings.article_image.aspect_ratio | times: 100 }}%;" class="article__list-image-container">
+              <img id="{{ img_id }}"
+              class="article__list-image lazyload"
+              data-src="{{ img_url }}"
+              data-widths="[180, 360, 540, 720, 905, 1090, 1296, 1512, 1728, 2048]"
+              data-aspectratio="{{ block.settings.article_image.aspect_ratio }}"
+              data-sizes="auto"
+              alt="{{ block.settings.article_title }}">
+            </a>
+          </div>
+          
+          <noscript>
+            <p>
+              <a href="{{ block.settings.article_url }}">
+                {{ article | img_url: '455x300', scale: 2 | img_tag: block.settings.article_title }}
+              </a>
+            </p>
+          </noscript>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Latest Blogs",
+  "class": "index-section",
+  "settings": [
+  {
+    "type": "blog",
+    "id": "blog",
+    "label": "Select blog"
+  },
+  {
+    "type": "checkbox",
+    "id": "dynamic_blog",
+    "label": "Dynamic articles",
+    "default": true
+  }
+  ],
+  "blocks":[
+  {
+    "name": "Article",
+    "type": "text_block",
+    "settings": [
+    {
+      "type": "header",
+      "content": "Custom Articles"
+    },
+    {
+      "type": "image_picker",
+      "id": "article_image",
+      "label": "Article Image"
+    },
+    {
+      "type": "text",
+      "id": "article_date",
+      "label": "Article Date",
+      "default": "15/06/2021"
+    },
+    {
+      "type": "text",
+      "id": "article_title",
+      "label": "Article Title",
+      "default": "Your eyes can deceive you. Don’t trust them."
+    },
+    {
+      "type": "textarea",
+      "id": "article_content",
+      "label": "Article Content",
+      "default": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et."
+    },
+    {
+      "type": "url",
+      "id": "article_url",
+      "label": "Article Link"
+    }
+    ]
+  }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,504 @@
+{% assign localName = request.locale.name | handle %}
+<section class="sw__product-tabs" data-section-type="sw-product-tabs" data-section-id="{{ section.id }}">
+  <div class="page-width">
+    <div class="product-tabs">
+      {% if localName == 'english' %}
+      <ul class="tabs">
+        <li data-tab="tab-1" class ="active">Description</li>
+        <li data-tab="tab-2">Specifications</li>
+        <li data-tab="tab-3">About the Collection</li>
+        <li data-tab="tab-4">Authenticity</li>
+        <li data-tab="tab-5">Shipping & returns</li>
+        <li data-tab="tab-6">Warranty</li>
+      </ul>
+      {% else %}
+      <ul class="tabs">
+        <li data-tab="tab-1" class ="active">説明</li>
+        <li data-tab="tab-2">仕様</li>
+        <li data-tab="tab-3">コレクションについて</li>
+        <li data-tab="tab-4">信憑性</li>
+        <li data-tab="tab-5">配送と返品について</li>
+        <li data-tab="tab-6">保証</li>
+      </ul>
+      {% endif %}
+      <div class="tab-details">
+        <div class="tab__heading--small active">       
+          <h3>{% if localName == 'english' %}Description{% else %}説明{% endif %}</h3> 
+          {% include 'icon-plus' %}
+          {% include 'icon-minus' %}
+        </div>
+        <div id="tab-1" class="tab_content current">
+          {{ product.description }}
+          <p class="product-single__sku">SKU # <span class="variant-sku">{{ product.selected_or_first_available_variant.sku }}</span></p>
+        </div>
+        <div class="tab__heading--small">       
+          <h3>{% if localName == 'english' %}Specifications{% else %}仕様{% endif %}</h3>  
+          {% include 'icon-plus' %}
+          {% include 'icon-minus' %}
+        </div>
+        <div id="tab-2" class="tab_content">
+          {% if localName == 'english' %}
+          <div class="metafield-info">
+            {% assign Metal = product.metafields.global.Metal %}
+            {% if Metal != 0 and Metal != blank %}
+            <p><span>Metal :</span> <span>{{ Metal }}</span></p>
+            {% endif %}
+            
+            {% comment %}
+            {% assign MetalWeight = product.metafields.global['Total Metal Weight'] %}
+            {% if MetalWeight != 0 and MetalWeight != blank %}
+            <p>Metal Weight  : {{ MetalWeight }}</p>
+            {% endif %}
+            {% endcomment %}
+            
+            {% assign diamondType = product.metafields.global['Diamond Type'] %}
+            {% if diamondType != 0 and diamondType != blank %}
+            <p><span>Diamond Type :</span> <span>{{ diamondType }}</span></p>
+            {% endif %}
+            
+            {% assign DiamondShape = product.metafields.global['Diamond Shape'] %}
+            {% if DiamondShape != 0 and DiamondShape != blank %}
+            <p><span>Diamond Shape  :</span> <span>{{ DiamondShape }}</span></p>
+            {% endif %}
+            
+            {% assign weight = product.metafields.global['Diamond Total Weight'] %}
+            {% if weight != 0 and weight != blank %}
+            <p><span>Diamond Total Weight :</span> <Span>{{ weight }}</Span></p>
+            {% endif %}
+            
+            {% assign DiamondClarity = product.metafields.global['Diamond Clarity'] %}
+            {% if DiamondClarity != 0 and DiamondClarity != blank %}
+            <p><span>Diamond Clarity  :</span> <span>{{ DiamondClarity }}</span></p>
+            {% endif %}
+            
+            {% assign Diamondcolor = product.metafields.global['Diamond color'] %}
+            {% if Diamondcolor != 0 and Diamondcolor != blank %}
+            <p><span>Diamond Color  :</span> <span>{{ Diamondcolor }}</span></p>
+            {% endif %}
+            
+            {% assign DiamondTreatmentMethod = product.metafields.global['Diamond Treatment Method'] %}
+            {% if DiamondTreatmentMethod != 0 and DiamondTreatmentMethod != blank %}
+            <p><span>Diamond Treatment Method  :</span> <span>{{ DiamondTreatmentMethod }}</span></p>
+            {% endif %}
+            
+            {% assign DiamondCreationMethod = product.metafields.global['Diamond Creation Method'] %}
+            {% if DiamondCreationMethod != 0 and DiamondCreationMethod != blank %}
+            <p><span>Diamond Creation Method  :</span> <span>{{ DiamondCreationMethod }}</span></p>
+            {% endif %}
+            
+            {% assign SettingType = product.metafields.global['Setting Type'] %}
+            {% if SettingType != 0 and SettingType != blank %}
+            <p><span>Setting Type  :</span> <span>{{ SettingType }}</span></p>
+            {% endif %}
+            
+            {% assign Clasptype = product.metafields.global['Clasp type'] %}
+            {% if Clasptype != 0 and Clasptype != blank %}
+            <p><span>Clasp type  :</span> <span>{{ Clasptype }}</span></p>
+            {% endif %}
+            
+            {% assign BackFinding = product.metafields.global['Back Finding'] %}
+            {% if BackFinding != 0 and BackFinding != blank %}
+            <p><span>Back Finding  :</span> <span>{{ BackFinding }}</span></p>
+            {% endif %}
+            
+            {% assign Gemstone = product.metafields.global['Gemstone'] %}
+            {% if Gemstone != 0 and Gemstone != blank %}
+            <p><span>Gemstone :</span> <span>{{ Gemstone }}</span></p>
+            {% endif %}
+            
+            {% assign GemstoneShape = product.metafields.global['Gemstone Shape'] %}
+            {% if GemstoneShape != 0 and GemstoneShape != blank %}
+            <p><span>Gemstone Shape  :</span> <span>{{ GemstoneShape }}</span></p>
+            {% endif %}
+            
+            {% assign GemstoneWeight = product.metafields.global['Gemstone Weight'] %}
+            {% if GemstoneWeight != 0 and GemstoneWeight != blank %}
+            <p><span>Gemstone Weight  :</span> <span>{{ GemstoneWeight }}</span></p>
+            {% endif %}
+            
+            
+            {% assign GemstoneSize = product.metafields.global['Gemstone Size'] %}
+            {% if GemstoneSize != 0 and GemstoneSize != blank %}
+            <p><span>Gemstone Size  :</span> <span>{{ GemstoneSize }}</span></p>
+            {% endif %}
+            
+            {% assign Gemstone1 = product.metafields.global['Gemstone 1'] %}
+            {% if Gemstone1 != 0 and Gemstone1 != blank %}
+            <p><span>Gemstone 1  :</span> <span>{{ Gemstone1 }}</span></p>
+            {% endif %}
+            
+            {% assign GemstoneShape1 = product.metafields.global['Gemstone Shape 1'] %}
+            {% if GemstoneShape1 != 0 and GemstoneShape1 != blank %}
+            <p><span>Gemstone Shape 1  :</span> <span>{{ GemstoneShape1 }}</span></p>
+            {% endif %}
+            
+            {% assign GemstoneWeight1 = product.metafields.global['Gemstone Weight 1'] %}
+            {% if GemstoneWeight1 != 0 and GemstoneWeight1 != blank %}
+            <p><span>Gemstone Weight 1  :</span> <span>{{ GemstoneWeight1 }}</span></p>
+            {% endif %}
+            
+            {% assign GemstoneSize1 = product.metafields.global['Gemstone Size 1'] %}
+            {% if GemstoneSize1 != 0 and GemstoneSize1 != blank %}
+            <p><span>Gemstone Size 1  :</span> <span>{{ GemstoneSize1 }}</span></p>
+            {% endif %}
+            
+            {% assign Gemstone2 = product.metafields.global['Gemstone 2'] %}
+            {% if Gemstone2 != 0 and Gemstone2 != blank %}
+            <p><span>Gemstone 2  :</span> <span>{{ Gemstone2 }}</span></p>
+            {% endif %}
+            
+            {% assign GemstoneShape2 = product.metafields.global['Gemstone Shape 2'] %}
+            {% if GemstoneShape2 != 0 and GemstoneShape2 != blank %}
+            <p><span>Gemstone Shape 2  :</span> <span>{{ GemstoneShape2 }}</span></p>
+            {% endif %}
+            
+            {% assign GemstoneWeight2 = product.metafields.global['Gemstone Weight 2'] %}
+            {% if GemstoneWeight2 != 0 and GemstoneWeight2 != blank %}
+            <p><span>Gemstone Weight 2  :</span> <span>{{ GemstoneWeight2 }}</span></p>
+            {% endif %}
+            
+            
+            {% assign GemstoneSize2 = product.metafields.global['Gemstone Size 2'] %}
+            {% if GemstoneSize2 != 0 and GemstoneSize2 != blank %}
+            <p><span>Gemstone Size 2  :</span> <span>{{ GemstoneSize2 }}</span></p>
+            {% endif %}
+            
+            {% assign BraceletSize = product.metafields.global['Bracelet Size'] %}
+            {% if BraceletSize != 0 and BraceletSize != blank %}
+            <p><span>Bracelet Size  :</span> <span>{{ BraceletSize }}</span></p>
+            {% endif %}
+            
+            {% assign Romantic = product.metafields.global['Romantic description'] %}
+            {% if Romantic != 0 and Romantic != blank %}
+            <p><span>Romantic :</span> <span>{{ Romantic }}</span></p>
+            {% endif %}
+            
+            {% assign Chain = product.metafields.global['Chain Information'] %}
+            {% if Chain != 0 and Chain != blank %}
+            <p><span>Chain :</span> <span>{{ Chain }}</span></p>
+            {% endif %}
+            
+            {% assign diamention = product.metafields.global['Product.Dimension'] %}
+            {% if diamention != 0 and diamention != blank %}
+            <p><span>Dimension :</span> <span>{{ diamention }}</span></p>
+            
+            <ul class="specification-note" style="font-size: 12px;display: inline-block;">
+              <li>The product dimensions supplied are intended to give an approximate indication of the size of the product. Actual size may vary slightly.</li>
+              <li>Dimensions shown are of ring size 7 for Women and ring size 10 for Men</li>
+            </ul>
+            {% endif %}
+          </div>
+          {% else %}
+          <div class="metafield-info">
+            {% assign Metal = product.metafields.global.Metal %}
+            {% if Metal != 0 and Metal != blank %}
+            <p><span>金属 : </span> <span>{{ Metal }}</span></p>
+            {% endif %}
+            
+            {% comment %}
+            {% assign MetalWeight = product.metafields.global['Total Metal Weight'] %}
+            {% if MetalWeight != 0 and MetalWeight != blank %}
+            <p>Metal Weight  : {{ MetalWeight }}</p>
+            {% endif %}
+            {% endcomment %}
+            
+            {% assign diamondType = product.metafields.global['Diamond Type'] %}
+            {% if diamondType != 0 and diamondType != blank %}
+            <p><span>ダイヤモンドタイプ :</span> <span>{{ diamondType }}</span></p>
+            {% endif %}
+            
+            {% assign DiamondShape = product.metafields.global['Diamond Shape'] %}
+            {% if DiamondShape != 0 and DiamondShape != blank %}
+            <p><span>ひし形  :</span> <span>{{ DiamondShape }}</span></p>
+            {% endif %}
+            
+            {% assign weight = product.metafields.global['Diamond Total Weight'] %}
+            {% if weight != 0 and weight != blank %}
+            <p><span>ダイヤモンド総重量 :</span> <Span>{{ weight }}</Span></p>
+            {% endif %}
+            
+            {% assign DiamondClarity = product.metafields.global['Diamond Clarity'] %}
+            {% if DiamondClarity != 0 and DiamondClarity != blank %}
+            <p><span>ダイヤモンドクラリティ :</span> <span>{{ DiamondClarity }}</span></p>
+            {% endif %}
+            
+            {% assign Diamondcolor = product.metafields.global['Diamond color'] %}
+            {% if Diamondcolor != 0 and Diamondcolor != blank %}
+            <p><span>ダイヤモンドカラー  :</span> <span>{{ Diamondcolor }}</span></p>
+            {% endif %}
+            
+            {% assign DiamondTreatmentMethod = product.metafields.global['Diamond Treatment Method'] %}
+            {% if DiamondTreatmentMethod != 0 and DiamondTreatmentMethod != blank %}
+            <p><span>ダイヤモンド処理方法 :</span> <span>{{ DiamondTreatmentMethod }}</span></p>
+            {% endif %}
+            
+            {% assign DiamondCreationMethod = product.metafields.global['Diamond Creation Method'] %}
+            {% if DiamondCreationMethod != 0 and DiamondCreationMethod != blank %}
+            <p><span>ダイヤモンドの作成方法 :</span> <span>{{ DiamondCreationMethod }}</span></p>
+            {% endif %}
+            
+            {% assign SettingType = product.metafields.global['Setting Type'] %}
+            {% if SettingType != 0 and SettingType != blank %}
+            <p><span>設定タイプ :</span> <span>{{ SettingType }}</span></p>
+            {% endif %}
+            
+            {% assign Clasptype = product.metafields.global['Clasp type'] %}
+            {% if Clasptype != 0 and Clasptype != blank %}
+            <p><span>クラスプタイプ :</span> <span>{{ Clasptype }}</span></p>
+            {% endif %}
+            
+            {% assign BackFinding = product.metafields.global['Back Finding'] %}
+            {% if BackFinding != 0 and BackFinding != blank %}
+            <p><span>戻る検索 :</span> <span>{{ BackFinding }}</span></p>
+            {% endif %}
+            
+            {% assign Gemstone = product.metafields.global['Gemstone'] %}
+            {% if Gemstone != 0 and Gemstone != blank %}
+            <p><span>ジェムストーン :</span> <span>{{ Gemstone }}</span></p>
+            {% endif %}
+            
+            {% assign GemstoneShape = product.metafields.global['Gemstone Shape'] %}
+            {% if GemstoneShape != 0 and GemstoneShape != blank %}
+            <p><span>宝石の形 :</span> <span>{{ GemstoneShape }}</span></p>
+            {% endif %}
+            
+            {% assign GemstoneWeight = product.metafields.global['Gemstone Weight'] %}
+            {% if GemstoneWeight != 0 and GemstoneWeight != blank %}
+            <p><span>宝石の重さ :</span> <span>{{ GemstoneWeight }}</span></p>
+            {% endif %}
+            
+            
+            {% assign GemstoneSize = product.metafields.global['Gemstone Size'] %}
+            {% if GemstoneSize != 0 and GemstoneSize != blank %}
+            <p><span>ジェムストーンサイズ :</span> <span>{{ GemstoneSize }}</span></p>
+            {% endif %}
+            
+            {% assign Gemstone1 = product.metafields.global['Gemstone 1'] %}
+            {% if Gemstone1 != 0 and Gemstone1 != blank %}
+            <p><span>ジェムストーン1 :</span> <span>{{ Gemstone1 }}</span></p>
+            {% endif %}
+            
+            {% assign GemstoneShape1 = product.metafields.global['Gemstone Shape 1'] %}
+            {% if GemstoneShape1 != 0 and GemstoneShape1 != blank %}
+            <p><span>ジェムストーンシェイプ1 :</span> <span>{{ GemstoneShape1 }}</span></p>
+            {% endif %}
+            
+            {% assign GemstoneWeight1 = product.metafields.global['Gemstone Weight 1'] %}
+            {% if GemstoneWeight1 != 0 and GemstoneWeight1 != blank %}
+            <p><span>ジェムストーンウェイト1 :</span> <span>{{ GemstoneWeight1 }}</span></p>
+            {% endif %}
+            
+            {% assign GemstoneSize1 = product.metafields.global['Gemstone Size 1'] %}
+            {% if GemstoneSize1 != 0 and GemstoneSize1 != blank %}
+            <p><span>ジェムストーンサイズ1 :</span> <span>{{ GemstoneSize1 }}</span></p>
+            {% endif %}
+            
+            {% assign Gemstone2 = product.metafields.global['Gemstone 2'] %}
+            {% if Gemstone2 != 0 and Gemstone2 != blank %}
+            <p><span>ジェムストーン2 :</span> <span>{{ Gemstone2 }}</span></p>
+            {% endif %}
+            
+            {% assign GemstoneShape2 = product.metafields.global['Gemstone Shape 2'] %}
+            {% if GemstoneShape2 != 0 and GemstoneShape2 != blank %}
+            <p><span>ジェムストーンシェイプ2 :</span> <span>{{ GemstoneShape2 }}</span></p>
+            {% endif %}
+            
+            {% assign GemstoneWeight2 = product.metafields.global['Gemstone Weight 2'] %}
+            {% if GemstoneWeight2 != 0 and GemstoneWeight2 != blank %}
+            <p><span>ジェムストーンウェイト2 :</span> <span>{{ GemstoneWeight2 }}</span></p>
+            {% endif %}
+            
+            
+            {% assign GemstoneSize2 = product.metafields.global['Gemstone Size 2'] %}
+            {% if GemstoneSize2 != 0 and GemstoneSize2 != blank %}
+            <p><span>ジェムストーンサイズ2 :</span> <span>{{ GemstoneSize2 }}</span></p>
+            {% endif %}
+            
+            {% assign BraceletSize = product.metafields.global['Bracelet Size'] %}
+            {% if BraceletSize != 0 and BraceletSize != blank %}
+            <p><span>ブレスレットサイズ :</span> <span>{{ BraceletSize }}</span></p>
+            {% endif %}
+            
+            {% assign Romantic = product.metafields.global['Romantic description'] %}
+            {% if Romantic != 0 and Romantic != blank %}
+            <p><span>ロマンチック :</span> <span>{{ Romantic }}</span></p>
+            {% endif %}
+            
+            {% assign Chain = product.metafields.global['Chain Information'] %}
+            {% if Chain != 0 and Chain != blank %}
+            <p><span>鎖 :</span> <span>{{ Chain }}</span></p>
+            {% endif %}
+            
+            {% assign diamention = product.metafields.global['Product.Dimension'] %}
+            {% if diamention != 0 and diamention != blank %}
+            <p><span>寸法 :</span> <span>{{ diamention }}</span></p>
+            
+            <ul class="specification-note" style="font-size: 12px;display: inline-block;">
+              <li>提供されている製品の寸法は、製品のサイズのおおよその目安を示すことを目的としています。実際のサイズは若干異なる場合があります。</li>
+              <li>表示されている寸法は、女性の場合はリングサイズ7、男性の場合はリングサイズ10です。</li>
+            </ul>
+            {% endif %}
+          </div>
+          {% endif %}
+          
+          {% assign specTag = product.tags | join: '' %}        
+          {% if specTag contains 'spec--' %}
+          <table class="">
+            <tbody>
+              {% for tag in product.tags %}
+              {% if tag contains 'spec--' %}
+              {% assign tagName = tag | split:'--' | last %}
+              {% assign tagFirst = tagName | split:':' | first %}
+              {% assign tagLast = tagName | split:':' | last %}
+              {% if tagLast != blank %}
+              <tr>
+                <td class="first">{{ tagFirst | replace: '_',' ' }}</td>
+                <td class="last">{{ tagLast | replace: '-', ' ' | replace:'_',' ' }}</td>
+              </tr>
+              {% endif %}
+              {% endif %}
+              {% endfor %}      
+            </tbody>
+          </table>
+          {% endif %}
+        </div>
+        <div class="tab__heading--small">       
+          <h3>{% if localName == 'english' %}About the Collection{% else %}コレクションについて{% endif %}</h3>   
+          {% include 'icon-plus' %}
+          {% include 'icon-minus' %}
+        </div>
+        <div id="tab-3" class="tab_content">
+          {% for collection in product.collections %}
+          {% if localName == 'english' %}
+          {% if collection.title contains 'Friendship' or collection.title contains 'Forces of the Galaxy' or collection.title contains 'Celestial Love' or collection.title contains 'Balance of Nature' or collection.title contains 'Balance of the Force' %}
+          {% if collection.description contains '<!-- split -->' %}
+          <div class="{{ collection.title | handleize }}">
+            {{ collection.description | split: '<!-- split -->' | last }}
+          </div>
+          {% endif %}  
+          {% else %}
+          <div class="{{ collection.title | handleize }}">
+            {{ collection.description }}
+          </div>
+          {% endif %}
+          {% else %}
+          <div class="{{ collection.title | handleize }}">
+            {% include 'product-desc-about-collection' %}
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+        <div class="tab__heading--small">       
+          <h3>{% if localName == 'english' %}Authenticity{% else %}信憑性{% endif %}</h3>   
+          {% include 'icon-plus' %}
+          {% include 'icon-minus' %}
+        </div>
+        <div id="tab-4" class="tab_content">
+          {% unless section.settings.authenticity_content == blank %}
+          {{ section.settings.authenticity_content }}
+          {% endunless %}
+        </div>
+        <div class="tab__heading--small">       
+          <h3>{% if localName == 'english' %}Shipping & returns{% else %}配送と返品について{% endif %}</h3>   
+          {% include 'icon-plus' %}
+          {% include 'icon-minus' %}
+        </div>
+        <div id="tab-5" class="tab_content">
+          {% if localName == 'english' %}
+          {% unless section.settings.shipping_content == blank %}
+          {% comment %}
+          <h2>{{ product.title }}</h2>
+          <p class="product-single__sku">SKU # <span class="variant-sku">{{ product.selected_or_first_available_variant.sku }}</span></p>
+          {% endcomment %}
+          {{ section.settings.shipping_content }}
+          {% endunless %}
+          {% else %}
+          {% unless section.settings.shipping_content_ja == blank %}
+          {{ section.settings.shipping_content_ja }}
+          {% endunless %}
+          {% endif %}
+        </div>
+        <div class="tab__heading--small">       
+          <h3>{% if localName == 'english' %}Warranty{% else %}保証{% endif %}</h3>   
+          {% include 'icon-plus' %}
+          {% include 'icon-minus' %}
+        </div>
+        {% if localName == 'english' %}
+        <div id="tab-6" class="tab_content">
+          <p>Star Wars™ Fine Jewelry provides a 1-year warranty on all your fine jewelry purchased from <a href="/">starwarsfinejewelry.com</a>. The warranty covers manufacturers defects in material or workmanship but it does not cover neglect or abuse.</p>
+          <h5>WARRANTY EXCEPTIONS & EXCLUSIONS</h5>
+          <p class="no-margin">The Star Wars™ Fine Jewelry warranty does NOT cover the following items:</p>
+          <ol>
+            <li><p>Any damage to your jewelry purchase due to negligence or abuse. (For Example: If a stone is lost due to bent, damaged, or worn out prongs, Star Wars™ Fine Jewelry is not responsible for the replacement of the stone or the re-tipping of the prongs. If the jewelry was neglected and abused and the warranty becomes void.)</p></li>
+            <li><p>If another jeweler performs any repair or resizing work on an item purchased from <a href="/">starwarsfinejewelry.com</a>. we will not be held responsible for any loss or defect and the warranty becomes null and void.</p></li>
+          </ol>
+        </div>
+        {% else %}
+        <div id="tab-6" class="tab_content">
+          <p>StarWars™ファインジュエリーは、<a href="/ja"> starwarsfinejewelry.com </a>から購入したすべてのファインジュエリーに1年間の保証を提供します。保証は、材料または製造上のメーカーの欠陥を対象としていますが、怠慢または乱用は対象としていません。</p>
+          <h5>保証の例外と除外</h5>
+          <p class="no-margin">スターウォーズ™ファインジュエリーの保証は、次のアイテムには適用されません。</p>
+          <ol>
+            <li><p>過失または乱用によるジュエリー購入への損害。 （例：プロングが曲がったり、損傷したり、摩耗したりして石が失われた場合、StarWars™FineJewelryは石の交換やプロングの再転倒について責任を負いません。ジュエリーが放置され乱用された場合保証は無効になります。）</p></li>
+            <li><p>別の宝石商が<a href = "/ja"> starwarsfinejewelry.com </a>から購入したアイテムの修理またはサイズ変更作業を行った場合。当社はいかなる損失または欠陥についても責任を負わず、保証は無効になります。</p></li>
+          </ol>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="product-box-image">
+      
+      {% if product.type == 'Bracelet' %}
+      <div class="packaging-txt">
+        {% if localName == 'english' %}
+        <p>NOTE: Bracelets will ship inside branded Star Wars<sup>TM</sup> Packaging with a bracelet pillow, not a light up box.</p>
+        {% else %}
+        <p>注：ブレスレットは、ブランドのStar Wars <sup> TM </sup>パッケージに同梱されており、ライトアップボックスではなく、ブレスレット枕が付いています。</p>
+        {% endif %}
+      </div>
+      {% else %}
+      <div class="">
+        <img class="lazyload" data-src="{{ section.settings.desktop_image | img_url:"master" }}" data-sizes="auto">
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Tab Content",
+  "settings": [
+  {
+    "type": "html",
+    "id": "authenticity_content",
+    "label": "Authenticity Tab Content"
+  },
+  {
+    "type": "html",
+    "id": "shipping_content",
+    "label": "Shipping Tab Content"
+  },
+  {
+    "type": "html",
+    "id": "shipping_content_ja",
+    "label": "Shipping Tab Content (JA)"
+  },
+  {
+    "type": "header",
+    "content": "Packaging image"
+  },
+  {
+    "type": "image_picker",
+    "id": "desktop_image",
+    "label": "Desktop packaging image"
+  }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

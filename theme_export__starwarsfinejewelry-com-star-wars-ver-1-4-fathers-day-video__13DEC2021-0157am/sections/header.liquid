@@ -1,0 +1,723 @@
+{% if section.settings.message %}
+<style>
+  {% if section.settings.logo != blank %}
+  .site-header__logo-image {
+    max-width: {{ section.settings.logo_max_width | escape }}px;
+  }
+  {% endif %}
+  
+  {% if section.settings.align_logo == 'left' %}
+  .site-header__logo-image {
+    margin: 0;
+  }
+  {% endif %}
+</style>
+{% endif %}
+
+{% include 'search-drawer' %}
+
+<div data-section-id="{{ section.id }}" data-section-type="header-section" data-header-section>
+  {% if section.settings.message %}
+  {% if section.settings.home_page_only == false or request.page_type == 'index' %}
+  <style>
+    .announcement-bar {
+      background-color: {{ section.settings.color_bg }};
+    }
+    
+    .announcement-bar__link:hover {
+      {% assign brightness = section.settings.color_bg | color_brightness %}
+      
+      {% if brightness <= 192 %}
+      {% assign lightenAmount = 255 | minus: brightness | divided_by: 255 | times: 16 %}
+      background-color: {{ section.settings.color_bg | color_lighten: lightenAmount }};
+      {% else %}
+      {% assign darkenAmount = 255 | divided_by: brightness | times: 8 %}
+      background-color: {{ section.settings.color_bg | color_darken: darkenAmount }};
+      {% endif %}
+    }
+    
+    .announcement-bar__message {
+      color: {{ section.settings.color_text }};
+    }
+  </style>
+  
+  <div class="announcement-bar" role="region" aria-label="{{ 'sections.header.announcement_bar_label' | t }}">
+    <a class="also_visit" href="https://www.enchantedfinejewelry.com/">Also Visit<p><img class="lazyload" data-src="https://cdn.shopify.com/s/files/1/0267/0523/1943/files/Enchanted_Logo.svg?33497" data-sizes="auto"></p></a>
+    {%- unless section.settings.message_link == blank -%}
+    <a href="{{ section.settings.message_link }}" class="announcement-bar__link">
+      {%- endunless -%}
+      <p class="announcement-bar__message">{{ section.settings.message_text }}</p>
+      {%- unless section.settings.message_link == blank -%}
+    </a>
+    {%- endunless -%}
+  </div>
+  
+  {% endif %}
+  {% endif %}
+  
+  <header class="sw__header site-header{% if section.settings.align_logo == 'left' %} border-bottom logo--left{% else %} logo--center{% endif %}" role="banner">
+    <div class="grid grid--no-gutters grid--table site-header__mobile-nav">
+      <div class="grid__item small--one-third medium-up--one-third">
+        {% unless linklists[section.settings.main_linklist] == blank %}
+        <button type="button" class="btn--link site-header__icon site-header__menu js-mobile-nav-toggle mobile-nav--open" aria-controls="MobileNav"  aria-expanded="false" aria-label="{{ 'layout.navigation.menu' | t }}">
+          {% include 'icon-hamburger' %}
+          {% include 'icon-close' %}
+        </button>
+        {% endunless %}
+        
+        {% assign header-menu = section.settings.header-linklist %}
+        <ul class="small--hide sw__header-nav">
+          {% for link in linklists[header-menu].links %}
+          <li><a href="{% if link.title contains 'Contact' or link.title contains 'お問い合わせ' %}#{{ link.title | handleize }}{% else %}{{ link.url }}/{% endif %}" {% if link.title contains 'Contact' or link.title contains 'お問い合わせ' %}class="js-content-popup"{% endif %}>{{ link.title }}</a></li>
+          {% if link.title contains 'Contact' or link.title contains 'お問い合わせ' %}
+          {% include 'contact-popup' %}
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+      
+      {% if section.settings.align_logo == 'center' %}
+      {%- assign logo_classes = 'small--one-third medium-up--one-third logo-align--center' -%}
+      {% else %}
+      {%- assign logo_classes = 'medium-up--one-quarter logo-align--left' -%}
+      {% endif %}
+      
+      <div class="grid__item {{ logo_classes }}">
+        {% comment %}
+        Use the uploaded logo from theme settings if enabled.
+        Site name gets precedence with H1 tag on homepage, div on other pages.
+        {% endcomment %}
+        <div class="h2 site-header__logo">
+          <a href="{{ routes.root_url }}" class="site-header__logo-image{% if section.settings.align_logo == 'center' %} site-header__logo-image--centered{% endif %}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100" viewBox="0 0 128.284 74.315">
+              <defs><style>.site-header__logo-image .a{fill:#030504;}</style></defs>
+              <g transform="translate(-170.639 -268.307)">
+                <g transform="translate(170.639 268.307)">
+                  <path class="a" d="M277.646,353h-3.915c-.134,0-.232-.158-.232-.306,0-.057,2.081-6.764,2.081-6.764.074-.25.077-.26.112-.26h0c.032,0,.035.01.106.26,0,0,2.084,6.712,2.084,6.764C277.882,352.84,277.78,353,277.646,353Zm5.271-15.353a.343.343,0,0,0-.3-.242l-14.355,0a.326.326,0,0,0-.3.236s-7.945,26.2-7.942,26.253a.234.234,0,0,0,.236.239h9.491a.249.249,0,0,0,.151-.183l1.107-3.535a.252.252,0,0,1,.218-.147l8.75-.01a.288.288,0,0,1,.221.162l1.128,3.531a.234.234,0,0,0,.148.183h9.344a.235.235,0,0,0,.236-.232C291.049,363.856,282.917,337.645,282.917,337.645Z" transform="translate(-222.877 -308.69)"/>
+                  <path class="a" d="M356.806,348.34l-5.833,0a.228.228,0,0,1-.155-.222l-.007-2.948a.228.228,0,0,1,.158-.218h5.352A1.741,1.741,0,0,1,358.2,346.7,1.639,1.639,0,0,1,356.806,348.34Zm27.963-2.277h13.216v-8.669l-16.994,0a9.917,9.917,0,0,0-5.1,1.767,7.842,7.842,0,0,0-3.145,6.1,9.551,9.551,0,0,0,1.813,5.3c.931,1.153,3.268,3.553,3.268,3.553a.292.292,0,0,1,.088.214.325.325,0,0,1-.323.323H364.5c-1.589-.007-1.7-.636-1.7-.731,0-.165.2-.267.2-.267a15.368,15.368,0,0,0,1.813-1.237,7.672,7.672,0,0,0,2.9-6.255,8.01,8.01,0,0,0-2.881-6.41,10.453,10.453,0,0,0-6.007-2.362H340.143s0,26.566,0,26.573a.157.157,0,0,0,.162.155h10.4v-7.453c-.007-.133.2,0,.2,0l5.418,5.436a8.289,8.289,0,0,0,5.1,2.017l20.48-.007a8.187,8.187,0,0,0,5.967-2.432,8.634,8.634,0,0,0,.155-11.568c-.569-.692-2.86-3.107-3.328-3.606a.252.252,0,0,1-.095-.2A.26.26,0,0,1,384.769,346.063Z" transform="translate(-269.705 -308.685)"/>
+                  <path class="a" d="M203.034,364.134a.159.159,0,0,0,.148-.126s8.044-26.422,8.044-26.45c0-.074-.046-.151-.12-.151,0,0-9.9,0-9.909,0-.049,0-.081.032-.1.088,0,.007-2.048,6.87-2.048,6.873-.011.06-.042.095-.091.095a.108.108,0,0,1-.1-.095l-2.15-6.877a.091.091,0,0,0-.1-.084s-10.942,0-10.942,0a.1.1,0,0,0-.074.063s-1.926,6.9-1.926,6.9c-.007.06-.042.095-.095.091a.088.088,0,0,1-.091-.077l-2.042-6.9a.08.08,0,0,0-.077-.077H170.8a.157.157,0,0,0-.158.155.137.137,0,0,0,.01.042s8.156,26.39,8.159,26.408a.153.153,0,0,0,.144.126h8.774a.182.182,0,0,0,.12-.126c0-.007,3.057-9.829,3.057-9.829h0c.017-.064.039-.1.091-.1a.1.1,0,0,1,.091.1l2.983,9.871a.131.131,0,0,0,.12.084Z" transform="translate(-170.639 -308.69)"/>
+                  <path class="a" d="M195.4,268.316a9.98,9.98,0,0,0-5.11,1.764,7.868,7.868,0,0,0-3.135,6.1,9.555,9.555,0,0,0,1.81,5.31c.928,1.146,3.272,3.567,3.272,3.567a.3.3,0,0,1,.084.211.325.325,0,0,1-.323.327l-21.362,0v9.442h25.666a8.406,8.406,0,0,0,6.128-14.014c-.576-.7-2.86-3.1-3.331-3.595a.27.27,0,0,1,.077-.453h12.362v18.062h9.509V277.027h11.54v-8.711Z" transform="translate(-170.639 -268.312)"/>
+                  <path class="a" d="M406.313,279.258l-5.833,0a.226.226,0,0,1-.151-.221l-.007-2.945a.227.227,0,0,1,.155-.218h5.349a1.739,1.739,0,0,1,1.88,1.747A1.634,1.634,0,0,1,406.313,279.258Zm7.7,6.322c-1.6,0-1.7-.64-1.7-.727,0-.162.2-.264.2-.264a15.866,15.866,0,0,0,1.81-1.24,7.656,7.656,0,0,0,2.9-6.258,8.018,8.018,0,0,0-2.874-6.406,10.469,10.469,0,0,0-6.013-2.368H389.65v26.576a.161.161,0,0,0,.165.155c.014,0,10.395,0,10.395,0v-7.45c0-.133.2,0,.2,0l5.415,5.436a8.277,8.277,0,0,0,5.109,2.01h15.985l0-9.463Z" transform="translate(-298.639 -268.312)"/>
+                  <path class="a" d="M328.367,283.9h-3.911a.282.282,0,0,1-.235-.3c0-.056,2.08-6.761,2.08-6.761.074-.257.095-.26.112-.26h0c.014,0,.035,0,.109.26,0,0,2.08,6.7,2.08,6.761A.282.282,0,0,1,328.367,283.9Zm5.268-15.356a.336.336,0,0,0-.306-.239l-14.358,0a.326.326,0,0,0-.3.235s-7.928,26.207-7.931,26.257a.236.236,0,0,0,.239.235h9.491a.247.247,0,0,0,.151-.175l1.1-3.539a.258.258,0,0,1,.218-.151l8.753,0a.234.234,0,0,1,.218.151l1.135,3.535a.244.244,0,0,0,.151.179l9.336,0a.234.234,0,0,0,.239-.225C341.773,294.764,333.635,268.546,333.635,268.546Z" transform="translate(-252.521 -268.307)"/><g transform="translate(121.832 52.9)">
+                    <path class="a" d="M465.042,395.948v2.221h-.422v-2.221h-.8v-.341h2.021v.341Zm3.714,2.221v-2.14h-.01l-.84,2.14h-.267l-.85-2.14h0v2.14h-.422v-2.561h.654l.763,1.947.755-1.947h.64v2.561Z" transform="translate(-463.819 -395.607)"/></g></g><g transform="translate(180.136 334.201)">
+                      <path class="a" d="M199.858,428.825h-.253a1.664,1.664,0,0,0-.12-.632,1.561,1.561,0,0,0-.332-.512,1.535,1.535,0,0,0-.524-.343,1.807,1.807,0,0,0-.684-.125h-2.432v3.536h1.821a.787.787,0,0,0,.418-.1.756.756,0,0,0,.259-.258,1.011,1.011,0,0,0,.126-.349,2.218,2.218,0,0,0,.034-.385h.239v2.563h-.239a2.127,2.127,0,0,0-.034-.379,1.008,1.008,0,0,0-.126-.343.7.7,0,0,0-.259-.252.824.824,0,0,0-.418-.1h-1.821v3.32a.281.281,0,0,0,.086.2.817.817,0,0,0,.212.156,1.033,1.033,0,0,0,.266.1,1.154,1.154,0,0,0,.233.03v.216h-2.817v-.229c.062-.007.14-.022.232-.041a1.663,1.663,0,0,0,.273-.084.642.642,0,0,0,.219-.145.3.3,0,0,0,.086-.211v-6.869a.294.294,0,0,0-.086-.21.637.637,0,0,0-.219-.145,1.659,1.659,0,0,0-.273-.084c-.093-.02-.17-.034-.232-.042v-.228h6.365Z" transform="translate(-193.493 -426.876)"/>
+                      <path class="a" d="M218.341,435.164h-2.817v-.181a1.774,1.774,0,0,0,.232-.048,1.175,1.175,0,0,0,.266-.1.941.941,0,0,0,.219-.156.274.274,0,0,0,.093-.2v-6.941a.221.221,0,0,0-.1-.174.97.97,0,0,0-.232-.133,1.745,1.745,0,0,0-.266-.084c-.089-.019-.16-.034-.213-.042v-.228h2.817v.228c-.062.008-.137.023-.226.042a1.258,1.258,0,0,0-.259.091.906.906,0,0,0-.219.144.255.255,0,0,0-.093.192v6.905a.253.253,0,0,0,.093.192.766.766,0,0,0,.219.139,1.864,1.864,0,0,0,.266.09c.093.024.166.039.219.048Z" transform="translate(-206.369 -426.876)"/><path class="a" d="M237.4,427.092c-.08,0-.184,0-.312.012a2.174,2.174,0,0,0-.385.061,1.011,1.011,0,0,0-.332.144.3.3,0,0,0-.14.253v7.6h-.638l-5.2-6.412v5.737a.27.27,0,0,0,.146.236,1.205,1.205,0,0,0,.345.138,2.716,2.716,0,0,0,.4.066c.133.013.23.019.292.019v.216h-2.817v-.216a2.626,2.626,0,0,0,.285-.025,2.853,2.853,0,0,0,.392-.079,1.322,1.322,0,0,0,.346-.144.263.263,0,0,0,.146-.224v-6.95a.256.256,0,0,0-.146-.23,1.16,1.16,0,0,0-.346-.127,3.414,3.414,0,0,0-.392-.06q-.193-.019-.285-.019v-.216h1.794l5.209,6.423V427.55a.274.274,0,0,0-.133-.235,1,1,0,0,0-.318-.138,2.5,2.5,0,0,0-.372-.067c-.124-.012-.218-.018-.279-.018h-.093v-.216h2.83Z" transform="translate(-214.106 -426.876)"/><path class="a" d="M263.169,435.164h-6.75v-.229c.062-.007.14-.022.233-.041a1.645,1.645,0,0,0,.272-.084.634.634,0,0,0,.219-.145.294.294,0,0,0,.086-.211v-6.869a.3.3,0,0,0-.086-.21.633.633,0,0,0-.219-.144,1.615,1.615,0,0,0-.272-.085c-.093-.019-.171-.034-.233-.042v-.228h6.365v1.949h-.252a1.8,1.8,0,0,0-.113-.637,1.476,1.476,0,0,0-.332-.523,1.55,1.55,0,0,0-.525-.349,1.793,1.793,0,0,0-.691-.127h-2.432v3.561h1.821a.785.785,0,0,0,.418-.1.753.753,0,0,0,.259-.258,1.012,1.012,0,0,0,.126-.349,2.255,2.255,0,0,0,.033-.385h.239v2.563H261.1a2.17,2.17,0,0,0-.033-.379,1.012,1.012,0,0,0-.126-.343.7.7,0,0,0-.259-.252.825.825,0,0,0-.418-.1h-1.821v3.705h2.95a1.459,1.459,0,0,0,.645-.138,1.546,1.546,0,0,0,.485-.361,1.471,1.471,0,0,0,.3-.511,1.787,1.787,0,0,0,.1-.59v-.084h.252Z" transform="translate(-230.27 -426.876)"/>
+                      <path class="a" d="M296.209,427.093a1.515,1.515,0,0,0-.259.025,1.082,1.082,0,0,0-.259.077.582.582,0,0,0-.2.145.323.323,0,0,0-.08.223V433a3.435,3.435,0,0,1-.12.94,1.826,1.826,0,0,1-.385.723,1.78,1.78,0,0,1-.691.47,2.825,2.825,0,0,1-1.037.169,2.9,2.9,0,0,1-.657-.072,1.645,1.645,0,0,1-.545-.229,1.143,1.143,0,0,1-.512-1h.16a.78.78,0,0,0,.392.71,1.722,1.722,0,0,0,.87.216,1.256,1.256,0,0,0,.718-.181,1.14,1.14,0,0,0,.4-.458,1.826,1.826,0,0,0,.166-.62q.034-.343.034-.669v-5.47a.278.278,0,0,0-.086-.205.7.7,0,0,0-.213-.138,1.022,1.022,0,0,0-.266-.073,2.005,2.005,0,0,0-.246-.017v-.216h2.817Z" transform="translate(-250.752 -426.877)"/><path class="a" d="M316.057,435.165h-6.75v-.229c.062-.008.139-.022.233-.042a1.667,1.667,0,0,0,.272-.084.626.626,0,0,0,.219-.144.3.3,0,0,0,.087-.211v-6.869a.294.294,0,0,0-.087-.21.626.626,0,0,0-.219-.144,1.585,1.585,0,0,0-.272-.084c-.093-.02-.171-.034-.233-.042v-.228h6.365v1.948h-.252a1.8,1.8,0,0,0-.113-.637,1.485,1.485,0,0,0-.332-.523,1.55,1.55,0,0,0-.525-.349,1.79,1.79,0,0,0-.691-.127h-2.431v3.561h1.82a.782.782,0,0,0,.418-.1.753.753,0,0,0,.259-.258,1.017,1.017,0,0,0,.126-.349,2.3,2.3,0,0,0,.033-.385h.239v2.563h-.239a2.212,2.212,0,0,0-.033-.379,1.014,1.014,0,0,0-.126-.342.707.707,0,0,0-.259-.253.826.826,0,0,0-.418-.1h-1.82v3.705h2.95a1.459,1.459,0,0,0,.645-.139,1.539,1.539,0,0,0,.485-.361,1.47,1.47,0,0,0,.3-.511,1.8,1.8,0,0,0,.1-.59v-.083h.252Z" transform="translate(-261.18 -426.877)"/><path class="a" d="M344.955,427.1a1.586,1.586,0,0,0-.387,0,1.676,1.676,0,0,0-.39.1,1.126,1.126,0,0,0-.34.2.763.763,0,0,0-.213.3l-2.937,7.47H340.3l-2.577-6.3-2.3,6.3h-.412l-3.1-7.591a.854.854,0,0,0-.272-.343.628.628,0,0,0-.432-.138l-.08.012v-.228h2.817v.228a1.584,1.584,0,0,0-.239-.006,1.169,1.169,0,0,0-.246.036.426.426,0,0,0-.193.108.283.283,0,0,0-.08.211,3.312,3.312,0,0,0,.166.475q.166.428.425,1.047t.558,1.341q.3.722.565,1.347t.458,1.071q.192.444.219.516l2.432-6.375h.185l2.7,6.6q.052-.145.246-.62t.439-1.113q.246-.637.525-1.353c.186-.477.354-.918.505-1.324s.277-.746.378-1.023a3.019,3.019,0,0,0,.153-.475.386.386,0,0,0-.073-.241.493.493,0,0,0-.193-.15.923.923,0,0,0-.265-.072,2.289,2.289,0,0,0-.279-.018.765.765,0,0,0-.1.006.854.854,0,0,1-.112.006v-.216h2.83Z" transform="translate(-273.937 -426.877)"/><path class="a" d="M376.237,435.165h-6.75v-.229c.062-.008.14-.022.232-.042a1.592,1.592,0,0,0,.273-.084.638.638,0,0,0,.22-.144.3.3,0,0,0,.086-.211v-6.869a.3.3,0,0,0-.086-.21.639.639,0,0,0-.22-.144,1.665,1.665,0,0,0-.273-.084c-.092-.02-.17-.034-.232-.042v-.228h6.365v1.948H375.6a1.8,1.8,0,0,0-.113-.637,1.466,1.466,0,0,0-.332-.524,1.565,1.565,0,0,0-.524-.349,1.8,1.8,0,0,0-.691-.126h-2.432v3.561h1.82a.787.787,0,0,0,.419-.1.751.751,0,0,0,.259-.258,1.033,1.033,0,0,0,.126-.349,2.3,2.3,0,0,0,.033-.385h.239v2.563h-.239a2.2,2.2,0,0,0-.033-.379A1.027,1.027,0,0,0,374,431.5a.706.706,0,0,0-.259-.253.831.831,0,0,0-.419-.1h-1.82v3.705h2.95a1.466,1.466,0,0,0,.645-.138,1.558,1.558,0,0,0,.485-.362,1.487,1.487,0,0,0,.3-.511,1.794,1.794,0,0,0,.1-.59v-.083h.253Z" transform="translate(-296.352 -426.877)"/><path class="a" d="M397.147,435.165h-5.886v-.229a2.027,2.027,0,0,0,.26-.018,1.024,1.024,0,0,0,.266-.071.535.535,0,0,0,.205-.151.344.344,0,0,0,.08-.228v-6.93a.222.222,0,0,0-.1-.174.945.945,0,0,0-.233-.133,1.678,1.678,0,0,0-.266-.084c-.088-.02-.16-.034-.213-.042v-.228h2.817v.228c-.062.009-.138.023-.226.042a1.291,1.291,0,0,0-.26.09.935.935,0,0,0-.219.145.255.255,0,0,0-.093.192v7.278h2.326a1.826,1.826,0,0,0,.7-.109.826.826,0,0,0,.385-.318,1.2,1.2,0,0,0,.167-.506,6,6,0,0,0,.033-.655h.252Z" transform="translate(-309.078 -426.877)"/><path class="a" d="M419.726,435.165H417.6l-3.03-4.054h-.664v3.368a.253.253,0,0,0,.092.192.769.769,0,0,0,.22.138,1.811,1.811,0,0,0,.266.091c.094.024.167.039.22.048v.216h-2.817v-.181a1.388,1.388,0,0,0,.233-.054,1.843,1.843,0,0,0,.266-.1.805.805,0,0,0,.219-.15.283.283,0,0,0,.093-.21v-6.93a.221.221,0,0,0-.1-.174,1,1,0,0,0-.232-.133,1.755,1.755,0,0,0-.266-.084c-.089-.02-.16-.034-.213-.042v-.228h3.6a2.923,2.923,0,0,1,1.814.529,1.868,1.868,0,0,1,.7,1.588,1.95,1.95,0,0,1-.147.751,1.994,1.994,0,0,1-.411.631,2.249,2.249,0,0,1-.632.458,2.37,2.37,0,0,1-.8.229l2.537,3.392a1.188,1.188,0,0,0,.519.4,1.753,1.753,0,0,0,.664.1Zm-2.937-6.232a1.683,1.683,0,0,0-.492-1.269,1.888,1.888,0,0,0-1.368-.475h-1.023v3.585h1.023a2.065,2.065,0,0,0,.8-.144,1.753,1.753,0,0,0,.585-.391,1.58,1.58,0,0,0,.358-.584A2.121,2.121,0,0,0,416.79,428.934Z" transform="translate(-321.132 -426.877)"/><path class="a" d="M442.922,427.093a2.212,2.212,0,0,0-.937.163,1.418,1.418,0,0,0-.711.573l-2.139,3.433v3.265a.2.2,0,0,0,.106.157,1.159,1.159,0,0,0,.246.126,2.571,2.571,0,0,0,.272.091c.089.025.155.04.2.048v.217h-2.816v-.217a2.087,2.087,0,0,0,.238-.048,1.3,1.3,0,0,0,.279-.1.985.985,0,0,0,.226-.15.267.267,0,0,0,.093-.2v-3.181l-2.153-3.469a1.9,1.9,0,0,0-.205-.253,1.708,1.708,0,0,0-.28-.235,1.416,1.416,0,0,0-.325-.163,1.012,1.012,0,0,0-.332-.06l-.093.012v-.216h3.043v.216a1.8,1.8,0,0,0-.253-.006.815.815,0,0,0-.246.048.485.485,0,0,0-.187.121.3.3,0,0,0-.072.211.5.5,0,0,0,.067.241l1.94,3.149,1.914-3.065a.491.491,0,0,0,.079-.278.307.307,0,0,0-.086-.229.547.547,0,0,0-.206-.126,1.284,1.284,0,0,0-.266-.061,2.252,2.252,0,0,0-.266-.017l-.172.012v-.216h3.043Z" transform="translate(-334.402 -426.877)"/>
+                    </g>
+                  </g>
+                </svg>
+              </a>
+              
+            </div>
+          </div>
+          
+          {% if section.settings.align_logo == 'left' %}
+          <nav class="grid__item medium-up--one-half small--hide" id="AccessibleNav" role="navigation">
+            {% include 'site-nav', linklist: section.settings.main_linklist %}
+          </nav>
+          {% endif %}
+          
+          <div class="grid__item {% if section.settings.align_logo == 'left' %}medium-up--one-quarter{% else %}small--one-third medium-up--one-third{% endif %} text-right site-header__icons{% if shop.customer_accounts_enabled %} site-header__icons--plus{% endif %}">
+            <div class="site-header__icons-wrapper">
+              <selector data-type="languages" data-id="6751273415"></selector>
+              {% include 'iwish_v2' with 'iwishlink' %}
+              
+              {% if shop.customer_accounts_enabled %}
+              {% if customer %}
+              <a href="{{ routes.account_url }}/" class="site-header__icon site-header__account small--hide">
+                {% include 'icon-login' %}
+                <span>{{ 'layout.customer.account' | t }}</span>
+              </a>
+              {% else %}
+              <a href="{{ routes.account_login_url }}/" class="site-header__icon site-header__account small--hide">
+                {% include 'icon-login' %}
+                <span>{{ 'layout.customer.log_in' | t }}</span>
+              </a>
+              {% endif %}
+              {% endif %}
+              
+              <button type="button" class="btn--link site-header__icon site-header__search-toggle js-drawer-open-top medium-up--hide" style="padding-right: 0;">
+                {% include 'icon-search' %}
+              </button>
+              
+              <a href="{{ routes.cart_url }}/" class="site-header__icon site-header__cart">
+                {% include 'icon-cart' %}
+                <span class="small--hide">{{ 'layout.cart.title' | t }}</span>
+                <div id="CartCount" class="{% if cart.item_count == 0 %} hide{% endif %} " data-cart-count-bubble>
+                  <span class="medium-up--hide" data-cart-count>&nbsp;{{ cart.item_count }}</span>
+                  <span class="small--hide">&bull;&nbsp;&nbsp;</span><span class="small--hide" data-cart-count>{{ cart.item_count }}</span>
+                  <span class="small--hide">{{ 'layout.cart.items_count' | t: count: cart.item_count }}</span>
+                </div>
+              </a>
+            </div>
+            
+          </div>
+        </div>
+        
+        
+      </header>
+      
+      <nav class="mobile-nav-wrapper medium-up--hide" role="navigation">
+        <div class="close-navigation">
+          <button type="button" class="btn--link site-header__icon site-header__menu js-mobile-nav-toggle mobile-nav--close" aria-controls="MobileNav" aria-expanded="true" aria-label="Menu">
+            <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-close" viewBox="0 0 40 40"><path d="M23.868 20.015L39.117 4.78c1.11-1.108 1.11-2.77 0-3.877-1.109-1.108-2.773-1.108-3.882 0L19.986 16.137 4.737.904C3.628-.204 1.965-.204.856.904c-1.11 1.108-1.11 2.77 0 3.877l15.249 15.234L.855 35.248c-1.108 1.108-1.108 2.77 0 3.877.555.554 1.248.831 1.942.831s1.386-.277 1.94-.83l15.25-15.234 15.248 15.233c.555.554 1.248.831 1.941.831s1.387-.277 1.941-.83c1.11-1.109 1.11-2.77 0-3.878L23.868 20.015z" class="layer"></path></svg>
+          </button>
+        </div>
+        <ul id="MobileNav" class="mobile-nav">
+          {% for link in linklists[section.settings.main_linklist].links %}
+          {%- assign outerLoopIndex = forloop.index -%}
+          {% capture child_list_handle %}{{ link.handle }}-{{ outerLoopIndex }}{% endcapture %}
+          <li class="mobile-nav__item border-bottom" data-list="{{ child_list_handle }}">
+            {% if link.links != blank %}
+            <button type="button" class="btn--link js-toggle-submenu mobile-nav__link{% if link.child_active %} mobile-nav__link--active{% endif %} level-1-menu" data-target="{{ child_list_handle }}" data-level="1" aria-expanded="true">
+              <span class="mobile-nav__label">{{ link.title | escape }}</span>
+              <div class="mobile-nav__icon">
+                {% include 'icon-chevron-right' %}
+              </div>
+            </button>
+            <ul class="mobile-nav__dropdown" data-parent="{{ child_list_handle }}" data-level="2">
+              {% for childlink in link.links %}
+              <li class="mobile-nav__item{% unless forloop.last %} border-bottom{% endunless %}">
+                {% if childlink.links != blank %}
+                {% capture grandchild_list_handle %}{{ childlink.handle }}-{{ outerLoopIndex }}-{{ forloop.index }}{% endcapture %}
+                <button type="button" class="btn--link js-toggle-submenu mobile-nav__link mobile-nav__sublist-link" data-target="{{ grandchild_list_handle }}" aria-expanded="false">
+                  <span class="mobile-nav__label">{{ childlink.title | escape }}</span>
+                  <div class="mobile-nav__icon">
+                    {% include 'icon-chevron-right' %}
+                  </div>
+                </button>
+                <ul class="mobile-nav__dropdown level-3__dropdown" data-parent="{{ grandchild_list_handle }}" data-level="3">
+                  {% for grandchildlink in childlink.links %}
+                  <li class="mobile-nav__item{% unless forloop.last %} border-bottom{% endunless %}">
+                    <a href="{{ grandchildlink.url }}/"
+                    class="mobile-nav__sublist-link"
+                    {% if grandchildlink.current %} aria-current="page"{% endif %}
+                    >
+                    <span class="mobile-nav__label">{{ grandchildlink.title | escape }}</span>
+                  </a>
+                </li>
+                {% endfor %}
+              </ul>
+              {% else %}
+              <a href="{{ childlink.url }}/" class="mobile-nav__sublist-link" {% if childlink.current %} aria-current="page"{% endif %} >
+                <span class="mobile-nav__label">{{ childlink.title | escape }}</span>
+              </a>
+              {% endif %}
+            </li>
+            {% endfor %}
+            <div class="inner_main_link">
+              <a href="{{ link.url }}" class="inner_link_btn">{% if link.title == 'Inspirations' %}View All{% else %}Shop All Products{% endif %}</a>
+            </div>
+          </ul>
+          {% else %}
+          <a href="{% if link.title == 'Home' %}{{ link.url }}{% else %}{{ link.url }}/{% endif %}" class="mobile-nav__link{% if link.active %} mobile-nav__link--active{% endif %} level-1-menu" {% if link.current %} aria-current="page"{% endif %} >
+            <span class="mobile-nav__label">{{ link.title | escape }}</span>
+          </a>
+          {% endif %}
+        </li>
+        {% endfor %}
+        <li class="mobile-nav__item border-bottom">
+          <a class="iWishView swym-wishlist mobile-nav__link medium-up--hide level-1-menu" href="/apps/iwish"><span>Wishlist</span><span class="iWishCount" style="display:none;">0</span></a>
+          {% comment %}
+          <a href="#swym-wishlist" class="swym-wishlist mobile-nav__link medium-up--hide">
+            <span>Wishlist</span>
+          </a>
+          {% endcomment %}
+        </li>
+        {% if shop.customer_accounts_enabled %}
+        <li class="mobile-nav__item">
+          {% if customer %}
+          <a href="{{ routes.account_url }}/" class="mobile-nav__link site-header__account level-1-menu">
+            <span>{{ 'layout.customer.account' | t }}</span>
+          </a>
+          {% else %}
+          <a href="{{ routes.account_login_url }}/" class="mobile-nav__link site-header__account level-1-menu">
+            <span>{{ 'layout.customer.log_in' | t }}</span>
+          </a>
+          {% endif %}
+        </li>
+        {% endif %}
+        <li class="mobile-nav__item">
+          <a class="also_visit mobile-nav__link" href="https://www.enchantedfinejewelry.com/">ALSO VISIT<p><img class="lazyload" data-src="//cdn.shopify.com/s/files/1/0267/0523/1943/files/Enchanted_Logo_5973ad82-3533-4d19-a2a2-cd873b564286.png?v=1613380320" data-sizes="auto"></p></a>
+        </li>
+      </ul>
+    </nav>
+    
+    {% if section.settings.align_logo == 'center' %}
+    <nav class="small--hide sw__nav" id="AccessibleNav" role="navigation">
+      {% include 'site-nav', linklist: section.settings.main_linklist, wrapper_class: 'site-nav--centered' %}
+      <button type="button" class="btn--link site-header__icon site-header__search-toggle js-drawer-open-top">
+        {% include 'icon-search' %}
+        <span>{{ 'layout.navigation.search' | t }}</span>
+      </button>
+    </nav>
+    {% endif %}
+  </div>
+  
+  
+  
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Organization",
+      "name": {{ shop.name | json }},
+      {% if section.settings.logo %}
+      {% assign image_size = section.settings.logo.width | append:'x' %}
+      "logo": {{ section.settings.logo | img_url: image_size | prepend: "https:" | json }},
+      {% endif %}
+      "sameAs": [
+      {{ settings.social_twitter_link | json }},
+      {{ settings.social_facebook_link | json }},
+      {{ settings.social_pinterest_link | json }},
+      {{ settings.social_instagram_link | json }},
+      {{ settings.social_tumblr_link | json }},
+      {{ settings.social_snapchat_link | json }},
+      {{ settings.social_youtube_link | json }},
+      {{ settings.social_vimeo_link | json }}
+      ],
+      "url": {{ shop.url | append: page.url | json }}
+    }
+  </script>
+  
+  {% if request.page_type == 'index' %}
+  {% assign potential_action_target = shop.url | append: routes.search_url | append: "?q={search_term_string}" %}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      "name": {{ shop.name | json }},
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {{ potential_action_target | json }},
+        "query-input": "required name=search_term_string"
+      },
+      "url": {{ shop.url | append: page.url | json }}
+    }
+  </script>
+  {% endif %}
+  
+  {% schema %}
+  {
+    "name": {
+      "da": "Overskrift",
+      "de": "Titel",
+      "en": "Header",
+      "es": "Encabezado",
+      "fi": "Ylätunniste",
+      "fr": "En-tête",
+      "hi": "हैडर",
+      "it": "Header",
+      "ja": "ヘッダー",
+      "ko": "헤더",
+      "nb": "Header",
+      "nl": "Koptekst",
+      "pt-BR": "Cabeçalho",
+      "pt-PT": "Cabeçalho",
+      "sv": "Rubrik",
+      "th": "ส่วนหัว",
+      "zh-CN": "标头",
+      "zh-TW": "標頭"
+    },
+    "settings": [
+    {
+      "type": "radio",
+      "id": "align_logo",
+      "label": {
+        "da": "Logojustering",
+        "de": "Logo-Ausrichtung",
+        "en": "Logo alignment",
+        "es": "Alineación de logo",
+        "fi": "Logon tasaus",
+        "fr": "Alignement du logo",
+        "hi": "लोगो संरेखण",
+        "it": "Allineamento logo",
+        "ja": "ロゴアラインメント",
+        "ko": "로고 정렬",
+        "nb": "Logojustering",
+        "nl": "Logo-uitlijning",
+        "pt-BR": "Alinhamento do logotipo",
+        "pt-PT": "Alinhamento do logótipo",
+        "sv": "Logojustering",
+        "th": "การจัดวางโลโก้",
+        "zh-CN": "logo 对齐方式",
+        "zh-TW": "商標對齊"
+      },
+      "default": "left",
+      "options": [
+      {
+        "value": "left",
+        "label": {
+          "da": "Venstre",
+          "de": "Links",
+          "en": "Left",
+          "es": "Izquierda",
+          "fi": "Vasen",
+          "fr": "Gauche",
+          "hi": "बाएँ",
+          "it": "Sinistra",
+          "ja": "左",
+          "ko": "왼쪽",
+          "nb": "Venstre",
+          "nl": "Links",
+          "pt-BR": "Esquerda",
+          "pt-PT": "Esquerda",
+          "sv": "Vänster",
+          "th": "ด้านซ้าย",
+          "zh-CN": "左侧",
+          "zh-TW": "左方"
+        }
+      },
+      {
+        "value": "center",
+        "label": {
+          "da": "Centreret",
+          "de": "Mittig",
+          "en": "Centered",
+          "es": "Centrada",
+          "fi": "Keskitetty",
+          "fr": "Centré",
+          "hi": "केंद्र",
+          "it": "Centrato",
+          "ja": "中央揃え",
+          "ko": "센터 맞추기",
+          "nb": "Sentrert",
+          "nl": "Gecentreerd",
+          "pt-BR": "Centralizado",
+          "pt-PT": "Centrado",
+          "sv": "Centrera",
+          "th": "ตรงกลาง",
+          "zh-CN": "居中",
+          "zh-TW": "置中"
+        }
+      }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": {
+        "da": "Logobillede",
+        "de": "Logo-Foto",
+        "en": "Logo image",
+        "es": "Logo",
+        "fi": "Logokuva",
+        "fr": "Image du logo",
+        "hi": "लोगो इमेज",
+        "it": "Immagine del logo",
+        "ja": "ロゴ画像",
+        "ko": "로고 이미지",
+        "nb": "Logobilde",
+        "nl": "Afbeelding van logo",
+        "pt-BR": "Imagem do logotipo",
+        "pt-PT": "Imagem do logótipo",
+        "sv": "Logobild",
+        "th": "รูปภาพโลโก้",
+        "zh-CN": "logo 图片",
+        "zh-TW": "標誌圖片"
+      }
+    },
+    {
+      "type": "range",
+      "id": "logo_max_width",
+      "label": {
+        "da": "Tilpasset logobredde",
+        "de": "Logobreite",
+        "en": "Custom logo width",
+        "es": "Ancho del logo personalizado",
+        "fi": "Mukautetun logon leveys",
+        "fr": "Largeur personnalisée du logo",
+        "hi": "कस्टम लोगो की चौड़ाई",
+        "it": "Larghezza logo personalizzato",
+        "ja": "ロゴの幅をカスタマイズする",
+        "ko": "사용자 지정 로고 폭",
+        "nb": "Tilpasset logobredde",
+        "nl": "Aangepaste logo-breedte",
+        "pt-BR": "Largura do logotipo personalizado",
+        "pt-PT": "Largura de logótipo personalizada",
+        "sv": "Anpassad logotypsbredd",
+        "th": "ความกว้างของโลโก้แบบกำหนดเอง",
+        "zh-CN": "自定义 logo 宽度",
+        "zh-TW": "自訂商標寬度"
+      },
+      "min": 50,
+      "max": 250,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "link_list",
+      "id": "main_linklist",
+      "label": {
+        "da": "Menu",
+        "de": "Menü",
+        "en": "Menu",
+        "es": "Menú",
+        "fi": "Valikko",
+        "fr": "Menu",
+        "hi": "मेनू",
+        "it": "Menu",
+        "ja": "メニュー",
+        "ko": "메뉴",
+        "nb": "Meny",
+        "nl": "Menu",
+        "pt-BR": "Menu",
+        "pt-PT": "Menu",
+        "sv": "Meny",
+        "th": "เมนู",
+        "zh-CN": "菜单",
+        "zh-TW": "選單"
+      },
+      "default": "main-menu"
+    },
+    {
+      "type": "link_list",
+      "id": "header-linklist",
+      "label": "Header Menu"
+    },
+    {
+      "type": "header",
+      "content": {
+        "da": "Meddelelseslinje",
+        "de": "Ankündigungsbereich",
+        "en": "Announcement bar",
+        "es": "Barra de anuncios",
+        "fi": "Ilmoituspalkki",
+        "fr": "Barre d'annonces",
+        "hi": "घोषणा बार",
+        "it": "Barra degli annunci",
+        "ja": "告知バー",
+        "ko": "공지 표시줄",
+        "nb": "Kunngjøringslinje",
+        "nl": "Aankondigingsbalk",
+        "pt-BR": "Barra de avisos",
+        "pt-PT": "Barra de comunicado",
+        "sv": "Meddelandefält",
+        "th": "แถบประกาศ",
+        "zh-CN": "公告栏",
+        "zh-TW": "公告列"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "message",
+      "label": {
+        "da": "Vis meddelelse",
+        "de": "Ankündigung anzeigen",
+        "en": "Show announcement",
+        "es": "Mostrar anuncio",
+        "fi": "Näytä ilmoitus",
+        "fr": "Afficher l'annonce",
+        "hi": "घोषणा दिखाएं",
+        "it": "Mostra annuncio",
+        "ja": "告知を表示する",
+        "ko": "공지 표시",
+        "nb": "Vis kunngjøring",
+        "nl": "Aankondiging weergeven",
+        "pt-BR": "Exibir anúncio",
+        "pt-PT": "Mostrar comunicado",
+        "sv": "Visa tillkännagivande",
+        "th": "แสดงประกาศ",
+        "zh-CN": "显示公告",
+        "zh-TW": "顯示公告"
+      },
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "home_page_only",
+      "label": {
+        "da": "Kun startside",
+        "de": "Nur Startseite",
+        "en": "Home page only",
+        "es": "Solo página de inicio",
+        "fi": "Vain etusivu",
+        "fr": "Page d'accueil uniquement",
+        "hi": "केवल होमपेज",
+        "it": "Solo home page",
+        "ja": "ホームページのみ",
+        "ko": "홈페이지만",
+        "nb": "Kun på startsiden",
+        "nl": "Alleen homepage",
+        "pt-BR": "Apenas na página inicial",
+        "pt-PT": "Apenas a página inicial",
+        "sv": "Endast hemsida",
+        "th": "หน้าแรกเท่านั้น",
+        "zh-CN": "仅主页",
+        "zh-TW": "僅限首頁"
+      },
+      "default": true
+    },
+    {
+      "type": "html",
+      "id": "message_text",
+      "label": {
+        "da": "Tekst",
+        "de": "Text",
+        "en": "Text",
+        "es": "Texto",
+        "fi": "Teksti",
+        "fr": "Texte",
+        "hi": "टेक्स्ट",
+        "it": "Testo",
+        "ja": "テキスト",
+        "ko": "텍스트",
+        "nb": "Tekst",
+        "nl": "Tekst",
+        "pt-BR": "Texto",
+        "pt-PT": "Texto",
+        "sv": "Text",
+        "th": "ข้อความ",
+        "zh-CN": "文本",
+        "zh-TW": "文字"
+      }
+    },
+    {
+      "type": "url",
+      "id": "message_link",
+      "label": {
+        "da": "Link",
+        "de": "Link",
+        "en": "Link",
+        "es": "Enlace",
+        "fi": "Linkki",
+        "fr": "Lien",
+        "hi": "लिंक",
+        "it": "Link",
+        "ja": "リンク",
+        "ko": "링크",
+        "nb": "Kobling",
+        "nl": "Link",
+        "pt-BR": "Link",
+        "pt-PT": "Ligação",
+        "sv": "Länk",
+        "th": "ลิงก์",
+        "zh-CN": "链接",
+        "zh-TW": "連結"
+      },
+      "info": {
+        "da": "Valgfri",
+        "de": "Optional",
+        "en": "Optional",
+        "es": "Opcional",
+        "fi": "Valinnainen",
+        "fr": "Facultatif",
+        "hi": "वैकल्पिक",
+        "it": "Facoltativo",
+        "ja": "オプション",
+        "ko": "선택 사항",
+        "nb": "Valgfritt",
+        "nl": "Optioneel",
+        "pt-BR": "Opcional",
+        "pt-PT": "Opcional",
+        "sv": "Valfritt",
+        "th": "ไม่จำเป็น",
+        "zh-CN": "可选",
+        "zh-TW": "(選填)"
+      }
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": {
+        "da": "Bjælke",
+        "de": "Zeile",
+        "en": "Bar",
+        "es": "Barra",
+        "fi": "Palkki",
+        "fr": "Barre",
+        "hi": "बार",
+        "it": "Barra",
+        "ja": "バー",
+        "ko": "바",
+        "nb": "Felt",
+        "nl": "Balk",
+        "pt-BR": "Barra",
+        "pt-PT": "Barra",
+        "sv": "Fält",
+        "th": "แถบ",
+        "zh-CN": "栏",
+        "zh-TW": "橫條"
+      },
+      "default": "#3a3a3a"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": {
+        "da": "Tekst",
+        "de": "Text",
+        "en": "Text",
+        "es": "Texto",
+        "fi": "Teksti",
+        "fr": "Texte",
+        "hi": "टेक्स्ट",
+        "it": "Testo",
+        "ja": "テキスト",
+        "ko": "텍스트",
+        "nb": "Tekst",
+        "nl": "Tekst",
+        "pt-BR": "Texto",
+        "pt-PT": "Texto",
+        "sv": "Text",
+        "th": "ข้อความ",
+        "zh-CN": "文本",
+        "zh-TW": "文字"
+      },
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Contact Popup"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Title (Left Section)",
+      "default": "Get in touch"
+    },
+    {
+      "type": "text",
+      "id": "sub-heading",
+      "label": "Subtitle (Left Section)",
+      "default": "You can reach out to us directly"
+    },
+    {
+      "type": "text",
+      "id": "heading1",
+      "label": "Title (Right Section)",
+      "default": "Drop us a message"
+    },
+    {
+      "type": "text",
+      "id": "sub-heading1",
+      "label": "Subtitle (Right Section)",
+      "default": "Please enter your details to drop us a message."
+    },
+    {
+      "type": "text",
+      "id": "call-us",
+      "label": "Call Us",
+      "default": "212-986-6096"
+    },
+    {
+      "type": "text",
+      "id": "write-us",
+      "label": "Email",
+      "default": "customerservice@starwarsjewelry.com"
+    },
+    {
+      "type": "text",
+      "id": "store-timing",
+      "label": "Store Timing",
+      "default": "Mon-Fri 9 AM to 6 PM EST"
+    },
+    {
+      "type": "image_picker",
+      "id": "content-img",
+      "label": "Image"
+    }
+    ]
+  }
+  {% endschema %}
+  

@@ -1,0 +1,50 @@
+<section data-section-id="{{ section.id }}" data-section-type="starwars-newarrivals-section">
+  <div class="page-width">
+    <div class="section-header text-center">
+      {% unless section.settings.title == blank %}
+        <h2>{{ section.settings.title }}</h2>
+      {% endunless %}
+      {% unless section.settings.subtitle == blank %}
+        <h5>{{ section.settings.subtitle }}</h5>
+      {% endunless %}
+    </div>
+    {%- assign grid_item_width = 'small--one-half medium-up--one-third' -%}
+    <div class="sw__collection-slider">
+
+      {% unless section.settings.new-arrivals == blank %}
+      {% assign collection = collections[section.settings.new-arrivals] %}
+      {% for product in collection.products limit: 10 %}
+      {% include 'product-card-grid', product: product, max_height: 220 %}
+      {% endfor %}
+      {% endunless %}
+
+    </div>
+  </div>
+
+
+
+{% schema %}
+{
+    "name": "Collection Slider",
+	"class": "index-section index_new-arrivals-section",
+    "settings": [
+	  {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "Title"
+      },
+	  {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subtitle",
+        "default": "Subtitle"
+      },
+      {
+        "type": "collection",
+        "id": "new-arrivals",
+        "label": "Collection"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,115 @@
+{% unless section.settings.hide_section == true %}
+<section class="sw__other-categories">
+  <div class="page-width">
+    {% unless section.settings.section_title == blank and section.settings.section_subtitle == blank %}
+      <div class="section-header text-center">
+        <h2>{{ section.settings.section_title }}</h2>
+        {% unless section.settings.section_subtitle == blank %}
+        <h5>{{ section.settings.section_subtitle }}</h5>
+        {% endunless %}
+      </div>
+    {% endunless %}
+    <div class="other_cats">
+      {% for block in section.blocks %}
+      {% assign page-title = page.title | handleize %}
+      {% assign block-title = block.settings.button-url %}
+      {% unless block-title contains page-title %}
+      <div class="oth-cat-slider">
+        {% unless block.settings.category_image == nil %}
+        <img class="lazyload small--hide"
+             src="{{ block.settings.category_image | img_url: "master" }}"
+             data-src="{{ block.settings.category_image | img_url: 'master' }}"
+             data-sizes="auto"
+             alt="" />
+        {% endunless %}
+        {% unless block.settings.category_image_small == nil %}
+        <img class="lazyload medium-up--hide"
+             src="{{ block.settings.category_image_small | img_url: "master" }}"
+             data-src="{{ block.settings.category_image_small | img_url: 'master' }}"
+             data-sizes="auto"
+             alt="" />
+        {% endunless %}
+        <div class="cat-content">
+          {% unless block.settings.title == blank %}
+          <h4>{{ block.settings.title }}</h4>
+          {% endunless %}
+          {% unless block.settings.button_text == blank %}
+          {% unless block.settings.button-url == blank %}
+          <a href="{{ block.settings.button-url }}" class="btn btn_primary">{{ block.settings.button_text }}</a>
+          {% endunless %}
+          {% endunless %}
+        </div>
+      </div>
+      {% endunless %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endunless %}
+
+{% schema %}
+  {
+    "name": "Other Categories Slider",
+    "settings": [
+	  {
+        "type": "checkbox",
+        "id": "hide_section",
+        "label": "Hide Section",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "section_title",
+        "label": "Title",
+        "default": "EXPLORE OUR OTHER COLLECTIONS"
+      },
+      {
+        "type": "text",
+        "id": "section_subtitle",
+        "label": "Subtitle",
+        "default": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et"
+      }
+	],
+	"blocks": [
+      {
+        "type": "starwars-category",
+        "name": "Category Content",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "category_image",
+            "label": "Category Image (Desktop)"
+          },
+		  {
+            "type": "image_picker",
+            "id": "category_image_small",
+            "label": "Category Image (Mobile)"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Category Title",
+            "default": "Category Title"
+          },
+		  {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button",
+            "default": "Explore"
+          },
+          {
+            "type": "url",
+            "id": "button-url",
+            "label": "Button URL"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

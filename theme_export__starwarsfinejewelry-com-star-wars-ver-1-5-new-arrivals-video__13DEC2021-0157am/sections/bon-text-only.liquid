@@ -1,0 +1,47 @@
+{% assign localName = request.locale.name | handle %}
+{% unless section.settings.hide_section == true %}
+<div class="page-width text-center">
+  {% if localName == 'english' %}
+{% unless section.settings.paragraph == blank %}
+{{ section.settings.paragraph }}
+{% endunless %}
+{% else %}
+{% unless section.settings.paragraph-ja == blank %}
+{{ section.settings.paragraph-ja }}
+{% endunless %}
+{% endif %}
+</div>
+{% endunless %}
+
+{% schema %}
+  {
+    "name": "Text Section",
+	"class": "index-section themepage-text-section bon-text-section",
+    "settings": [
+	  {
+        "type": "checkbox",
+        "id": "hide_section",
+        "label": "Hide Section",
+        "default": false
+      },
+      {
+        "type": "richtext",
+        "id": "paragraph",
+        "label": "Paragraph",
+        "default": "<p>Paragraph</p>"
+      },
+      {
+        "type": "richtext",
+        "id": "paragraph-ja",
+        "label": "Paragraph",
+        "default": "<p>神秘的な惑星Dagobah™とジェダイマスターYoda™の教えからインスピレーションを得た”自然のバランス”コレクションと共に、周りのエネルギーを呼び起こそう。師匠と弟子の間で交わされた知識は、内なるエネルギーの流れだけでなく、外部エネルギーもあらわにする。このコレクションを通し、私達の環境の元となる自然のバランスと、雄大な環境内での私達の目的の大切さを発見しよう。</p>"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

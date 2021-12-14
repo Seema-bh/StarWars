@@ -1,0 +1,50 @@
+<section data-section-id="{{ section.id }}" data-section-type="starwars-about-section2">
+  <div class="page-width">
+    <div class="sw__about-content">
+      <div class="sw-about-pic">
+        {% unless section.settings.character_image == nil %}
+          <img class="lazyload"
+               data-src="{{ section.settings.character_image | img_url: "master" }}"
+               data-sizes="auto"
+               alt="" />
+        {% endunless %}
+      </div>
+      <div class="sw-about-content">
+      	{% unless section.settings.content == blank %}
+          {{ section.settings.content }}
+        {% endunless %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Page Content",
+	"class": "index-section about_content-section",
+    "settings": [
+	  {
+        "type": "image_picker",
+        "id": "character_image",
+        "label": "Image"
+      },
+	  {
+        "type": "richtext",
+        "id": "content",
+        "label": "Text"
+      }
+	],
+    "presets": [
+      {
+        "name": "Starwars Character",
+        "category": "Advanced layout"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

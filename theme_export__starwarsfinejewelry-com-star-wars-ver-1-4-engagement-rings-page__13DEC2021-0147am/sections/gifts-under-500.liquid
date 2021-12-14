@@ -1,0 +1,62 @@
+{% if section.settings.show_section == true %}
+{% assign collection = collections[section.settings.new-arrivals] %}
+<section class="section-padding">
+  <div class="page-width">
+    <div class="section-header text-center">
+      {% if section.settings.title != blank %}
+      <h2>{{ section.settings.title }}</h2>
+      {% endif %}
+      {% if section.settings.button_label != blank and section.settings.new-arrivals != blank %}
+      <a href="{{ collection.url }}" class="btn btn-secondary">
+        {{ section.settings.button_label }}
+      </a>
+      {% endif %}
+    </div>
+    <div class="sw__collection-slider">
+      {% unless section.settings.new-arrivals == blank %}
+      {% assign collection = collections[section.settings.new-arrivals] %}
+      {% for product in collection.products limit: 10 %}
+      {% include 'product-card-grid', product: product, max_height: 220 %}
+      {% endfor %}
+      {% endunless %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Gifts under $500",
+	"class": "fathers-day-gifts-section",
+    "settings": [
+	  {
+		"type": "checkbox",
+		"id": "show_section",
+		"label": "Show section",
+		"default": true
+	  },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Gifts under $500"
+      },
+      {
+        "type": "collection",
+        "id": "new-arrivals",
+        "label": "Collection"
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": "Button label"
+      }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

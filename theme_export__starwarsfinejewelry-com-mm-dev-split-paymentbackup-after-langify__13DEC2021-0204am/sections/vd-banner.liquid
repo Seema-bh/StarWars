@@ -1,0 +1,59 @@
+<div class="section-wrapper">
+  <img class="lazyload mobile-hide banner-image"
+       src="{{ section.settings.desk_image | img_url: 'master' }}"
+       data-src="{{ section.settings.desk_image | img_url:"master" }}"
+       data-sizes="auto"
+       alt="" />
+  <img class="lazyload desktop-hide banner-image"
+       src="{{ section.settings.mob_image | img_url: 'master' }}"
+       data-src="{{ section.settings.mob_image | img_url:"master" }}"
+       data-sizes="auto"
+       alt="" />
+  <div class="banner-content text-center">
+    <div class="page-width">
+      {% if section.settings.title != blank %}
+      <h1 class="heading">{{ section.settings.title }}</h1>
+      {% endif %}
+      {% if section.settings.text != blank %}
+      {{ section.settings.text }}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Banner",
+	"class": "banner-section",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "desk_image",
+        "label": "Desktop Image"
+      },
+	  {
+        "type": "image_picker",
+        "id": "mob_image",
+        "label": "Mobile Image"
+      },
+	  {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+		"default": "Heading"
+      },
+	  {
+        "type": "richtext",
+        "id": "text",
+        "label": "text",
+		"default": "<p>Text goes here.</p>"
+      }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

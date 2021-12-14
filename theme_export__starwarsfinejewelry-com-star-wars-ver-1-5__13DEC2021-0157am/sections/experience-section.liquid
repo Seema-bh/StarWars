@@ -1,0 +1,132 @@
+<section data-section-id="{{ section.id }}" data-section-type="starwars-experience-section">
+  {% unless section.settings.horizontal-text == blank %}
+<!--   <span class="horizontal-text">{{ section.settings.horizontal-text }}</span> -->
+  {% endunless %}
+  {% unless section.settings.vertical-text == blank %}
+<!--   <span class="vertical-text">{{ section.settings.vertical-text }}</span> -->
+  {% endunless %}
+  {% unless section.settings.experience_image == nil %}
+  <img class="lazyload" data-src="{{ section.settings.experience_image | img_url: "master" }}" data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+       data-sizes="auto"/>
+  {% endunless %}
+  <div class="page-width
+              {% if section.settings.vertical_alignment == 'center' %} content_mid-align{% endif %}
+              {% if section.settings.vertical_alignment == 'bottom' %} content_bottom-align{% endif %}">
+    <div class="grid sw__experience--grid">
+      <div class="sw__experience-content grid__item medium-up--one-half">
+        <div>
+          {% unless section.settings.title == blank %}
+          <h2>{{ section.settings.title }}</h2>
+          {% endunless %}
+          {% unless section.settings.paragraph == blank %}
+          {{ section.settings.paragraph }}
+          {% endunless %}
+          {% unless section.settings.button == blank %}
+          {% unless section.settings.button-url == blank %}
+          <a href="{{ section.settings.button-url }}/" class="btn btn_primary">{% include 'icon-explore' %}{{ section.settings.button }}</a>
+          {% endunless %}
+          {% endunless %}
+        </div>
+      </div>
+      <div class="sw__experience-video grid__item medium-up--one-half">
+        <div class="video-wrapper-new" style="padding-top:{{ 1 | divided_by: section.settings.video_poster.aspect_ratio | times: 100}}%;">
+          <video width="100%" height="100%" playsinline autoplay muted loop id="home_video" poster="{{ section.settings.video_poster | img_url:"master" }}">
+            <source src="{{ section.settings.video_url }}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Experience Section",
+  "class": "index-section index_experince-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "experience_image",
+      "label": "Image"
+    },
+	{
+      "type": "image_picker",
+      "id": "video_poster",
+      "label": "video poster"
+    },
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "video"
+    },
+    {
+      "type": "select",
+      "id": "vertical_alignment",
+      "label": "Content Alignment (Vertical)",
+      "options": [
+      {
+        "value": "top",
+        "label": "Top"
+      },
+      {
+        "value": "center",
+        "label": "Center"
+      },
+      {
+        "value": "bottom",
+        "label": "Bottom"
+      }
+      ],
+      "default": "top"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Behold!"
+    },
+    {
+      "type": "richtext",
+      "id": "paragraph",
+      "label": "Paragraph",
+      "default": "<p>Jump into Hyperspace and unravel the exclusive world of Star Wars. Only a true Jedi can disclose the secret to claiming the special surprise!</p>"
+    },
+    {
+      "type": "text",
+      "id": "button",
+      "label": "Button Text",
+      "default": "UNBOX THE EXPERIENCE"
+    },
+    {
+      "type": "url",
+      "id": "button-url",
+      "label": "Button URL"
+    },
+    {
+      "type": "text",
+      "id": "horizontal-text",
+      "label": "Horizontal Text",
+      "default": "THE NEW EXPERIENCE"
+    },
+    {
+      "type": "text",
+      "id": "vertical-text",
+      "label": "Vertical Text",
+      "default": "MAY THE FORCE BE WITH YOU"
+    }
+  ],
+  "presets": [
+  {
+    "name": "Experience Section",
+    "category": "Advanced layout"
+  }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

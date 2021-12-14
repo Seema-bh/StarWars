@@ -1,0 +1,89 @@
+<section class="boba-fett-main-banner">
+  {% assign image_desktop = section.settings.banner_large | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+  {% assign image_small = section.settings.banner_small | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+  <div class="bg-image">
+    <div class="image-content">
+      {% unless section.settings.banner_large == nil %}
+      <div class="image-wrapper small--hide" style="padding-top:{{ 1 | divided_by: section.settings.banner_large.aspect_ratio | times: 100}}%;">
+        <img class="lazyload custom__image"
+             data-src="{{ image_desktop }}" data-widths="[767, 800, 1020, 1200, 1280, 1370,1440 ,1600, 1920, 2048]" data-sizes="auto" alt="Boba Fett banner" data-image />
+      </div>
+      {% endunless %}
+
+      {% if section.settings.banner_small != blank %}
+      <div class="image-wrapper medium-up--hide" style="padding-top:{{ 1 | divided_by: section.settings.banner_small.aspect_ratio | times: 100}}%;">
+        <img class="lazyload custom__image" data-src="{{ image_small }}"
+        data-widths="[180, 360,414, 540, 720, 900]" data-sizes="auto" alt="Boba Fett banner" data-image />
+      </div>
+      {% endif %}
+    </div>
+    <div class="text-content">
+      {% if section.settings.boba-fett-logo != blank %}
+      <div class="boba-fett-logo">
+        <img class="lazyload" data-src="{{ section.settings.boba-fett-logo | img_url: 'master' }}"
+        data-widths="[100, 200, 300, 767]" data-sizes="auto" alt="Boba Fett logo" data-image />
+      </div>
+      {% endif %}
+      {% if section.settings.boba-fett-txt != blank %}
+      <p>{{ section.settings.boba-fett-txt }}</p>
+      {% endif %}
+    </div>
+    <div class="video-content">
+      {% if section.settings.video_poster != blank %}
+      <div class="video-wrapper-new starwars__banner" style="padding-top:{{ 1 | divided_by: section.settings.video_poster.aspect_ratio | times: 100}}%;">
+        <video width="40%" height="100%" playsinline autoplay muted loop class="custom__image" id="home_mobile_video" poster="{{ section.settings.video_poster | img_url:"master" }}">
+          <source src="{{ section.settings.video_url }}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      {% endif %}
+      {% if section.settings.video_text != blank %}
+      <p>{{ section.settings.video_text }}</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Boba Fett banner",
+  "class": "banner-section",
+  "settings": [
+  {
+    "type": "image_picker",
+    "id": "banner_large",
+    "label": "Banner Image (Desktop)"
+  },
+  {
+    "type": "image_picker",
+    "id": "banner_small",
+    "label": "Banner Image (Mobile)"
+  },
+  {
+    "type": "image_picker",
+    "id": "boba-fett-logo",
+    "label": "Boba Fett Logo"
+  },
+  {
+    "type": "text",
+    "id": "boba-fett-txt",
+    "label": "Sub Title"
+  },
+  {
+    "type": "image_picker",
+    "id": "video_poster",
+    "label": "Video Poster"
+  },
+  {
+    "type": "textarea",
+    "id": "video_url",
+    "label": "Video (Desktop)"
+  },
+  {
+    "type": "text",
+    "id": "video_text",
+    "label": "Video Text"
+  }
+  ]
+}
+{% endschema %}

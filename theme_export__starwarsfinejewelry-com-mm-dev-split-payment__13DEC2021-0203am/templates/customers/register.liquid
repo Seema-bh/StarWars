@@ -1,0 +1,127 @@
+<div class="page-width">
+  <div class="grid">
+    <div class="grid__item medium-up--one-half medium-up--push-one-quarter">
+
+      <div class="form-vertical">
+
+        <h1 class="text-center">Create your account</h1>
+
+        {%- assign formId = 'RegisterForm' -%}
+        {% form 'create_customer', id: formId, novalidate: 'novalidate' %}
+        {% include 'form-status', form: form, form_id: formId %}
+
+        <label for="{{ formId }}-FirstName">{{ 'customer.register.first_name' | t }}</label>
+        <input type="text" name="customer[first_name]" id="{{ formId }}-FirstName" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} autocomplete="given-name">
+
+        <label for="{{ formId }}-LastName">{{ 'customer.register.last_name' | t }}</label>
+        <input type="text" name="customer[last_name]" id="{{ formId }}-LastName" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} autocomplete="family-name">
+
+        <label for="{{ formId }}-email">{{ 'customer.register.email' | t }}</label>
+        <input
+               type="email"
+               name="customer[email]"
+               id="{{ formId }}-email"
+               class="{% if form.errors contains 'email' %} input--error{% endif %}"
+               {% if form.email %} value="{{ form.email }}"{% endif %}
+               autocorrect="off"
+               autocapitalize="off"
+               autocomplete="email"
+               aria-required="true"
+               {%- if form.errors contains 'email' -%}
+               class="input--error"
+               aria-invalid="true"
+               aria-describedby="{{ formId }}-email-error"
+               {%- endif -%}
+               >
+        {%- if form.errors contains 'email' -%}
+        <span id="{{ formId }}-email-error" class="input-error-message">
+          <span class="visually-hidden">{{ 'general.accessibility.error' | t }} </span>
+          {% include 'icon-error' %}
+          <span>{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}.</span>
+        </span>
+        {%- endif -%}
+        
+        <label for="{{ formId }}-dob">Date of Birth</label>
+        <input
+               type="text"
+               name="customer[note][DOB]"
+               id="{{ formId }}-dob"
+               placeholder="MM-DD-YYYY"
+               class="{% if form.errors contains 'password' %} input--error{% endif %}"
+               aria-required="true"
+               >
+
+        <label for="{{ formId }}-password">{{ 'customer.register.password' | t }}</label>
+        <input
+               type="password"
+               name="customer[password]"
+               id="{{ formId }}-password"
+               class="{% if form.errors contains 'password' %} input--error{% endif %}"
+               aria-required="true"
+               {%- if form.errors contains 'password' -%}
+               class="input--error"
+               aria-invalid="true"
+               aria-describedby="{{ formId }}-password-error"
+               {%- endif -%}
+               >
+        <div class="checkbox-wrapper">
+          <input type="checkbox" id="information" name="customer[note][Receive information]" value="Yes" checked>
+          <label for="information"> I wish to receive information from Star Wars Fine Jewelry about our latest news and creations.</label>
+        </div>
+        {%- if form.errors contains 'password' -%}
+        <span id="{{ formId}}-password-error" class="input-error-message">
+          {% include 'icon-error' %}
+          <span>{{ form.errors.translated_fields['password'] | capitalize }} {{ form.errors.messages['password'] }}.</span>
+        </span>
+        {%- endif -%}
+
+        <p class="text-center">
+          <input type="submit" value="Create your account" class="btn">
+        </p>
+
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .checkbox-wrapper {
+    display: flex;
+    align-items: baseline;
+  }
+  .checkbox-wrapper label {
+    position: relative;
+    cursor: pointer;
+  }
+  input#information {
+    display: none;
+  }
+
+  .checkbox-wrapper label:before {
+    content:'';
+    -webkit-appearance: none;
+    background-color: #3d4a51;
+    border: 2px solid #3d4a51;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+    padding: 7px;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-right: 5px;
+  }
+
+  .checkbox-wrapper input:checked + label:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 6px;
+    left: 7px;
+    width: 5px;
+    height: 11px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+</style>

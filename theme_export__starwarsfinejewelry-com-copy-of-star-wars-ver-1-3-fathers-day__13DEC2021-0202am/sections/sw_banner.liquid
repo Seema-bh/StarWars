@@ -1,0 +1,67 @@
+<section data-section-id="{{ section.id }}" >
+  <div class="starwars__banner">
+    {% unless section.settings.banner_large == nil %}
+    {% capture img_id %}starwarsBannerColumnImage-{{ section.id }}{% endcapture %}
+    {%- assign max_height = 670 -%}
+    {%- assign img_url = section.settings.banner_large | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+    <div class="small--hide" style="padding-top:{{ 1 | divided_by: section.settings.banner_large.aspect_ratio | times: 100}}%;">
+      <img id="{{ img_id }}"
+      class="custom__image lazyload js image_scale"
+      data-src="{{ img_url }}"
+      data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+      data-aspectratio="{{ section.settings.banner_large.aspect_ratio }}"
+      data-sizes="auto"
+      alt="starwars Banner">
+    </div>
+    {% endunless %}
+    {% unless section.settings.banner_small == nil %}
+    {% capture img_id %}starwarsMobileColumnImage-{{ section.id }}{% endcapture %}
+    {%- assign max_height = 511 -%}
+    {%- assign img_url = section.settings.banner_small | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+    <div class="medium-up--hide" style="padding-top:{{ 1 | divided_by: section.settings.banner_small.aspect_ratio | times: 100}}%;">
+      <img id="{{ img_id }}"
+      class="custom__image lazyload js image_scale"
+      data-src="{{ img_url }}"
+      data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+      data-aspectratio="{{ section.settings.banner_small.aspect_ratio }}"
+      data-sizes="auto"
+      alt="starwars Banner">
+    </div>
+    {% endunless %}
+    {% unless section.settings.button_url == blank %}
+    <a href="{{ section.settings.button_url }}/" class="banner_link"></a>
+    {% endunless %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "starwars banner",
+  "class": "banner-section index-section index-section--flush",
+  "settings": [
+  {
+    "type": "image_picker",
+    "id": "banner_large",
+    "label": "Banner Image (Desktop)",
+    "info": "Recommended size 2562x1298 (px)"
+  },
+  {
+    "type": "image_picker",
+    "id": "banner_small",
+    "label": "Banner Image (Mobile)",
+    "info": "Recommended size 800x1470 (px)"
+  },
+  {
+    "type": "url",
+    "id": "button_url",
+    "label": "Button URL"
+  }
+  ],
+  "presets": [
+  {
+    "name": "Banner",
+    "category": "Advanced layout"
+  }
+  ]
+}
+{% endschema %}

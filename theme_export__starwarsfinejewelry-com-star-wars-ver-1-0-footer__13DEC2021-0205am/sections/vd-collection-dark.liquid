@@ -1,0 +1,139 @@
+<div class="section-wrapper">
+  {% for block in section.blocks %}
+  <div class="page-width">
+    {% capture image_layout %}
+    <div class="feature-row__item feature-row__item-image">
+      {% if block.settings.image != blank %}
+      {% capture img_id %}FeatureRowImage-{{ block.id }}{% endcapture %}
+      {% capture wrapper_id %}FeatureRowImageWrapper-{{ block.id }}{% endcapture %}
+      {%- assign img_url = block.settings.image | img_url: 'master' -%}
+      <div id="{{ wrapper_id }}" class="feature-row__image-wrapper js">
+        <img id="{{ img_id }}"
+             class="feature-row__image lazyload"
+             src="{{ img_url }}"
+             data-src="{{ img_url }}"
+             data-sizes="auto"
+             alt="{{ block.settings.image.alt | escape }}">
+      </div>
+
+      <noscript>
+        {{ block.settings.image | img_url: '600x600', scale: 2 | img_tag: block.settings.image.alt, 'feature-row__image' }}
+      </noscript>
+      {% else %}
+      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+      {% endif %}
+    </div>
+    {% endcapture %}
+
+    <div class="feature-row layout--{{ block.settings.layout }}">
+      {% if block.settings.layout == 'left' %}
+      {{ image_layout }}
+      {% endif %}
+
+      <div class="feature-row__item feature-row__text feature-row__text--{{ block.settings.layout }}">
+        <div class="feature-row__content">
+          {% if block.settings.title != blank %}
+          <h2 class="feature-row__title">{{ block.settings.title }}</h2>
+          {% endif %}
+          {% if block.settings.text != blank %}
+          <div class="rte rte-setting featured-row__subtext">{{ block.settings.text }}</div>
+          {% endif %}
+          {% if block.settings.button_label != blank and block.settings.button_link != blank %}
+          {%- capture ariaLabel -%}
+          {{- block.settings.button_label -}}
+          {%- if block.settings.button_link.type == 'frontpage_link' -%}
+          : {{ 'homepage.general.title' | t -}}
+          {%- elsif block.settings.button_link.type == 'catalog_link' -%}
+          : {{ 'collections.catalog.title' | t -}}
+          {%- elsif block.settings.button_link.object.title -%}
+          : {{ block.settings.button_link.object.title -}}
+          {%- endif -%}
+          {%- endcapture -%}
+        </div>
+
+        <a href="{{ block.settings.button_link }}"
+           class="btn"
+           aria-label="{{ ariaLabel }}">
+          {{- block.settings.button_label | escape -}}
+        </a>
+        {% endif %}
+      </div>
+
+      {% if block.settings.layout == 'right' %}
+      {{ image_layout }}
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% schema %}
+  {
+    "name": "Collection dark",
+	"class": "vd-collection-section vd-collection-dark-section",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Bacground image"
+      }
+	],
+	"blocks": [
+      {
+        "type": "row",
+        "name": "Row",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "select",
+            "id": "layout",
+            "label": "Image alignment",
+            "default": "left",
+            "options": [
+              {
+                "value": "left",
+                "label": "Left"
+              },
+              {
+                "value": "right",
+                "label": "Right"
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Image with text"
+          },
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": "Text",
+            "default": "<p>Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
+          },
+          {
+            "type": "text",
+            "id": "button_label",
+            "label": "Button label"
+          },
+          {
+            "type": "url",
+            "id": "button_link",
+            "label": "Button link"
+          }
+        ]
+      }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

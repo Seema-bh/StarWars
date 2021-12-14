@@ -1,0 +1,66 @@
+<div class="sw__jewelry-care-content">
+  <div class="sw__jewelry-care-graphics">
+    {% unless section.settings.image == nil %}
+    <img class="lazyload"
+         src="{{ section.settings.image | img_url: "master" }}"
+         data-src="{{ section.settings.image | img_url: "master" }}"
+         data-sizes="auto"
+         alt="" />
+    {% endunless %}
+  </div>
+  <div class="sw__jewelry-care-context">
+    {% unless section.settings.title == blank %}
+    <h2>Jewelry Cleaning & Repair</h2>
+    {% endunless %}
+    {% unless section.settings.paragraph == blank %}
+    {{ section.settings.paragraph }}
+    {% endunless %}
+    {% unless section.settings.button_label == blank %}
+    {% unless section.settings.button_url == blank %}
+    <a href="{{ section.settings.button_url }}" class="btn">{{ section.settings.button_label }}</a>
+    {% endunless %}
+    {% endunless %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Page Content",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "Jewelry Cleaning & Repair"
+      },
+      {
+        "type": "richtext",
+        "id": "paragraph",
+        "label": "Paragraph",
+        "default": "<p>Paragraph</p>"
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": "Button Label",
+        "default": "Learn more"
+      },
+      {
+        "type": "url",
+        "id": "button_url",
+        "label": "Button URL"
+      },
+	  {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

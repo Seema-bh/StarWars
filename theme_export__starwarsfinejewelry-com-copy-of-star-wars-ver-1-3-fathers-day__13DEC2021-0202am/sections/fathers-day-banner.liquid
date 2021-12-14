@@ -1,0 +1,78 @@
+{% if section.settings.show_section == true %}
+<section>
+  <img class="lazyload banner small--hide"
+       src="{{ section.settings.desk_banner | img_url: 'master' }}"
+       data-src="{{ section.settings.desk_banner | img_url:"master" }}"
+       data-sizes="auto"
+       alt="" />
+  <img class="lazyload banner medium-up--hide"
+       src="{{ section.settings.mob_banner | img_url: 'master' }}"
+       data-src="{{ section.settings.mob_banner | img_url:"master" }}"
+       data-sizes="auto"
+       alt="" />
+  <div class="section-content small--text-center">
+    <div class="page-width">
+      {% if section.settings.sub_title != blank %}
+      <span class="sub-title">{{ section.settings.sub_title }}</span>
+      {% endif %}
+      {% if section.settings.title != blank %}
+      <h2>{{ section.settings.title }}</h2>
+      {% endif %}
+      {% if section.settings.text != blank %}
+      <div class="text">
+        {{ section.settings.text }}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Banner",
+	"class": "fathers-day-banner-section",
+    "settings": [
+	  {
+		"type": "checkbox",
+		"id": "show_section",
+		"label": "Show section",
+		"default": true
+	  },
+	  {
+		"type": "image_picker",
+		"id": "desk_banner",
+		"label": "Desktop banner"
+	  },
+	  {
+		"type": "image_picker",
+		"id": "mob_banner",
+		"label": "Mobile banner"
+	  },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Father'day Gift Guide"
+      },
+      {
+        "type": "text",
+        "id": "sub_title",
+        "label": "Subtitle",
+        "default": "Subtitle"
+      },
+	  {
+        "type": "textarea",
+        "id": "text",
+        "label": "Text",
+		"default": "<p>Text goes here.</p>"
+      }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,45 @@
+<script>
+  $(document).on('page:load page:change', function() {
+    var checkoutAmount = $(".payment-due__price").attr("data-checkout-payment-due-target");
+    console.log(checkoutAmount);
+    if(checkoutAmount<50000){
+      $('[data-select-gateway="62216077476"]').hide();
+    }
+    //  add $ 0.0 as shipping charges
+    $("[data-checkout-total-shipping-target]").html('<b>Free</b>')
+  });
+  
+  $(document).ready(function() {
+    var MobileMenu = {
+      open: function() {
+        $('.mobile-nav--open').on('click', function() {
+          $('.mobile-nav-wrapper').addClass('js-menu--is-open');
+          $('body').css("overflow","hidden");
+        })
+      },
+      close: function() {
+        $('.mobile-nav--close').on('click', function() {
+          $('.mobile-nav-wrapper').removeClass('js-menu--is-open');
+          $('body').css("overflow","auto");
+          event.stopPropagation();
+        });
+      }
+    }
+    
+    var MobSubmenu = {
+      initMenuDropDown: function() {        
+        $('.mobile-nav__link').on('click', function() {
+          $(this).parent('li').addClass('has-submenu');
+          $('.has-submenu').not(this).removeClass('has--closed');
+          $(this).toggleClass('has--closed');
+          $('.has-submenu').not(this).next('.mobile-nav__dropdown').slideUp('slow');
+          $(this).next('.mobile-nav__dropdown').slideToggle('slow');
+        });
+      }
+    }
+    
+    MobSubmenu.initMenuDropDown();
+    MobileMenu.open();
+    MobileMenu.close();
+  });
+</script>

@@ -1,0 +1,59 @@
+<div class="page-coming-soon">
+  <div class="page-width">
+    <div class="grid grid--no-gutters">
+      <div class="grid__item medium-up--one-half grid-content">
+        <div class="content wow animate__animated animate__fadeIn" data-wow-duration="4s" data-wow-delay="500ms">
+          <img class="lazyload image-1"
+               src="https://cdn.shopify.com/s/files/1/0465/8787/1396/files/Logo_745b0910-dc06-43d9-9646-8ad55efc504e.png?v=1619959668"
+               data-src="https://cdn.shopify.com/s/files/1/0465/8787/1396/files/Logo_745b0910-dc06-43d9-9646-8ad55efc504e.png?v=1619959668"
+               data-sizes="auto"
+               alt="" />
+          <h1 class="text-center">{{ page.title }}</h1>
+          <img class="lazyload image-2"
+               src="https://cdn.shopify.com/s/files/1/0465/8787/1396/files/Logo_2.png?v=1619677458"
+               data-src="https://cdn.shopify.com/s/files/1/0465/8787/1396/files/Logo_2.png?v=1619677458"
+               data-sizes="auto"
+               alt="" />
+          {%- assign formId = 'ContactComingSoonFooter' -%}
+          {% form 'customer', id: formId, novalidate: 'novalidate' %}
+          
+          <input type="hidden" name="contact[tags]" value="Kyber Radiance">
+          <p class="text-center">Sign up today to get notified when released</p>
+          <div class="input-group">
+            <input type="email"
+              name="contact[email]"
+              id="{{ formId }}-email"
+              class="input-group__field newsletter__input{% if form.errors %} input--error{% endif %}"
+              value="{{ form.email }}"
+              placeholder="{{ 'general.newsletter_form.email_placeholder' | t }}"
+              aria-label="{{ 'general.newsletter_form.email_placeholder' | t }}"
+              aria-required="true"
+              required
+              autocorrect="off"
+              autocapitalize="off"
+              {% if form.errors %}
+              aria-invalid="true"
+              aria-describedby="{{ formId }}-email-error"
+              data-form-status {% endif %}>
+            <input type="submit" class="btn btn_style1" value="Submit">
+          </div>
+          {%- if form.posted_successfully? -%}
+          <p class="form-message form-message--success" tabindex="-1" data-form-status>
+            {{ 'general.newsletter_form.confirmation' | t }}
+          </p>
+          {%- endif -%}
+          {% endform %}
+        </div>
+      </div>
+      <div class="grid__item medium-up--one-half grid-image">
+        <div class="image-wrapper wow animate__animated animate__fadeInRight" data-wow-duration="4s" data-wow-delay="500ms">
+          <img class="lazyload image-pendant"
+               src="https://cdn.shopify.com/s/files/1/0465/8787/1396/files/pendant-1.png?v=1619688492"
+               data-src="https://cdn.shopify.com/s/files/1/0465/8787/1396/files/pendant-1.png?v=1619688492"
+               data-sizes="auto"
+               alt="" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

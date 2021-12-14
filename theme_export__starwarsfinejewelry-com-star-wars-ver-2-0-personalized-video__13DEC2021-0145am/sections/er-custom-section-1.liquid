@@ -1,0 +1,173 @@
+{% if section.settings.enable_section %}
+<section class="section-spacing">
+  <div class="page-width text-center">
+    {% if section.settings.title != blank %}
+    <h2 class="title hide">{{ section.settings.title }}</h2>
+    {% endif %}
+    <div class="heading-wrapper ">
+      <div class="heading-text">
+        <div class="text">
+          <span>
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="22.538" height="26.633" viewBox="0 0 22.538 26.633">
+              <g id="Group_101704" data-name="Group 101704" transform="translate(-155.262 33.197)">
+                <g id="Group_101703" data-name="Group 101703" transform="translate(155.262 -33.197)">
+                  <path id="Path_47600" data-name="Path 47600" d="M189.1-33.2l1.638,9.238,4.193-1.507-1.9,3.866,7.338,1.966-7.338,1.572,1.834,4.324L190.67-15.9,189.1-6.6" transform="translate(-177.829 33.197)" fill="#fff"/>
+                  <path id="Path_47601" data-name="Path 47601" d="M166.531-33.1l-.276,1.556-1.362,7.682L160.7-25.367l1.9,3.866-7.338,1.966,7.338,1.572-1.834,4.324,4.193-2.162,1.572,9.3" transform="translate(-155.262 33.131)" fill="#fff"/>
+                </g>
+                <path id="Path_47602" data-name="Path 47602" d="M187.618-3.577s-1.572-16.838-.131-22.341C187.487-25.918,190.435-13.732,187.618-3.577Z" transform="translate(-21.087 -4.855)" fill="#fff"/>
+              </g>
+            </svg>
+
+          </span>
+          <span>14K GOLD</span>
+        </div>
+      </div>
+      <div class="heading-text">
+        <div class="text">
+          <span>
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="22.538" height="26.633" viewBox="0 0 22.538 26.633">
+              <g id="Group_101704" data-name="Group 101704" transform="translate(-155.262 33.197)">
+                <g id="Group_101703" data-name="Group 101703" transform="translate(155.262 -33.197)">
+                  <path id="Path_47600" data-name="Path 47600" d="M189.1-33.2l1.638,9.238,4.193-1.507-1.9,3.866,7.338,1.966-7.338,1.572,1.834,4.324L190.67-15.9,189.1-6.6" transform="translate(-177.829 33.197)" fill="#fff"/>
+                  <path id="Path_47601" data-name="Path 47601" d="M166.531-33.1l-.276,1.556-1.362,7.682L160.7-25.367l1.9,3.866-7.338,1.966,7.338,1.572-1.834,4.324,4.193-2.162,1.572,9.3" transform="translate(-155.262 33.131)" fill="#fff"/>
+                </g>
+                <path id="Path_47602" data-name="Path 47602" d="M187.618-3.577s-1.572-16.838-.131-22.341C187.487-25.918,190.435-13.732,187.618-3.577Z" transform="translate(-21.087 -4.855)" fill="#fff"/>
+              </g>
+            </svg>
+
+          </span>
+          <span>BRILLIANT DIAMONDS</span>
+        </div>
+      </div>
+      <div class="heading-text">
+        <div class="text">
+          <span>
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="22.538" height="26.633" viewBox="0 0 22.538 26.633">
+              <g id="Group_101704" data-name="Group 101704" transform="translate(-155.262 33.197)">
+                <g id="Group_101703" data-name="Group 101703" transform="translate(155.262 -33.197)">
+                  <path id="Path_47600" data-name="Path 47600" d="M189.1-33.2l1.638,9.238,4.193-1.507-1.9,3.866,7.338,1.966-7.338,1.572,1.834,4.324L190.67-15.9,189.1-6.6" transform="translate(-177.829 33.197)" fill="#fff"/>
+                  <path id="Path_47601" data-name="Path 47601" d="M166.531-33.1l-.276,1.556-1.362,7.682L160.7-25.367l1.9,3.866-7.338,1.966,7.338,1.572-1.834,4.324,4.193-2.162,1.572,9.3" transform="translate(-155.262 33.131)" fill="#fff"/>
+                </g>
+                <path id="Path_47602" data-name="Path 47602" d="M187.618-3.577s-1.572-16.838-.131-22.341C187.487-25.918,190.435-13.732,187.618-3.577Z" transform="translate(-21.087 -4.855)" fill="#fff"/>
+              </g>
+            </svg>
+
+          </span>
+          <span>UNIQUE DESIGNS</span>
+        </div>
+      </div>
+    </div>
+    <div class="custom-section-1">
+      <div class="section-content">
+        {% if section.settings.title != blank %}
+        <h3 class="title">
+          {{ section.settings.title }}
+        </h3>
+        {% endif %}
+        {% if section.settings.text != blank %}
+        <div class="text">{{ section.settings.text }}</div>
+        {% endif %}
+        {% if section.settings.button_label and section.settings.button_url != blank %}
+        <a href="{{ section.settings.button_url }}" class="btn btn-secondary">
+          {{ section.settings.button_label }}
+        </a>
+        {% endif %}
+      </div>
+
+      <div class="section-images">
+        <img class="lazyload bg-image" 
+             src="https://cdn.shopify.com/s/files/1/0465/8787/1396/files/Mask_Group_26911.png?v=1632742726"
+             data-src="https://cdn.shopify.com/s/files/1/0465/8787/1396/files/Mask_Group_26911.png?v=1632742726" 
+             data-sizes="auto" 
+             alt="" />
+        {% assign banner_image_1 = section.settings.image_1 | img_url: 'master' %}
+        {% if section.settings.image_1 != blank %}
+        <div class="image-wrapper image_1 wow animate__fadeInDown" data-wow-duration="5s" data-wow-delay="-1.4s">
+          <img class="lazyload" 
+               src="{{ banner_image_1 }}"
+               data-src="{{ banner_image_1 }}" 
+               data-sizes="auto" 
+               alt="" />
+        </div>
+        {% endif %}
+        {% assign banner_image_2 = section.settings.image_2 | img_url: 'master' %}
+        {% if section.settings.image_2 != blank %}
+        <div class="image-wrapper image_2 wow animate__fadeInDown" data-wow-duration="4s" data-wow-delay="-1.2s">
+          <img class="lazyload" 
+               src="{{ banner_image_2 }}"
+               data-src="{{ banner_image_2 }}" 
+               data-sizes="auto" 
+               alt="" />
+        </div>
+        {% endif %}
+        {% assign banner_image_3 = section.settings.image_3 | img_url: 'master' %}
+        {% if section.settings.image_3 != blank %}
+        <div class="image-wrapper image_3 wow animate__fadeInUp" data-wow-duration="3.2s" data-wow-delay="-1s">
+          <img class="lazyload" 
+               src="{{ banner_image_3 }}"
+               data-src="{{ banner_image_3 }}" 
+               data-sizes="auto" 
+               alt="" />
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% schema %}
+{
+"name": "Custom section 1",
+"class": "er-custom-section-1",
+"settings": [
+{
+"type": "checkbox",
+"id": "enable_section",
+"label": "Enable section",
+"default": true
+},
+{
+"type": "text",
+"id": "title",
+"label": "Title",
+"default": "Title"
+},
+{
+"type": "richtext",
+"id": "text",
+"label": "Text",
+"default": "<p>Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
+},
+{
+"type": "text",
+"id": "button_label",
+"label": "Button label",
+"default": "Discover"
+},
+{
+"type": "url",
+"id": "button_url",
+"label": "Button link"
+},
+{
+"type": "image_picker",
+"id": "image_1",
+"label": "Image 1"
+},
+{
+"type": "image_picker",
+"id": "image_2",
+"label": "Image 2"
+},
+{
+"type": "image_picker",
+"id": "image_3",
+"label": "Image 3"
+}
+]
+}
+{% endschema %}

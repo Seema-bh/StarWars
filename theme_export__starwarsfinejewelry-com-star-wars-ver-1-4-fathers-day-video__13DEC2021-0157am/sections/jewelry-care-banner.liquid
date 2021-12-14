@@ -1,0 +1,28 @@
+<div class="sw__static-page-banner">
+  {% unless section.settings.banner == nil %}
+  <img class="lazyload"
+       src="{{ section.settings.banner | img_url: "master" }}"
+       data-src="{{ section.settings.banner | img_url: "master" }}"
+       data-sizes="auto"
+       alt="" />
+  {% endunless %}
+</div>
+
+{% schema %}
+  {
+    "name": "Page Content",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "banner",
+        "label": "Image (Banner)"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

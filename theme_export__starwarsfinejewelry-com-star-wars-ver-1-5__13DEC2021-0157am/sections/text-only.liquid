@@ -1,0 +1,48 @@
+{% unless section.settings.hide_section == true %}
+<div class="page-width text-center">
+  
+{% assign localName = request.locale.name | handle %}
+{% if localName == "english"%}
+{% unless section.settings.paragraph == blank %}
+{{ section.settings.paragraph }}
+{% endunless %}
+{% else %}
+{% unless section.settings.paragraph == blank %}
+{{ section.settings.paragraph_japanese }}
+{% endunless %}
+{% endif %}
+</div>
+{% endunless %}
+
+{% schema %}
+  {
+    "name": "Text Section",
+	"class": "index-section themepage-text-section",
+    "settings": [
+	  {
+        "type": "checkbox",
+        "id": "hide_section",
+        "label": "Hide Section",
+        "default": false
+      },
+      {
+        "type": "richtext",
+        "id": "paragraph",
+        "label": "Paragraph",
+        "default": "<p>Paragraph</p>"
+      },
+      {
+        "type": "richtext",
+        "id": "paragraph_japanese",
+        "label": "Paragraph (Japanese)",
+        "default": "<p>Paragraph</p>"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,56 @@
+<section class="boba-fett-product-grid-section">
+  <div class="page-width">
+    {% if section.settings.header_title != blank %}
+    <header class="section-header text-center">
+      <h2>{{ section.settings.header_title }}</h2>
+    </header>
+    {% endif %}
+    <div class="grid">
+      {% for block in section.blocks %}
+      {% assign image_desktop = block.settings.banner_large | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+      {% if block.settings.banner_large != blank %}
+      <div class="grid__item small--one-whole medium-up--one-third">
+        <a {% if block.settings.product_url != blank %}href="{{ block.settings.product_url }}"{% endif %}>
+          <div class="image-wrapper" style="padding-top:{{ 1 | divided_by: block.settings.banner_large.aspect_ratio | times: 100}}%;">
+            <img class="lazyload custom__image"
+            data-src="{{ image_desktop }}" data-widths="[767, 800, 1020, 1200, 1280, 1370,1440 ,1600, 1920, 2048]" data-sizes="auto" alt="Boba Fett banner" data-image />
+          </div>
+        </a>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Boba Fett Product Grid",
+  "class": "product_grid-bg",
+  "settings": [
+  {
+    "type": "text",
+    "id": "header_title",
+    "label": "Header Title"
+  }
+  ],
+  "blocks": [
+  {
+    "type": "banner-content",
+    "name": "Banner Content",
+    "settings": [
+    {
+      "type": "image_picker",
+      "id": "banner_large",
+      "label": "Banner Image (Desktop)"
+    },
+    {
+      "type": "url",
+      "id": "product_url",
+      "label": "Link"
+    }
+    ]
+  }
+  ]
+}
+{% endschema %}

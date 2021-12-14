@@ -1,0 +1,173 @@
+{% assign localName = request.locale.name | handle %}
+<div class="page-width">
+  <div class="customer__register">
+    <div class="register__container">
+      
+      <div class="register__form" id="CustomerRegisterForm">
+        {%- assign formId = 'RegisterForm' -%}
+        {% form 'create_customer', id: formId, novalidate: 'novalidate' %}
+        {% include 'form-status', form: form, form_id: formId %}
+        <input type="hidden" name="customer[tags]" value="register">
+        {% if localName == 'english' %}
+        <h1 class="register__heading">HELLO PADAWAN</h1>
+        <div class="register__subheading">Please enter your details to create a new account</div>
+        {% else %}
+        <h1 class="register__heading">こんにちはパダワン</h1>
+        <div class="register__subheading">新しいアカウントを作成するには、詳細を入力してください</div>
+        {% endif %}
+        <div class="input__group">
+          <div class="select-container">
+            {% if localName == 'english' %}
+            <select class="" id="title-dropdown">
+              <option data-display-text="Select title">Select title</option>
+              <option value="Mr">Mr</option>
+              <option value="Mrs">Mrs</option>
+              <option value="Ms">Ms</option>
+            </select>
+            {% else %}
+            <select class="" id="title-dropdown">
+              <option data-display-text="タイトルを選択">タイトルを選択</option>
+              <option value="氏">氏</option>
+              <option value="夫人">夫人</option>
+              <option value="MS">MS</option>
+            </select>
+            {% endif %}
+          </div>
+          <div data-form-error></div>
+        </div>
+        
+        <div class="input__group">
+          <input type="text" name="customer[first_name]" id="{{ formId }}-FirstName" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} placeholder="First Name" autocomplete="given-name">
+          <div data-form-error></div>
+        </div>
+        
+        <div class="input__group">
+          <input type="text" name="customer[last_name]" id="{{ formId }}-FirstName" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} placeholder="Last Name" autocomplete="given-name">
+          <div data-form-error></div>
+        </div>
+        
+        <div class="input__group">
+          <div class="birthdate">
+            <input type="date" value="" name="customer[note][birthday]" id="birthday"  aria-required="true" placeholder="Birth Date" required>
+            <label for="birthday">{% if localName == 'english' %}Birth Date{% else %}誕生日{% endif %}</label>
+          </div>
+          <div data-form-error></div>
+        </div>
+        
+        <div class="input__group">
+          <input
+          type="email"
+          name="customer[email]"
+          id="{{ formId }}-email"
+          class="{% if form.errors contains 'email' %} input--error{% endif %}"
+          {% if form.email %} value="{{ form.email }}"{% endif %}
+          autocorrect="off"
+          autocapitalize="off"
+          autocomplete="email"
+          aria-required="true"
+          placeholder="Email"
+          {%- if form.errors contains 'email' -%}
+          class="input--error"
+          aria-invalid="true"
+          aria-describedby="{{ formId }}-email-error"
+          {%- endif -%}
+          >
+          <div data-form-error></div>
+        </div>
+        
+        <div class="input__group">
+          <input
+          type="password"
+          name="customer[password]"
+          id="{{ formId }}-password"
+          class="{% if form.errors contains 'password' %} input--error{% endif %}"
+          placeholder="Password"
+          aria-required="true"
+          {%- if form.errors contains 'password' -%}
+          class="input--error"
+          aria-invalid="true"
+          aria-describedby="{{ formId }}-password-error"
+          {%- endif -%}
+          >
+          <div data-form-error></div>
+        </div>
+        
+        <div class="input__group">
+          <input
+          type="password"
+          name="customer[confirm-password]"
+          id="{{ formId }}-confirm-password"
+          class="{% if form.errors contains 'password' %} input--error{% endif %}"
+          aria-required="true"
+          value=""
+          {%- if form.errors contains 'password' -%}
+          class="input--error"
+          aria-invalid="true"
+          aria-describedby="{{ formId }}-password-error"
+          {%- endif -%}
+          placeholder="Confirm Password"
+          >
+          <div data-form-error></div>
+        </div>
+        
+        <div class="checkbox-wrapper">
+          <input type="checkbox" id="information" name="customer[accepts_marketing]" checked>
+          <label for="information"> I wish to receive information from Star Wars Fine Jewelry about our latest news and creations.</label>
+        </div>
+        
+        <div class="form__submission">
+          <button type="submit" class="btn btn--primary">
+            Signup now
+          </button>
+        </div>
+        
+        <div class="form__message">
+          <p>{% if localName == 'english' %}Already have an account?{% else %}既にアカウントをお持ちですか？{% endif %} <a href="{{ routes.account_login_url }}">Login now</a></p>
+        </div>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .checkbox-wrapper {
+    display: flex;
+    align-items: baseline;
+    text-align: left;
+  }
+  .checkbox-wrapper label {
+    position: relative;
+    cursor: pointer;
+  }
+  input#information {
+    display: none;
+  }
+  
+  .checkbox-wrapper label:before {
+    content:'';
+    -webkit-appearance: none;
+    background-color: #3d4a51;
+    border: 2px solid #3d4a51;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+    padding: 7px;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-right: 5px;
+  }
+  
+  .checkbox-wrapper input:checked + label:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 6px;
+    left: 7px;
+    width: 5px;
+    height: 11px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+</style>

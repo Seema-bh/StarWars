@@ -1,0 +1,126 @@
+<section>
+  <div class="page-width">
+    <div class="section-content small--text-center">
+      <div class="content">
+        {% if section.settings.sub_title != blank %}
+        <span class="sub_title">{{ section.settings.sub_title }}</span>
+        {% endif %}
+        {% if section.settings.title != blank %}
+        <h2>{{ section.settings.title }}</h2>
+        {% endif %}
+        {% if section.settings.text != blank %}
+        <div class="text small--hide">
+          {{ section.settings.text }}
+        </div>
+        {% endif %}
+        {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+        <a href="{{ section.settings.button_link }}" class="btn btn-secondary small--hide">
+          {{ section.settings.button_label }}
+        </a>
+        {% endif %}
+      </div>
+      <div class="product-image">
+        <img class="lazyload"
+             src="{{ section.settings.product_image | img_url: 'master' }}"
+             data-src="{{ section.settings.product_image | img_url:"master" }}"
+             data-sizes="auto"
+             alt="" />
+        {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+        <a href="{{ section.settings.button_link }}" class="btn btn-secondary medium-up--hide">
+          {{ section.settings.button_label }}
+        </a>
+        {% endif %}
+      </div>
+      <div class="sw-logo">
+        <img class="lazyload"
+             src="{{ section.settings.logo | img_url: 'master' }}"
+             data-src="{{ section.settings.logo | img_url: "master" }}"
+             data-sizes="auto" 
+             alt="" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .homepage-fathers-day-section section {
+    background-image: url('{{ section.settings.desk_background | img_url: 'master' }}');
+  }
+  {% if section.settings.mob_background != blank %}
+  @media only screen and (max-width: 749px) {
+    .homepage-fathers-day-section section {
+      background-image: url('{{ section.settings.mob_background | img_url: 'master' }}');
+    }
+  }
+  {% endif %}
+</style>
+
+{% schema %}
+  {
+    "name": "Fathers day",
+	"class": "homepage-fathers-day-section",
+    "settings": [
+	  {
+		"type": "image_picker",
+		"id": "desk_background",
+		"label": "Desktop background image"
+	  },
+	  {
+		"type": "image_picker",
+		"id": "mob_background",
+		"label": "Mobile background image"
+	  },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "This Father’s Day"
+      },
+      {
+        "type": "text",
+        "id": "sub_title",
+        "label": "Subtitle",
+        "default": "There is a new way to celebrate"
+      },
+	  {
+        "type": "richtext",
+        "id": "text",
+        "label": "Text",
+		"default": "<p>Share your similar passion of the galaxy, rebels, light side and dark side with your father, with star wars™ fine jewelry</p>"
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": "Button label",
+		"default": "Shop new arrivals"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button link"
+      },
+	  {
+		"type": "image_picker",
+		"id": "product_image",
+		"label": "Product image"
+	  },
+	  {
+		"type": "image_picker",
+		"id": "logo",
+		"label": "Logo"
+	  }
+	],
+	"presets": [
+	  {
+		"name": "Fathers day",
+		"category": "Advanced layout"
+	  }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

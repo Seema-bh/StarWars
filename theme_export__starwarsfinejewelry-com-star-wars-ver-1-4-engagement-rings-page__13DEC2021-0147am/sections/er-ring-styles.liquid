@@ -1,0 +1,159 @@
+{% if section.settings.enable_section %}
+<section class="section-wrapper section-spacing">
+  <div class="page-width">
+    <div class="content text-center">
+      {% if section.settings.title != blank %}
+      <h2 class="title">{{ section.settings.title }}</h2>
+      {% endif %}
+      {% if section.settings.sub_title != blank %}
+      <span class="sub-title">{{ section.settings.sub_title }}</span>
+      {% endif %}
+    </div>
+    <div class="grid">
+      <div class="grid__item medium-up--one-half">
+        {% assign image_1 = section.settings.banner_image_1 | img_url: 'master' %}
+        <div class="image-wrapper image-wrapper">
+          {% if section.settings.button_url != blank %}
+          <a href="{{ section.settings.button_url }}">
+            {% endif %}
+            <img class="lazyload wow animate__fadeInUp" data-wow-duration="5s" data-wow-delay="0.5s" 
+                 src="{{ image_1 }}"
+                 data-src="{{ image_1 }}" 
+                 data-sizes="auto" 
+                 alt="" />
+            {% if section.settings.button_url != blank %}
+          </a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="grid__item medium-up--one-half">
+        {% assign image_2 = section.settings.banner_image_2 | img_url: 'master' %}
+        <div class="image-wrapper image-wrapper">
+          {% if section.settings.button_url != blank %}
+          <a href="{{ section.settings.button_url }}">
+            {% endif %}
+            <img class="lazyload wow animate__fadeInUp" data-wow-duration="5s" data-wow-delay="0.5s" 
+                 src="{{ image_2 }}"
+                 data-src="{{ image_2 }}" 
+                 data-sizes="auto" 
+                 alt="" />
+            {% if section.settings.button_url != blank %}
+          </a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="grid__item medium-up--one-third">
+        {% assign image_3 = section.settings.banner_image_3 | img_url: 'master' %}
+        <div class="image-wrapper image-wrapper">
+          {% if section.settings.button_url != blank %}
+          <a href="{{ section.settings.button_url }}">
+            {% endif %}
+            <img class="lazyload wow animate__fadeInUp" data-wow-duration="5s" data-wow-delay="0.5s" 
+                 src="{{ image_3 }}"
+                 data-src="{{ image_3 }}" 
+                 data-sizes="auto" 
+                 alt="" />
+            {% if section.settings.button_url != blank %}
+          </a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="grid__item medium-up--one-third">
+        {% assign image_4 = section.settings.banner_image_4 | img_url: 'master' %}
+        <div class="image-wrapper image-wrapper">
+          {% if section.settings.button_url != blank %}
+          <a href="{{ section.settings.button_url }}">
+            {% endif %}
+            <img class="lazyload wow animate__fadeInUp" data-wow-duration="5s" data-wow-delay="0.5s" 
+                 src="{{ image_4 }}"
+                 data-src="{{ image_4 }}" 
+                 data-sizes="auto" 
+                 alt="" />
+            {% if section.settings.button_url != blank %}
+          </a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="grid__item medium-up--one-third">
+        {% assign image_5 = section.settings.banner_image_5 | img_url: 'master' %}
+        <div class="image-wrapper image-wrapper">
+          {% if section.settings.button_url != blank %}
+          <a href="{{ section.settings.button_url }}">
+            {% endif %}
+            <img class="lazyload wow animate__fadeInUp" data-wow-duration="5s" data-wow-delay="0.5s" 
+                 src="{{ image_5 }}"
+                 data-src="{{ image_5 }}" 
+                 data-sizes="auto" 
+                 alt="" />
+            {% if section.settings.button_url != blank %}
+          </a>
+          {% endif %}
+        </div>
+      </div>
+    </div> 
+  </div>
+</section>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Ring styles",
+	"class": "er-ring-styles",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_section",
+        "label": "Enable section",
+		"default": true
+      },
+	  {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "Title"
+      },
+	  {
+        "type": "text",
+        "id": "sub_title",
+        "label": "Sub Title",
+        "default": "Sub Title"
+      },
+	  {
+        "type": "image_picker",
+        "id": "banner_image_1",
+        "label": "Banner 1"
+      },
+	  {
+        "type": "image_picker",
+        "id": "banner_image_2",
+        "label": "Banner 2"
+      },
+	  {
+        "type": "image_picker",
+        "id": "banner_image_3",
+        "label": "Banner 3"
+      },
+	  {
+        "type": "image_picker",
+        "id": "banner_image_4",
+        "label": "Banner 4"
+      },
+	  {
+        "type": "image_picker",
+        "id": "banner_image_5",
+        "label": "Banner 5"
+      },
+      {
+        "type": "url",
+        "id": "button_url",
+        "label": "Button link"
+      }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,111 @@
+{% if section.settings.enable_section %}
+<section class="section-spacing">
+  <div class="page-width">
+    {% capture image_layout %}
+    <div class="feature-row__item feature-row__item-image">
+      {% comment %}
+      {% if section.settings.image != blank %}
+      {% assign feature_image = section.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+      <div class="image-wrapper absolute-image-wrapper" style="padding-top:{{ 1 | divided_by: section.settings.image.aspect_ratio | times: 100 }}%;">
+        <img class="lazyload" 
+             data-src="{{ feature_image }}" 
+             data-widths="[180, 360, 375, 414, 540, 800, 1024, 1280, 1340, 1920 ]" 
+             data-aspectratio="{{ section.settings.image.aspect_ratio }}" 
+             data-sizes="auto"
+             alt="" />
+      </div>
+      {% endif %}
+      {% endcomment %}
+      
+      <a href="https://online.flippingbook.com/view/755297975/" class="fbo-embed" data-fbo-id="755297975" data-fbo-lightbox="yes" data-fbo-width="740px" data-fbo-height="480px" data-fbo-version="1" style="max-width: 100%">2021_StarWars_Bridal_Flip book_V1</a><script async defer src="https://online.flippingbook.com/EmbedScriptUrl.aspx?m=redir&hid=755297975"></script>
+
+    </div>
+    {% endcapture %}
+
+    <div class="feature-row">
+      {% if section.settings.layout == 'left' %}
+      {{ image_layout }}
+      {% endif %}
+
+      <div class="feature-row__item feature-row__text feature-row__text--{{ section.settings.layout }} text-center">
+        {% if section.settings.title != blank %}
+        <h2>{{ section.settings.title }}</h2>
+        {% endif %}
+        {% if section.settings.text != blank %}
+        <div class="rte rte-setting featured-row__subtext">{{ section.settings.text }}</div>
+        {% endif %}
+        {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+        {%- capture ariaLabel -%}
+        {{- section.settings.button_label -}}
+        {%- if section.settings.button_link.type == 'frontpage_link' -%}
+        : {{ 'homepage.general.title' | t -}}
+        {%- elsif section.settings.button_link.type == 'catalog_link' -%}
+        : {{ 'collections.catalog.title' | t -}}
+        {%- elsif section.settings.button_link.object.title -%}
+        : {{ section.settings.button_link.object.title -}}
+        {%- endif -%}
+        {%- endcapture -%}
+
+        <a href="{{ section.settings.button_link }}/"
+           class="btn"
+           aria-label="{{ ariaLabel }}">
+          {{- section.settings.button_label | escape -}}
+        </a>
+        {% endif %}
+      </div>
+
+      {% if section.settings.layout == 'right' %}
+      {{ image_layout }}
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Image with text",
+  "class": "er-feature-row",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_section",
+      "label": "Enable section",
+      "default": true
+    },
+	{
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Image alignment",
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Image with text"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
+    }
+  ]
+}
+{% endschema %}

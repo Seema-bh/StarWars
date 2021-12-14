@@ -1,0 +1,156 @@
+{% assign localName = request.locale.name | handle %}
+<div class="page-width">
+  <div class="customer__login">
+	<div class="login__container">
+      <div class="form-message form-message--success hide" id="ResetSuccess" tabindex="-1">
+        {{ 'customer.recover_password.success' | t }}
+      </div>
+
+      <div id="CustomerLoginForm" class="login__form">
+
+        {% form 'customer_login', novalidate: 'novalidate' %}
+        {% if localName == 'english' %}
+          <h1 id="LoginHeading" class="login__heading">HELLO PADAWAN</h1>
+          <div class="login__subheading">Please login into your account!</div>
+          {% else %}
+          <h1 id="LoginHeading" class="login__heading">こんにちはパダワン</h1>
+          <div class="login__subheading">アカウントにログインしてください！</div>
+          {% endif %}
+          {%- if form.errors -%}
+            <div class="form-message form-message--error">
+              <h2 class="h3 form-message__title " tabindex="-1" data-form-status>{{ 'contact.form.error_heading' | t }}</h2>
+              {{ form.errors | default_errors }}
+            </div>
+          {%- endif -%}
+
+          <div class="input__group">
+            <input
+              type="email"
+              name="customer[email]"
+              id="CustomerEmail"
+              autocomplete="email"
+              autocorrect="off"
+              autocapitalize="off"
+              placeholder="Email"
+              {%- if form.errors contains 'form' -%}
+                class="input--error"
+                aria-invalid="true"
+              {%- endif -%}
+              >
+          </div>
+
+          <div class="input__group">
+            {% if form.password_needed %}
+              <input
+                type="password"
+                value=""
+                name="customer[password]"
+                id="CustomerPassword"
+                placeholder="Password"
+                {%- if form.errors contains 'form' -%}
+                  class="input--error"
+                  aria-invalid="true"
+                {%- endif -%}
+              >
+            {% endif %}
+          </div>
+
+          <div class="form__actions">
+            <div class="action__item">
+              <div class="input-checkbox hide">
+                <input type="checkbox" name="remember" id="remember" />
+                <label for="remember">{% if localName == 'english' %}Remember me{% else %}私を覚えてますか{% endif %}</label>
+              </div>
+            </div>
+
+            <div class="action__item">
+              {% if form.password_needed %}
+              <a href="#recover" id="RecoverPassword">{{ 'customer.login.forgot_password' | t }}</a>
+              {% endif %}
+            </div>
+          </div>
+        
+          <div class="form__submission">
+<!--             <input type="submit" class="btn" value="{{ 'customer.login.sign_in' | t }}"> -->
+            <button type="submit" class="btn">
+              {{ 'customer.login.sign_in' | t }}
+              <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23"><defs><style>.btn-right-arr-a,.btn-right-arr-b{fill:none;}.btn-right-arr-b{stroke:#fff;stroke-width:1.5px;}</style></defs><rect class="btn-right-arr-a" width="23" height="23"/><g transform="translate(4.108 4.928)"><path class="btn-right-arr-b" d="M5.427,6.66,11.47,12.7,5.149,19.023" transform="translate(3.906 -6.66)"/><path class="btn-right-arr-b" d="M5.526,13.837H20.591" transform="translate(-5.526 -7.941)"/></g></svg>
+            </button>
+          </div>
+        	
+          <div class="form__message">
+            <p><span class="notify-msg">{% if localName == 'english' %}Don’t have an account?{% else %}アカウントをお持ちではありませんか？{% endif %}</span> {{ 'layout.customer.create_account' | t | customer_register_link }}</p>
+          </div>
+        {% endform %}
+      </div>
+
+      <div id="RecoverPasswordForm" class="recover__password hide">
+        {% form 'recover_customer_password' %}
+        <h2 class="recover__heading">{{ 'customer.recover_password.title' | t }}</h2>
+        <p class="recover__subheading">{{ 'customer.recover_password.subtext' | t }}</p>
+
+        {% comment %}
+        Add a hidden span to indicate the form was submitted succesfully.
+        {% endcomment %}
+        {% if form.posted_successfully? %}
+        <span class="hide reset-password-success"></span>
+        {% endif %}
+
+        <div class="input__group">
+          <input
+                 type="email"
+                 value=""
+                 name="email"
+                 id="RecoverEmail"
+                 class="input-full{% if form.errors %} input--error{% endif %}"
+                 autocorrect="off"
+                 autocapitalize="off"
+                 placeholder="Email"
+                 {% if form.errors %}
+                 aria-invalid="true"
+                 aria-describedby="RecoverEmail-email-error"
+                 {%- endif -%}
+                 >
+          {%- if form.errors -%}
+          <span id="RecoverEmail-email-error" class="input-error-message">
+            <span class="visually-hidden">{{ 'general.accessibility.error' | t }} </span>
+            {% include 'icon-error' %}
+            <span>{{ form.errors.messages['form'] }}</span>
+          </span>
+          {%- endif -%}
+        </div>
+
+        <div class="form__submission">
+<!--           <input type="submit" class="btn" value="{{ 'customer.recover_password.submit' | t }}"> -->
+          <button type="submit" class="btn">
+            {{ 'customer.recover_password.submit' | t }}
+            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23"><defs><style>.btn-right-arr-a,.btn-right-arr-b{fill:none;}.btn-right-arr-b{stroke:#fff;stroke-width:1.5px;}</style></defs><rect class="btn-right-arr-a" width="23" height="23"/><g transform="translate(4.108 4.928)"><path class="btn-right-arr-b" d="M5.427,6.66,11.47,12.7,5.149,19.023" transform="translate(3.906 -6.66)"/><path class="btn-right-arr-b" d="M5.526,13.837H20.591" transform="translate(-5.526 -7.941)"/></g></svg>
+          </button>
+        </div>
+
+        <div class="form__message text-center">
+          <a href="#LoginHeading" id="HideRecoverPasswordLink">
+            {{ 'customer.recover_password.cancel' | t }}
+          </a>
+        </div>
+        {% endform %}
+      </div>
+
+      {% comment %}
+        If accounts are set as optional, the following will be shown as an option
+        during checkout, not on the default /login page.
+      {% endcomment %}
+      {% if shop.checkout.guest_login %}
+        <div class="text-center">
+          <hr class="hr--invisible">
+          <h2>{{ 'customer.login.guest_title' | t }}</h2>
+
+          {% form 'guest_login' %}
+            <input type="submit" class="btn" value="{{ 'customer.login.guest_continue' | t }}">
+          {% endform %}
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+</div>

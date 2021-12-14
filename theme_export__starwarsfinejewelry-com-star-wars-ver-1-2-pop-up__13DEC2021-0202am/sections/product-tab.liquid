@@ -1,0 +1,302 @@
+<section class="sw__product-tabs" data-section-type="sw-product-tabs" data-section-id="{{ section.id }}">
+  <div class="page-width">
+    <div class="product-tabs">
+      <ul class="tabs">
+        <li data-tab="tab-1" class ="active">Description</li>
+        <li data-tab="tab-2">Specifications</li>
+        <li data-tab="tab-3">About the Collection</li>
+        <li data-tab="tab-4">Authenticity</li>
+        <li data-tab="tab-5">Shipping & returns</li>
+        <li data-tab="tab-6">Warranty</li>
+      </ul>
+      <div class="tab-details">
+        <div class="tab__heading--small active">       
+          <h3>Description</h3> 
+          {% include 'icon-plus' %}
+          {% include 'icon-minus' %}
+        </div>
+        <div id="tab-1" class="tab_content current">
+          {{ product.description }}
+          <p class="product-single__sku">SKU # <span class="variant-sku">{{ product.selected_or_first_available_variant.sku }}</span></p>
+        </div>
+        <div class="tab__heading--small">       
+          <h3>Specifications</h3>  
+          {% include 'icon-plus' %}
+          {% include 'icon-minus' %}
+        </div>
+        <div id="tab-2" class="tab_content">
+          <div class="metafield-info">
+            {% assign Metal = product.metafields.global.Metal %}
+            {% if Metal != 0 and Metal != blank %}
+            <p>Metal : {{ Metal }}</p>
+            {% endif %}
+            
+            {% comment %}
+            {% assign MetalWeight = product.metafields.global['Total Metal Weight'] %}
+            {% if MetalWeight != 0 and MetalWeight != blank %}
+            <p>Metal Weight  : {{ MetalWeight }}</p>
+            {% endif %}
+            {% endcomment %}
+            
+            {% assign diamondType = product.metafields.global['Diamond Type'] %}
+            {% if diamondType != 0 and diamondType != blank %}
+            <p>Diamond Type  : {{ diamondType }}</p>
+            {% endif %}
+            
+            {% assign DiamondShape = product.metafields.global['Diamond Shape'] %}
+            {% if DiamondShape != 0 and DiamondShape != blank %}
+            <p>Diamond Shape  : {{ DiamondShape }}</p>
+            {% endif %}
+
+            {% assign weight = product.metafields.global['Diamond Total Weight'] %}
+            {% if weight != 0 and weight != blank %}
+            <p>Diamond Total Weight : {{ weight }}</p>
+            {% endif %}
+            
+            {% assign DiamondClarity = product.metafields.global['Diamond Clarity'] %}
+            {% if DiamondClarity != 0 and DiamondClarity != blank %}
+            <p>Diamond Clarity  : {{ DiamondClarity }}</p>
+            {% endif %}
+            
+            {% assign Diamondcolor = product.metafields.global['Diamond color'] %}
+            {% if Diamondcolor != 0 and Diamondcolor != blank %}
+            <p>Diamond Color  : {{ Diamondcolor }}</p>
+            {% endif %}
+            
+            {% assign DiamondTreatmentMethod = product.metafields.global['Diamond Treatment Method'] %}
+            {% if DiamondTreatmentMethod != 0 and DiamondTreatmentMethod != blank %}
+            <p>Diamond Treatment Method  : {{ DiamondTreatmentMethod }}</p>
+            {% endif %}
+            
+            {% assign DiamondCreationMethod = product.metafields.global['Diamond Creation Method'] %}
+            {% if DiamondCreationMethod != 0 and DiamondCreationMethod != blank %}
+            <p>Diamond Creation Method  : {{ DiamondCreationMethod }}</p>
+            {% endif %}
+            
+            {% assign SettingType = product.metafields.global['Setting Type'] %}
+            {% if SettingType != 0 and SettingType != blank %}
+            <p>Setting Type  : {{ SettingType }}</p>
+            {% endif %}
+            
+            {% assign Clasptype = product.metafields.global['Clasp type'] %}
+            {% if Clasptype != 0 and Clasptype != blank %}
+            <p>Clasp type  : {{ Clasptype }}</p>
+            {% endif %}
+            
+            {% assign BackFinding = product.metafields.global['Back Finding'] %}
+            {% if BackFinding != 0 and BackFinding != blank %}
+            <p>Back Finding  : {{ BackFinding }}</p>
+            {% endif %}
+            
+            {% assign Gemstone = product.metafields.global['Gemstone'] %}
+            {% if Gemstone != 0 and Gemstone != blank %}
+            <p>Gemstone : {{ Gemstone }}</p>
+            {% endif %}
+            
+            {% assign GemstoneShape = product.metafields.global['Gemstone Shape'] %}
+            {% if GemstoneShape != 0 and GemstoneShape != blank %}
+            <p>Gemstone Shape  : {{ GemstoneShape }}</p>
+            {% endif %}
+            
+            {% assign GemstoneWeight = product.metafields.global['Gemstone Weight'] %}
+            {% if GemstoneWeight != 0 and GemstoneWeight != blank %}
+            <p>Gemstone Weight  : {{ GemstoneWeight }}</p>
+            {% endif %}
+            
+            
+            {% assign GemstoneSize = product.metafields.global['Gemstone Size'] %}
+            {% if GemstoneSize != 0 and GemstoneSize != blank %}
+            <p>Gemstone Size  : {{ GemstoneSize }}</p>
+            {% endif %}
+
+            {% assign Gemstone1 = product.metafields.global['Gemstone 1'] %}
+            {% if Gemstone1 != 0 and Gemstone1 != blank %}
+            <p>Gemstone 1  : {{ Gemstone1 }}</p>
+            {% endif %}
+
+            {% assign GemstoneShape1 = product.metafields.global['Gemstone Shape 1'] %}
+            {% if GemstoneShape1 != 0 and GemstoneShape1 != blank %}
+            <p>Gemstone Shape 1  : {{ GemstoneShape1 }}</p>
+            {% endif %}
+            
+            {% assign GemstoneWeight1 = product.metafields.global['Gemstone Weight 1'] %}
+            {% if GemstoneWeight1 != 0 and GemstoneWeight1 != blank %}
+            <p>Gemstone Weight 1  : {{ GemstoneWeight1 }}</p>
+            {% endif %}
+            
+            {% assign GemstoneSize1 = product.metafields.global['Gemstone Size 1'] %}
+            {% if GemstoneSize1 != 0 and GemstoneSize1 != blank %}
+            <p>Gemstone Size 1  : {{ GemstoneSize1 }}</p>
+            {% endif %}
+
+            {% assign Gemstone2 = product.metafields.global['Gemstone 2'] %}
+            {% if Gemstone2 != 0 and Gemstone2 != blank %}
+            <p>Gemstone 2  : {{ Gemstone2 }}</p>
+            {% endif %}
+
+            {% assign GemstoneShape2 = product.metafields.global['Gemstone Shape 2'] %}
+            {% if GemstoneShape2 != 0 and GemstoneShape2 != blank %}
+            <p>Gemstone Shape 2  : {{ GemstoneShape2 }}</p>
+            {% endif %}
+            
+            {% assign GemstoneWeight2 = product.metafields.global['Gemstone Weight 2'] %}
+            {% if GemstoneWeight2 != 0 and GemstoneWeight2 != blank %}
+            <p>Gemstone Weight 2  : {{ GemstoneWeight2 }}</p>
+            {% endif %}
+            
+            
+            {% assign GemstoneSize2 = product.metafields.global['Gemstone Size 2'] %}
+            {% if GemstoneSize2 != 0 and GemstoneSize2 != blank %}
+            <p>Gemstone Size 2  : {{ GemstoneSize2 }}</p>
+            {% endif %}
+            
+            {% assign BraceletSize = product.metafields.global['Bracelet Size'] %}
+            {% if BraceletSize != 0 and BraceletSize != blank %}
+            <p>Bracelet Size  : {{ BraceletSize }}</p>
+            {% endif %}
+            
+            {% assign Romantic = product.metafields.global['Romantic description'] %}
+            {% if Romantic != 0 and Romantic != blank %}
+            <p>Romantic : {{ Romantic }}</p>
+            {% endif %}
+            
+            {% assign Chain = product.metafields.global['Chain Information'] %}
+            {% if Chain != 0 and Chain != blank %}
+            <p>Chain : {{ Chain }}</p>
+            {% endif %}
+            
+            {% assign diamention = product.metafields.global['Product.Dimension'] %}
+            {% if diamention != 0 and diamention != blank %}
+            <p>Dimension : {{ diamention }}</p>
+            
+            <ul class="specification-note" style="font-size: 12px;display: inline-block;">
+              <li>The product dimensions supplied are intended to give an approximate indication of the size of the product. Actual size may vary slightly.</li>
+              <li>Dimensions shown are of ring size 7 for Women and ring size 10 for Men</li>
+            </ul>
+            {% endif %}
+          </div>
+          
+          {% assign specTag = product.tags | join: '' %}        
+          {% if specTag contains 'spec--' %}
+          <table class="">
+            <tbody>
+              {% for tag in product.tags %}
+              {% if tag contains 'spec--' %}
+              {% assign tagName = tag | split:'--' | last %}
+              {% assign tagFirst = tagName | split:':' | first %}
+              {% assign tagLast = tagName | split:':' | last %}
+              {% if tagLast != blank %}
+              <tr>
+                <td class="first">{{ tagFirst | replace: '_',' ' }}</td>
+                <td class="last">{{ tagLast | replace: '-', ' ' | replace:'_',' ' }}</td>
+              </tr>
+              {% endif %}
+              {% endif %}
+              {% endfor %}      
+            </tbody>
+          </table>
+          {% endif %}
+        </div>
+        <div class="tab__heading--small">       
+          <h3>About the Collection</h3>   
+          {% include 'icon-plus' %}
+          {% include 'icon-minus' %}
+        </div>
+        <div id="tab-3" class="tab_content">
+          {% for collection in product.collections %}
+          {% if collection.title contains 'Friendship' or collection.title contains 'The Mandalorian' or collection.title contains 'Into the Galaxy' or collection.title contains 'Forces of the Galaxy' or collection.title contains 'Celestial Love' or collection.title contains 'Balance of Nature' or collection.title contains 'Balance of the Force' %}
+          {% if collection.description contains '<!-- split -->' %}
+          {{ collection.description | split: '<!-- split -->' | last }}
+          {% else %}
+          {{ collection.description }}
+          {% endif %}
+          {% endif %}
+          {% endfor %}
+        </div>
+        <div class="tab__heading--small">       
+          <h3>Authenticity</h3>   
+          {% include 'icon-plus' %}
+          {% include 'icon-minus' %}
+        </div>
+        <div id="tab-4" class="tab_content">
+          {% unless section.settings.authenticity_content == blank %}
+          {{ section.settings.authenticity_content }}
+          {% endunless %}
+        </div>
+        <div class="tab__heading--small">       
+          <h3> Shipping & returns</h3>   
+          {% include 'icon-plus' %}
+          {% include 'icon-minus' %}
+        </div>
+        <div id="tab-5" class="tab_content">
+          {% unless section.settings.shipping_content == blank %}
+          {% comment %}
+          <h2>{{ product.title }}</h2>
+          <p class="product-single__sku">SKU # <span class="variant-sku">{{ product.selected_or_first_available_variant.sku }}</span></p>
+          {% endcomment %}
+          {{ section.settings.shipping_content }}
+          {% endunless %}
+        </div>
+        <div class="tab__heading--small">       
+          <h3>Warranty</h3>   
+          {% include 'icon-plus' %}
+          {% include 'icon-minus' %}
+        </div>
+        <div id="tab-6" class="tab_content">
+          <p>Star Wars™ Fine Jewelry provides a 1-year warranty on all your fine jewelry purchased from <a href="/">starwarsfinejewelry.com</a>. The warranty covers manufacturers defects in material or workmanship but it does not cover neglect or abuse.</p>
+          <h5>WARRANTY EXCEPTIONS & EXCLUSIONS</h5>
+          <p class="no-margin">The Star Wars™ Fine Jewelry warranty does NOT cover the following items:</p>
+          <ol>
+            <li><p>Any damage to your jewelry purchase due to negligence or abuse. (For Example: If a stone is lost due to bent, damaged, or worn out prongs, Star Wars™ Fine Jewelry is not responsible for the replacement of the stone or the re-tipping of the prongs. If the jewelry was neglected and abused and the warranty becomes void.)</p></li>
+            <li><p>If another jeweler performs any repair or resizing work on an item purchased from <a href="/">starwarsfinejewelry.com</a>. we will not be held responsible for any loss or defect and the warranty becomes null and void.</p></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <div class="product-box-image">
+      
+      {% if product.type == 'Bracelet' %}
+      <div class="packaging-txt">
+        <p>NOTE: Bracelets will ship inside branded Star Wars<sup>TM</sup> Packaging with a bracelet pillow, not a light up box.</p>
+      </div>
+      {% else %}
+      <div class="">
+        <img class="lazyload" data-src="{{ section.settings.desktop_image | img_url:"master" }}" data-sizes="auto">
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Tab Content",
+  "settings": [
+  {
+    "type": "html",
+    "id": "authenticity_content",
+    "label": "Authenticity Tab Content"
+  },
+  {
+    "type": "html",
+    "id": "shipping_content",
+    "label": "Shipping Tab Content"
+  },
+  {
+    "type": "header",
+    "content": "Packaging image"
+  },
+  {
+    "type": "image_picker",
+    "id": "desktop_image",
+    "label": "Desktop packaging image"
+  }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,31 @@
+{% if localName == 'english' %}
+<select id="ajaxSort" class="sort-wrapper">
+  {% if collection.handle contains 'new-arrivals' %}
+  <option value="created-descending">Date: New to Old</option>
+  <option value="best-selling">Best Selling</option>
+  <option value="price-ascending">Price: Low to High</option>
+  <option value="price-descending">Price: High to Low</option>                
+  <option value="title-ascending">Alphabetically: A-Z</option>
+  <option value="title-descending">Alphabetically: Z-A</option>
+  <option value="created-ascending">Date: Old to New</option>
+  {% else %}
+  <option value="best-selling">Best Selling</option>
+  <option value="price-ascending">Price: Low to High</option>
+  <option value="price-descending">Price: High to Low</option>                
+  <option value="title-ascending">Alphabetically: A-Z</option>
+  <option value="title-descending">Alphabetically: Z-A</option>
+  <option value="created-descending">Date: New to Old</option>
+  <option value="created-ascending">Date: Old to New</option>
+  {% endif %}
+</select>
+{% else %}
+<select id="ajaxSort" class="sort-wrapper">
+  <option value="best-selling">人気製品</option>
+  <option value="price-ascending">価格：安い順</option>
+  <option value="price-descending">価格：高い順</option>                
+  <option value="title-ascending">アルファベット順：A-Z</option>
+  <option value="title-descending">アルファベット順：Z-A</option>
+  <option value="created-descending">日付：新しい順</option>
+  <option value="created-ascending">日付：古い順</option>
+</select>
+{% endif %}

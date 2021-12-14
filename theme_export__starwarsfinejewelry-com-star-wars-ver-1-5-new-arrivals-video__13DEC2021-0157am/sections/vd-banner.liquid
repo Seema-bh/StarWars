@@ -1,0 +1,85 @@
+<div class="section-wrapper">
+  <img class="lazyload mobile-hide banner-image"
+       src="{{ section.settings.desk_image | img_url: 'master' }}"
+       data-src="{{ section.settings.desk_image | img_url:"master" }}"
+       data-sizes="auto"
+       alt="" />
+  <img class="lazyload desktop-hide banner-image"
+       src="{{ section.settings.mob_image | img_url: 'master' }}"
+       data-src="{{ section.settings.mob_image | img_url:"master" }}"
+       data-sizes="auto"
+       alt="" />
+  <div class="banner-content text-center">
+    <div class="page-width">
+      {% assign localName = request.locale.name | handle %}
+      {% if localName == "english"%}
+      {% if section.settings.title != blank %}
+      <h1 class="heading">{{ section.settings.title }}</h1>
+      {% endif %}
+      {% else %}
+      {% if section.settings.title_japanese != blank %}
+      <h1 class="heading">{{ section.settings.title_japanese }}</h1>
+      {% endif %}
+      {% endif %}
+      {% assign localName = request.locale.name | handle %}
+      {% if localName == "english"%}
+      {% if section.settings.text != blank %}
+      {{ section.settings.text }}
+      {% endif %}
+      {% else %}
+      {% if section.settings.text_japanese != blank %}
+      {{ section.settings.text_japanese }}
+      {% endif %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Banner",
+	"class": "banner-section",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "desk_image",
+        "label": "Desktop Image"
+      },
+	  {
+        "type": "image_picker",
+        "id": "mob_image",
+        "label": "Mobile Image"
+      },
+	  {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+		"default": "Heading"
+      },
+	  {
+        "type": "text",
+        "id": "title_japanese",
+        "label": "Heading (Japanese)",
+		"default": "彼と彼女の物語ー次章"
+      },
+	  {
+        "type": "richtext",
+        "id": "text",
+        "label": "text",
+		"default": "<p>Text goes here.</p>"
+      },
+	  {
+        "type": "richtext",
+        "id": "text_japanese",
+        "label": "text (Japanese)",
+		"default": "<p>ストーリーの数だけ、指輪の数がある…</p>"
+      }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,281 @@
+<style>
+  .page-ring-size-guide h1, 
+  .page-ring-size-guide h2, 
+  .page-ring-size-guide h3 {color: #FFF;}
+  .page-ring-size-guide h2 {
+    text-transform: none;
+    letter-spacing: normal;
+  }
+  .page-ring-size-guide p {
+    color: #FFF;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.14px;
+  }
+  .page-ring-size-guide .page-width {max-width: 1280px;}
+  .page-ring-size-guide {
+    background: #000;
+    padding: 20px 0 0;
+  }
+  .page-ring-size-guide .breadcrumb {color: #FFF;}
+  .page-ring-size-guide .breadcrumb a {color: #EBEEF0;}
+  .page-ring-size-guide .section-spacing {padding-top: 60px;}
+  .page-ring-size-guide .section-header {margin-bottom: 70px;}
+  .page-ring-size-guide .section-header .sub-title {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 13px;
+    line-height: 18px;
+    font-weight: 600;
+    letter-spacing: 1.95px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 5px;
+  }
+  .page-ring-size-guide .section-header h2 {
+    font-family: "Source Sans Pro",sans-serif;
+    font-size: 18px;
+    line-height: 25px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    max-width: 450px;
+    margin: 0 auto 20px;
+  }
+  .page-ring-size-guide .section-header h2:after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: #DF5D46;
+    margin: 10px auto 0;
+  }
+  .page-ring-size-guide .section-header .text {
+    max-width: 582px;
+    margin: 0 auto;
+  }
+  .page-ring-size-guide .section-header .btn {
+    margin: 40px 0 0;
+    width: 485px;
+    max-width: 100%;
+  }
+  @media (max-width: 749px) {
+    .page-ring-size-guide p {
+      font-size: 16px;
+      letter-spacing: 0.16px;
+    }
+    .page-ring-size-guide .section-spacing {padding-top: 50px;}
+    .page-ring-size-guide .section-header h2 {
+      font-size: 16px;
+      line-height: 22px;
+      letter-spacing: 1.6px;
+      margin-bottom: 15px;
+    }
+    .page-ring-size-guide .section-header h2:after {height: 3px;}
+    .page-ring-size-guide .page-width {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
+  
+  /***** rsg-header *****/
+  .rsg-header {
+    background: url('https://cdn.shopify.com/s/files/1/0465/8787/1396/files/ring-size-guide-stars-bg.png?v=1638188866') 
+      no-repeat top center;
+    margin-top: 25px;
+  }
+  .rsg-header h1 {
+    color: #FFF;
+    font-size: 30px;
+    line-height: 40px;
+    font-weight: 700;
+    text-transform: capitalize;
+    margin-bottom: 9px;
+  }
+  .rsg-header .text {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  @media (max-width: 749px) {
+    .rsg-header h1 {
+      font-size: 22px;
+      line-height: 30px;
+      letter-spacing: 2.2px;
+    }
+  }
+  
+  /***** rsg-option *****/
+  .rsg-option.option-1 {
+    background: url('https://cdn.shopify.com/s/files/1/0465/8787/1396/files/ring-size-guide-stars-bg-1.png?v=1638189109') 
+      top center;
+  }
+  .rsg-option .steps-wrapper {
+    max-width: 1280px;
+    margin: 0 auto;
+    counter-reset: section;
+  }
+  .rsg-option .steps-wrapper .step {
+    display: flex;
+    justify-content: center;
+  }
+  .rsg-option .steps-wrapper .step:not(:last-child) {margin-bottom: 50px;}
+  
+  .rsg-option .steps-wrapper .step-svg svg {
+    display: block;
+    max-width: 100%;
+  }
+  .rsg-option .steps-wrapper .step-info h3 {
+    font-family: "Source Sans Pro",sans-serif;
+    color: #DF5D46;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    position: relative;
+    padding-left: 45px;
+  }
+  .rsg-option .steps-wrapper .step-info h3:after {
+    counter-increment: section;
+    content: " " counter(section) "";
+    margin-left: 2px;
+  }
+  .rsg-option .steps-wrapper .step-info h3 svg {
+    width: 28px;
+    margin-right: 20px;
+    position: absolute;
+    left: 0;
+    top: 4px;
+  }
+  .rsg-option .steps-wrapper .step-info p {
+    font-size: 18px;
+    line-height: 23px;
+    padding-left: 45px;
+  }
+  @media (min-width: 750px) {
+    .rsg-option .steps-wrapper .step:nth-child(2n) .step-info {
+      order: 2;
+      padding-left: 50px;
+      padding-right: 0;
+    }
+    .rsg-option .steps-wrapper .step:not(:nth-child(2n)) {padding-left: 20px;}
+    .rsg-option .steps-wrapper .step:nth-child(2n) {padding-right: 20px;}
+    .rsg-option .steps-wrapper .step-1 .step-info p {max-width: 281px;}
+    .rsg-option .steps-wrapper .step-2 .step-info p {max-width: 440px;}
+    .rsg-option .steps-wrapper .step:not(:first-child) .step-svg {margin-top: -160px;}
+    .rsg-option .steps-wrapper .step-info {
+      max-width: 42%;
+      padding-right: 70px;
+    }
+    .rsg-option .steps-wrapper .step-svg {max-width: 58%;}
+  }
+  @media (max-width: 749px) {
+    .rsg-option .steps-wrapper {padding: 0 15px;}
+    .rsg-option .steps-wrapper .step {flex-wrap: wrap;}
+    .rsg-option .steps-wrapper .step-info {margin-bottom: 30px;}
+    .rsg-option .steps-wrapper .step-info h3 {
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 2.1px;
+    }
+    .rsg-option .steps-wrapper .step-info p {letter-spacing: 0.18px;}
+    .rsg-option .steps-wrapper .step:not(:last-child) {margin-bottom: 30px;}
+    .rsg-option .steps-wrapper .step-svg {
+      max-width: 295px;
+      margin: 0 auto;
+    }
+    .rsg-option .steps-wrapper .step-svg svg {height: auto;}
+  }
+  
+  /***** rsg-size-chart *****/
+  .rsg-size-chart h2 {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+  .rsg-size-chart p {
+    font-size: 16px;
+    line-height: 21px;
+  }
+  .rsg-size-chart .grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .rsg-size-chart .chart {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+  }
+  .rsg-size-chart .chart span {
+    color: #FFF;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+  }
+  .rsg-size-chart .chart h4 {
+    font-family: "Source Sans Pro",sans-serif;
+    color: #F4513B;
+    font-size: 18px;
+    line-height: 25px;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+  }
+  .rsg-size-chart .chart .table-wrapper {
+    background: url('https://cdn.shopify.com/s/files/1/0465/8787/1396/files/table-Box.png?v=1638169764') 
+      no-repeat left top;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+    padding: 25px 25px 36px;
+  }
+  .rsg-size-chart .chart .chart-header {width: 100%;}
+  .rsg-size-chart .chart table {margin-bottom: 0;}
+  .rsg-size-chart .chart table td, 
+  .rsg-size-chart .chart table th {
+    width: 20%;
+    font-family: "Source Sans Pro",sans-serif;
+    color: #242424;
+    border: none;
+    border-bottom: 1px solid #DFE3E7;
+    text-align: center;
+  }
+  .rsg-size-chart .chart table td:not(:last-child), 
+  .rsg-size-chart .chart table th:not(:last-child) {
+    border-right: 2px solid #FFF;
+  }
+  .rsg-size-chart .chart table th {
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: 700;
+  }
+  .rsg-size-chart .chart table td {
+    font-size: 14px;
+    line-height: 20px;
+    padding: 4px 5px;
+  }
+  .rsg-size-chart .image-wrapper {margin: 70px 0 30px;}
+  .rsg-size-chart .image-wrapper img {
+    display: block;
+    margin: 0 auto;
+  }
+  @media (max-width: 749px) {
+    .rsg-size-chart .text {
+      max-width: 330px;
+      margin: 0 auto;
+    }
+    .rsg-size-chart .chart {margin-top: 15px;}
+    .rsg-size-chart .chart .table-wrapper {padding: 16px 18px 20px;}
+    .rsg-size-chart .chart table td {padding: 3px 5px;}
+    .rsg-size-chart .image-wrapper {margin: 50px 0 20px;}
+    .rsg-size-chart .image-wrapper img {max-width: 195px;}
+    .page-ring-size-guide .section-header .btn {
+      margin-top: 30px;
+      width: 332px;
+    }
+  }
+</style>

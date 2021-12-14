@@ -1,0 +1,47 @@
+{% unless section.settings.hide_section == true %}
+<div class="page-width text-center">
+  {% assign localName = request.locale.name | handle %}
+  {% if localName == "english"%}
+  {% unless section.settings.paragraph == blank %}
+  {{ section.settings.paragraph }}
+  {% endunless %}
+  {% else %}
+  {% unless section.settings.paragraph_japanese == blank %}
+  {{ section.settings.paragraph_japanese }}
+  {% endunless %}
+  {% endif %}
+</div>
+{% endunless %}
+
+{% schema %}
+  {
+    "name": "Text Section",
+	"class": "index-section themepage-text-section itg-text-section",
+    "settings": [
+	  {
+        "type": "checkbox",
+        "id": "hide_section",
+        "label": "Hide Section",
+        "default": false
+      },
+      {
+        "type": "richtext",
+        "id": "paragraph",
+        "label": "Paragraph",
+        "default": "<p>Paragraph</p>"
+      },
+      {
+        "type": "richtext",
+        "id": "paragraph_japanese",
+        "label": "Paragraph (Japanese)",
+        "default": "<p>スターウォーズギャラクシーは多様で広大であり、個々人の選択が大きな影響を及ぼします。”ギャラクシーへ”は冒険の多様な展開を意味する星の様なハイライトとギャラクシーの終わりのない可能性を表したジェダイプロテクションのコレクションです。</p>"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

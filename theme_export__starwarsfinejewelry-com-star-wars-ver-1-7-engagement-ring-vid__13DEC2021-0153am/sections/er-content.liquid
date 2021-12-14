@@ -1,0 +1,78 @@
+{% if section.settings.enable_section %}
+<section class="section-wrapper section-spacing">
+  <div class="page-width">
+    <div class="section-content text-center">
+      {% if section.settings.text != blank %}
+      <div class="text">{{ section.settings.text }}</div>
+      {% endif %}
+      {% assign image = section.settings.banner_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+      <div class="image-wrapper absolute-image-wrapper" style="padding-top:{{ 1 | divided_by: section.settings.banner_image.aspect_ratio | times: 100 }}%;">
+        <svg xmlns="http://www.w3.org/2000/svg" class="svg-1" width="273.671" height="96.817" viewBox="0 0 273.671 96.817">
+          <g id="Luke_skywalker_" data-name="Luke skywalker™" transform="translate(-927.329 -1991.183)">
+            <path id="Path_47594" data-name="Path 47594" d="M8783.329-5648.317h115.74l57.369,60.992" transform="translate(-7856 7640)" fill="none" stroke="#fff" stroke-width="1"/>
+            <g id="Group_101700" data-name="Group 101700" transform="translate(9 -8)">
+              <g id="Rectangle_21693" data-name="Rectangle 21693" transform="translate(990 2060)" fill="none" stroke="#fff" stroke-width="1">
+                <rect width="202" height="36" stroke="none"/>
+                <rect x="0.5" y="0.5" width="201" height="35" fill="none"/>
+              </g>
+              <text id="Luke_skywalker_2" data-name="Luke skywalker™" transform="translate(1091 2084)" fill="#fff" font-size="18" font-family="SourceSansPro-Regular, Source Sans Pro" letter-spacing="0.1em"><tspan x="-85" y="0">LUKE SKYWALKER™</tspan></text>
+            </g>
+          </g>
+        </svg>
+        <img class="lazyload" 
+             data-src="{{ image }}" 
+             data-widths="[180, 360, 375, 414, 540, 800, 1024, 1280, 1340, 1920 ]" 
+             data-aspectratio="{{ section.settings.banner_image.aspect_ratio }}" 
+             data-sizes="auto"
+             alt="" />
+        <svg xmlns="http://www.w3.org/2000/svg" class="svg-2" width="254.438" height="97.492" viewBox="0 0 254.438 97.492">
+          <g id="Darth_Vader_" data-name="Darth Vader™" transform="translate(-132 -2114)">
+            <path id="Path_47595" data-name="Path 47595" d="M8956.438-5587.325H8840.7l-57.369-60.992" transform="translate(-8570 7798.317)" fill="none" stroke="#fff" stroke-width="1"/>
+            <g id="Group_101702" data-name="Group 101702" transform="translate(119 2114)">
+              <g id="Rectangle_21693" data-name="Rectangle 21693" transform="translate(13)" fill="none" stroke="#fff" stroke-width="1">
+                <rect width="162" height="36" stroke="none"/>
+                <rect x="0.5" y="0.5" width="161" height="35" fill="none"/>
+              </g>
+              <text id="Darth_Vader_2" data-name="Darth Vader™" transform="translate(94 24)" fill="#fff" font-size="18" font-family="SourceSansPro-Regular, Source Sans Pro" letter-spacing="0.1em"><tspan x="-65" y="0">DARTH VADER</tspan><tspan y="0" font-size="10.499" baseline-shift="5.9994001388549805">™</tspan></text>
+            </g>
+          </g>
+        </svg>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Content",
+	"class": "er-content",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_section",
+        "label": "Enable section",
+		"default": true
+      },
+	  {
+        "type": "richtext",
+        "id": "text",
+        "label": "Text",
+		"default": "<p>Lorem ipsum dolor sit amet, consetetur sadiing elitr, sed diam nonumy eirmod tempor invint ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>"
+      },
+      {
+        "type": "image_picker",
+        "id": "banner_image",
+        "label": "Image",
+        "info": "Recommended size 811x645 (px)"
+      }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

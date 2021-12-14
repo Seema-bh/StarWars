@@ -1,0 +1,13 @@
+<script>
+  $(document).on('page:load page:change', function() {
+    var coronoInfo = `<p class="corona-info">Due to high volume demand, shipment could get delayed by 5-6 days.</p>`
+    $(".section--shipping-method .section__header").append(coronoInfo);
+    
+    //data-select-gateway="62216077476"
+    var checkoutAmount = $(".payment-due__price").attr("data-checkout-payment-due-target");
+    console.log(checkoutAmount);
+    if(checkoutAmount<50000){
+      $('[data-select-gateway="62216077476"]').hide();
+    }
+  })
+</script>

@@ -1,0 +1,101 @@
+{% assign localName = request.locale.name | handle %}
+<div class="page-width">
+  <div class="grid">
+    <div class="grid__item medium-up--four-sixths medium-up--push-one-sixth text-center">
+      <div class="section-header">
+        {% unless section.settings.title == blank %}
+        <img src="{{ section.settings.titleImg | img_url:"500x" }}">
+        {% else %}
+        <h2>{{ page.title }}</h2>
+        {% endunless %}
+        {% if localName == 'english' %}
+        {% unless section.settings.subtitle == blank %}
+        <h4>{{ section.settings.subtitle }}</h4>
+        {% endunless %}
+        {% else %}
+        {% unless section.settings.subtitle-ja == blank %}
+        <h4>{{ section.settings.subtitle-ja }}</h4>
+        {% endunless %}
+        {% endif %}
+        {% unless section.settings.title == blank %}
+        {% unless section.settings.subtitle == blank %}
+        <span class="heading_divider"></span>
+        {% endunless %}
+        {% endunless %}
+      </div>
+      {% if localName == 'english' %}
+      {% unless section.settings.paragraph == blank %}
+      {{ section.settings.paragraph }}
+      {% endunless %}
+      {% else %}
+      {% unless section.settings.paragraph-ja == blank %}
+      {{ section.settings.paragraph-ja }}
+      {% endunless %}
+      {% endif %}
+      {% unless section.settings.button_label == blank %}
+      <a href="{{ section.settings.button_url }}" class="learn_more">{{ section.settings.button_label }}<br>{% include 'down-nav' %}</a>
+      {% endunless %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Page Content",
+  "settings": [
+  {
+    "type": "text",
+    "id": "title",
+    "label": "Title",
+    "default": "Star Wars fine jewellery"
+  },
+  {
+    "type": "image_picker",
+    "id": "titleImg",
+    "label": "Image title"
+  },
+  {
+    "type": "text",
+    "id": "subtitle",
+    "label": "Subtitle",
+    "default": "About us"
+  },
+  {
+    "type": "text",
+    "id": "subtitle-ja",
+    "label": "Subtitle",
+    "default": "当社について"
+  },
+  {
+    "type": "richtext",
+    "id": "paragraph",
+    "label": "Paragraph",
+    "default": "<p>Paragraph</p>"
+  },
+  {
+    "type": "richtext",
+    "id": "paragraph-ja",
+    "label": "Paragraph",
+    "default": "<p>Paragraph</p>"
+  },
+  {
+    "type": "text",
+    "id": "button_label",
+    "label": "Button Label",
+    "default": "Learn more"
+  },
+  {
+    "type": "url",
+    "id": "button_url",
+    "label": "Button URL"
+  }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+

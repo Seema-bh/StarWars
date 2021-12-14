@@ -1,0 +1,34 @@
+{% unless section.settings.hide_section == true %}
+<div class="page-width text-center">
+{% unless section.settings.paragraph == blank %}
+{{ section.settings.paragraph }}
+{% endunless %}
+</div>
+{% endunless %}
+
+{% schema %}
+  {
+    "name": "Text Section",
+	"class": "index-section themepage-text-section cl-text-section",
+    "settings": [
+	  {
+        "type": "checkbox",
+        "id": "hide_section",
+        "label": "Hide Section",
+        "default": false
+      },
+      {
+        "type": "richtext",
+        "id": "paragraph",
+        "label": "Paragraph",
+        "default": "<p>Paragraph</p>"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

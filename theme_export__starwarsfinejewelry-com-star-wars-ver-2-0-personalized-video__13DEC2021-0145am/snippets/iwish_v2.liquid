@@ -1,0 +1,109 @@
+{% assign localName = request.locale.name | handle %}
+{% assign iwish-add-icon = '<svg width="22" height="22" viewBox="0 0 22 22" class="a"><defs><style>.wishlist-a{fill:none;}.wishlist-b{fill:#fafafb;}</style></defs><g transform="translate(-186.14 -109.93)"><rect class="wishlist-a" width="22" height="22" transform="translate(186.14 109.93)"/><path class="wishlist-b" d="M311.945,1621.156a.271.271,0,0,0-.392.334,14.47,14.47,0,0,1,1.213,5c0,2.083-.8,3.278-2.194,3.278-1.135,0-1.9-1.307-1.9-3.253a2.824,2.824,0,0,1,1.46-2.732.27.27,0,0,0,.121-.4l-.542-.813a.271.271,0,0,0-.176-.117.266.266,0,0,0-.206.046l-.7.5-.167-.265.7-.935a.271.271,0,0,0,0-.332l-1.084-1.355a.281.281,0,0,0-.424,0l-1.084,1.355a.271.271,0,0,0,0,.332l.7.935-.167.265-.7-.5a.27.27,0,0,0-.382.071l-.542.813a.271.271,0,0,0,.12.4,2.824,2.824,0,0,1,1.461,2.733c0,1.946-.762,3.253-1.9,3.253-1.394,0-2.194-1.2-2.194-3.278a14.47,14.47,0,0,1,1.213-5,.271.271,0,0,0-.392-.334,7.862,7.862,0,1,0,8.167,0Z" transform="translate(-110.611 -1506.823)"/></g></svg>' %}
+{% assign iwish-header-icon = '<svg width="18" height="18" viewBox="0 0 18 18" class="b"><defs><style>.swym-a{fill:#242424;}.swym-b{fill:none;}</style></defs><g transform="translate(2 2.005)"><path class="swym-a" d="M310.789,1621.045a.245.245,0,0,0-.354.3,13.069,13.069,0,0,1,1.1,4.512c0,1.881-.722,2.96-1.981,2.96-1.025,0-1.714-1.181-1.714-2.938a2.55,2.55,0,0,1,1.319-2.468.244.244,0,0,0,.109-.361l-.49-.734a.245.245,0,0,0-.159-.105.241.241,0,0,0-.186.041l-.635.451-.151-.239.634-.845a.245.245,0,0,0,0-.3l-.979-1.224a.253.253,0,0,0-.383,0l-.979,1.224a.245.245,0,0,0,0,.3l.634.845-.151.239-.635-.451a.244.244,0,0,0-.345.064l-.49.734a.245.245,0,0,0,.108.361,2.55,2.55,0,0,1,1.32,2.468c0,1.758-.689,2.938-1.714,2.938-1.259,0-1.981-1.079-1.981-2.96a13.068,13.068,0,0,1,1.1-4.512.245.245,0,0,0-.354-.3,7.1,7.1,0,1,0,7.376,0Z" transform="translate(-300 -1620.01)"/><rect class="swym-b" width="18" height="18" transform="translate(-2 -2.005)"/></g></svg>' %}
+{% assign iwish-coll-icon = '<svg width="22" height="22" viewBox="0 0 22 22" class="c"><defs><style>.p-a{fill:#ededed;}</style></defs><path class="p-a" d="M11,0l2.31,8.69L22,11l-8.69,2.31L11,22,8.69,13.31,0,11,8.69,8.69Z" transform="translate(22) rotate(90)"/></svg>' %}
+
+{% if iwish_v2 == 'iwishlink' %}
+{% if localName == 'english' %}
+<a class="iWishView site-header__icon swym-wishlist small--hide" href="/apps/iwish">{% include 'wishlist-dark' %}<span>Wishlist</span><span class="iWishCount" style="display:none;">0</span></a>
+{% else %}
+<a class="iWishView site-header__icon swym-wishlist small--hide" href="/ja/apps/iwish">{% include 'wishlist-dark' %}<span>ウィッシュリスト</span><span class="iWishCount" style="display:none;">0</span></a>
+{% endif %}
+{% elsif iwish_v2 == 'iwishNavlink' %}
+<a class="iWishView swym-wishlist mobile-nav__link medium-up--hide" href="/apps/iwish"><span>Wishlist</span><span class="iWishCount" style="display:none;">0</span></a>
+{% elsif iwish_v2 == 'iwishproduct' %}
+<a class="iWishAdd btn btn-wishlist wishlist-btn" href="#" data-product="{{ product.id }}" data-pTitle="{{ product.title | escape }}">
+  {% include 'icon-wishlist' %}
+  Add to Wishlist
+</a>
+{% elsif iwish_v2 == 'iwishCollection' %}
+<a class="iWishAddColl iwishcheck" href="#" data-variant="{{ product.variants.first.id }}" data-product="{{ product.id }}" data-pTitle="{{ product.title | escape }}"><span class="iwish-collection" style="display:none;">{{iwish-coll-icon}}</span><span class="iwish-cart" style="display:none;">Move to Wishlist</span></a>
+{% elsif iwish_v2 == 'iwishCart' %}
+<a class="iWishAddColl iwishcheck add_to_wishlist move_to_wishlist" href="#" data-variant="{{ item.variant.id }}" data-product="{{ item.product_id }}" data-pTitle="{{ item.title | escape }}" data-line-id="{{forloop.index}}"><span class="iwish-collection" style="display:none;">{{iwish-coll-icon}}</span><span class="iwish-cart" style="display:none;">Move to Wishlist</span></a>
+{% elsif iwish_v2 == 'iwishfooter' %}
+<script type="text/javascript">
+  var iwish_shop = "{{ shop.permanent_domain }}";
+  var iwish_pro_template = {% if template contains 'product' or template contains 'index' %}true{% else %}false{% endif %};
+  var iwish_cid = "{{ customer.id }}";
+  //Add to Wishlist - Product Page Text
+  {% if localName == 'english' %}
+  var iwish_added_txt = 'Saved';
+  {% else %}
+  var iwish_added_txt = '保存しました';
+  {% endif %}
+  var iwish_add_txt = '{{ iwish-coll-icon }}Add to Wishlist';
+  //Add to Wishlist - Collection Page Text
+  var iwish_added_txt_col = '<span class="iwish-collection" style="display:none;">{{iwish-coll-icon}}</span><span class="iwish-cart" style="display:none;">Move to Wishlist</span>';
+  var iwish_add_txt_col = '<span class="iwish-collection" style="display:none;">{{iwish-coll-icon}}</span><span class="iwish-cart" style="display:none;">Move to Wishlist</span>';
+  //Quick View - Classes
+  //var iwish_qvButton = '.quick_view';
+  //var iwish_qvWrapper = '.reveal-modal';
+</script>
+<script type="text/javascript">
+  (function(){
+    function iWishLoadScript(e,t){for(var a=0;a<e.length;a++){var n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=e[a],document.getElementsByTagName("head")[0].appendChild(n),0==a&&(n.readyState?n.onreadystatechange=function(){"loaded"!==n.readyState&&"complete"!==n.readyState||(n.onreadystatechange=null,t())}:n.onload=function(){t()})}}
+    function asyncLoadshopapps(){
+      var iWishUrls=["https://cdn.myshopapps.com/iwish/iwishlist_v2.js"];
+      iWishLoadScript(iWishUrls, function() {
+        jQuery("a[href='/apps/iwish']").click(function(e) {
+          if(typeof(Storage) !== "undefined") {
+            e.preventDefault();
+            iWishPost('/apps/iwish',{iwishlist:JSON.stringify(iWishlistmain),cId:iwish_cid});
+          }
+        });
+        jQuery(".iWishAdd").click(function() {
+          var iWishvId = jQuery(this).parents(iwishWrapperClass).find(iWishVarSelector).val();
+          iwish_add(jQuery(this), iWishvId);
+          return false;
+        });
+        jQuery("body").on("click", ".iWishAddColl", function(e) {
+          e.preventDefault();
+          var iWishvId = jQuery(this).attr("data-variant");
+          var iWishpId=jQuery(this).attr('data-product');
+          if(isInWishlist(iWishpId,iWishvId)){
+            iwish_remove(jQuery(this), iWishvId, false);
+            jQuery(this).html(iwish_add_txt_col);
+            jQuery(this).attr('title', 'Add to Wishlist');
+          }
+          else {
+            iwish_addCollection(jQuery(this),iWishvId);
+            jQuery(this).attr('title', 'Delete from Wishlist');
+          }
+          {% if template == 'cart' %}        
+          var ldata = jQuery(this).attr('data-line-id');
+          console.log("ldata"+ldata);
+          $.ajax({
+            url: '/cart/change.js',
+            dataType: 'json',
+            cache: false,
+            type: 'post',
+            data: { quantity: 0, line: ldata },
+            success: function (data) {
+              window.location.replace("https://starwars-dev.myshopify.com/cart");	
+            }
+          });
+          {% endif %} 
+        });
+
+        jQuery("body").on("click",".iwishBuyBtn",function(e) {
+          e.preventDefault();
+          var $form = jQuery(this).parents("form");
+          jQuery(this).parents('form').find('.iwishRemoveBtn').click();
+          jQuery.ajax({
+            type: $form.attr('method'),
+            url: $form.attr('action'),
+            data: $form.serialize(),
+            success: function(data){
+              $form.submit();
+              window.location.replace("https://starwars-dev.myshopify.com/cart");
+            }
+          });
+        });
+      });
+    }
+    if (window.addEventListener){ window.addEventListener("load", asyncLoadshopapps, true); }
+    else if (window.attachEvent){ window.attachEvent("onload", asyncLoadshopapps); }
+    else { window.onload = asyncLoadshopapps; }
+  })();
+</script>
+{% endif %}

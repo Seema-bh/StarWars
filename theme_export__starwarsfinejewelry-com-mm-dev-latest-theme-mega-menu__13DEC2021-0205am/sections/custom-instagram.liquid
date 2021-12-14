@@ -1,0 +1,121 @@
+<section data-section-id="{{ section.id }}" data-section-type="starwars-instagram-section">
+  <div class="page-width text-center">
+    <div class="section-header">
+      {% unless section.settings.title == blank %}
+      {% include 'icon-instagram-new' %}
+      <h2>{{ section.settings.title }}<br>{% unless section.settings.subtitle == blank %}<small>{{ section.settings.subtitle }}</small>{% endunless %}</h2>
+      {% endunless %}
+    </div>
+    <div class="sw__instaposts">
+      {% for block in section.blocks %}
+        <div class="post">
+          {% unless block.settings.post_img == nil %}
+            <a {% unless block.settings.post_url == blank %}href="{{ block.settings.post_url }}"{% endunless %}>
+              <img class="lazyload"
+                   src="{{ block.settings.post_img | img_url: 'master' }}"
+                   data-src="{{ block.settings.post_img | img_url: 'master' }}"
+                   data-sizes="auto"
+                   alt="" />
+            </a>
+          {% endunless %}
+          {% unless block.settings.post_title == blank %}
+            <h5>
+              <a {% unless block.settings.post_url == blank %}href="{{ block.settings.post_url }}"{% endunless %}>{{ block.settings.post_title }}</a>
+              {% unless block.settings.posted_by == blank %}<small>{{ block.settings.posted_by }}</small>{% endunless %}
+            </h5>
+          {% endunless %}
+        </div>
+      {% endfor %}
+    </div>
+    {% unless section.settings.button_label == blank %}
+      {% unless section.settings.button_url == blank %}
+      	<a href="{{ section.settings.button_url }}" class="btn btn_style1">{{ section.settings.button_label }}</a>
+      {% endunless %}
+    {% endunless %}
+  </div>
+</section>
+
+{% if page.title contains 'About Us' %}
+<style>
+.index_instagram-section {
+  background: url("https://cdn.shopify.com/s/files/1/0465/8787/1396/files/Group_26678_2x_2c47d2cf-6104-48e3-8ddc-be352a6f2148.png?v=1598710178") #000;
+  background-size: contain;
+}
+</style>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Instagram Slider",
+	"class": "index-section index_instagram-section",
+	"max_blocks": 3,
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "Title"
+      },
+      {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subtitle",
+        "default": "Subtitle"
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": "Button Label",
+        "default": "View All"
+      },
+      {
+        "type": "url",
+        "id": "button_url",
+        "label": "Button URL"
+      }
+	],
+	"blocks": [
+      {
+        "type": "instagram-content",
+        "name": "Instagram Content",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "post_img",
+            "label": "Post Image",
+            "info": "Recommended size 500x500 (px)"
+          },
+          {
+            "type": "text",
+            "id": "post_title",
+            "label": "Post title",
+            "default": "Title"
+          },
+          {
+            "type": "text",
+            "id": "posted_by",
+            "label": "Post by",
+            "default": "Posted by"
+          },
+          {
+            "type": "url",
+            "id": "post_url",
+            "label": "Post URL"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Instagram Slider",
+        "category": "Advanced layout"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

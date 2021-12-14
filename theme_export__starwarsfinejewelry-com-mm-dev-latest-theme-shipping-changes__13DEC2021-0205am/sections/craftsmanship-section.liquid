@@ -1,0 +1,85 @@
+<section data-section-id="{{ section.id }}" data-section-type="starwars-craftsmanship-section">
+  <div class="page-width">
+    <div class="sw__craftsmanship">
+      <div class="craftsman-video">
+        <a {% unless section.settings.video-link == blank %}href="https://www.youtube.com/watch?v=bY-mOdgz7zQ"{% endunless %}>
+          {% unless section.settings.image == nil %}
+          <img class="lazyload"
+               src="{{ section.settings.image | img_url: 'master' }}"
+               data-src="{{ section.settings.image | img_url: 'master' }}"
+               data-sizes="auto"
+               alt="" />
+          {% endunless %}
+        </a>
+      </div>
+      <div class="craftsman-content">
+      	{% unless section.settings.title == blank %}
+          <h2>{{ section.settings.title }}</h2>
+        {% endunless %}
+        {% unless section.settings.paragraph == blank %}
+          {{ section.settings.paragraph }}
+        {% endunless %}
+        {% unless section.settings.button_label == blank %}
+          {% unless section.settings.button_url == blank %}
+            <a href="{{ section.settings.button_url }}" class="btn_style1">{{ section.settings.button_label }}</a>
+          {% endunless %}
+        {% endunless %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Craftsmanship Section",
+	"class": "index-section index_craftsmanship-section",
+    "settings": [
+	  {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image",
+        "info": "Recommended size 600x380 (px)"
+      },
+      {
+        "type": "url",
+        "id": "video-link",
+        "label": "Video Link"
+      },
+	  {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "Title"
+      },
+	  {
+        "type": "richtext",
+        "id": "paragraph",
+        "label": "Paragraph",
+		"default": "<p>Paragraph</p>"
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": "Button Label",
+        "default": "Discover the masters"
+      },
+      {
+        "type": "url",
+        "id": "button_url",
+        "label": "Button URL"
+      }	
+    ],
+    "presets": [
+      {
+        "name": "Craftsmanship Section",
+        "category": "Advanced layout"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

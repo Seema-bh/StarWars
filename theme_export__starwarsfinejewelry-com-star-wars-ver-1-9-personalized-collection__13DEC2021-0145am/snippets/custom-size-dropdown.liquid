@@ -1,0 +1,85 @@
+
+
+{% for value in productVariant %}
+  {% if value == '4' %}
+  {% capture variantDropdownOption4 %}
+	<option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
+  {% endcapture %}
+  {% endif %}
+  {% if value == '5' %}
+    {% capture variantDropdownOption5 %}
+      <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
+    {% endcapture %}
+  {% endif %}
+  {% if value == '6' %}
+    {% capture variantDropdownOption6 %}
+      <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
+    {% endcapture %}
+  {% endif %}
+  {% if value == '7' %}
+    {% capture variantDropdownOption7 %}
+      <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
+    {% endcapture %}
+  {% endif %}
+  {% if value == '8' %}
+    {% capture variantDropdownOption8 %}
+      <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
+    {% endcapture %}
+  {% endif %}
+  {% if value == '9' %}
+    {% capture variantDropdownOption9 %}
+      <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
+    {% endcapture %}
+  {% endif %}
+  {% if value == '10' %}
+    {% capture variantDropdownOption10 %}
+      <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
+    {% endcapture %}
+  {% endif %}
+  {% if value == '11' %}
+    {% capture variantDropdownOption11 %}
+      <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
+    {% endcapture %}
+  {% endif %}
+  {% if value == '12' %}
+    {% capture variantDropdownOption12 %}
+      <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
+    {% endcapture %}
+  {% endif %}
+  {% if value == '13' %}
+    {% capture variantDropdownOption13 %}
+      <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
+    {% endcapture %}
+  {% endif %}
+  {% if value == '14' %}
+    {% capture variantDropdownOption14 %}
+      <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
+    {% endcapture %}
+  {% endif %}
+  {% if value == '15' %}
+    {% capture variantDropdownOption15 %}
+      <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
+    {% endcapture %}
+  {% endif %}
+  {% if value == '16' %}
+    {% capture variantDropdownOption16 %}
+      <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
+    {% endcapture %}
+  {% endif %}
+{% endfor %}
+
+<select class="single-option-selector single-option-selector-{{ section.id }} product-form__input" id="SingleOptionSelector-{{ forloop.index0 }}" data-index="option{{ forloop.index }}">
+  {{ variantDropdownOption4 }}
+  {{ variantDropdownOption5 }}
+  {{ variantDropdownOption6 }}
+  {{ variantDropdownOption7 }}
+  {{ variantDropdownOption8 }}
+  {{ variantDropdownOption9 }}
+  {{ variantDropdownOption10 }}
+  {{ variantDropdownOption11 }}
+  {{ variantDropdownOption12 }}
+  {{ variantDropdownOption13 }}
+  {{ variantDropdownOption14 }}
+  {{ variantDropdownOption15 }}
+  {{ variantDropdownOption16 }}
+</select>

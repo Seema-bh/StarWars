@@ -1,0 +1,68 @@
+{% if section.settings.show_section == true %}
+<section>
+  <div class="page-width">
+    <div class="section-content text-center">
+      {% if section.settings.image != blank %}
+      <img class="lazyload"
+           src="{{ section.settings.image | img_url: 'master' }}"
+           data-src="{{ section.settings.image | img_url:"master" }}"
+           data-sizes="auto"
+           alt="" />
+      {% endif %}
+      {% if section.settings.text != blank %}
+      <div class="text">
+        {{ section.settings.text }}
+      </div>
+      {% endif %}
+      {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+      <a href="{{ section.settings.button_link }}" class="btn_style2">
+        {{ section.settings.button_label }}
+      </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Kyber crystal radiance",
+	"class": "kyber-crystal-radiance-section",
+    "settings": [
+	  {
+        "type": "checkbox",
+        "id": "show_section",
+        "label": "Show Section",
+        "default": true
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image",
+        "info": "Recommended size: 512px * 127px"
+      },
+      {
+        "type": "richtext",
+        "id": "text",
+        "label": "Text",
+        "default": "<p>Text goes here.</p>"
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": "Button label"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button link"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

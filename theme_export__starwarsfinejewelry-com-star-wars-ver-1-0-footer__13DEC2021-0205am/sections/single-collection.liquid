@@ -1,0 +1,219 @@
+<section data-section-id="top-{{ section.id }}" data-section-type="starwars-newarrivals-section">
+  {% unless section.settings.horizontal-text == blank %}
+  <span class="horizontal-text">{{ section.settings.horizontal-text }}</span>
+  {% endunless %}
+  {% unless section.settings.vertical-text == blank %}
+  <span class="vertical-text">{{ section.settings.vertical-text }}</span>
+  {% endunless %}
+  <div class="sw__collection-content">
+    <div class="slide-content">
+      {% for block in section.blocks %}
+      {% if block.type == 'slide-image' %}
+      {% unless block.settings.collection_image == nil %}
+      <div>
+        <img class="lazyload"
+        src="{{ block.settings.collection_image | img_url: "x650" }}"
+        data-src="{{ block.settings.collection_image | img_url: "x650" }}"
+        data-sizes="auto"
+        alt="" />
+      </div>
+      {% endunless %}
+      {% endif %}
+      {% endfor %}
+    </div>
+    <div class="text-content">
+      {% unless section.settings.title == blank %}
+      <h2>{{ section.settings.title }}</h2>
+      {% endunless %}
+      {% unless section.settings.paragraph == blank %}
+      {{ section.settings.paragraph }}
+      {% endunless %}
+      {% unless section.settings.primary_button == blank %}
+      {% unless section.settings.primary-button-url == blank %}
+      <a href="{{ section.settings.primary-button-url }}/" class="btn btn_primary">{% include 'icon-explore' %}{{ section.settings.primary_button }}</a>
+      {% endunless %}
+      {% endunless %}
+      {% unless section.settings.secondary_button == blank %}
+      {% unless section.settings.secondary-button-url == blank %}
+      <a href="{{ section.settings.secondary-button-url }}/" class="btn btn_secondary">{% include 'icon-view-collection' %}{{ section.settings.secondary_button }}</a>
+      {% endunless %}
+      {% endunless %}
+    </div>
+  </div>
+</section>
+<section class="light-side-section">
+  <div class="sw__collection-content">
+    <div class="slide-content">
+      {% for block in section.blocks %}
+      {% if block.type == 'slide2-image' %}
+      {% unless block.settings.collection_image == nil %}
+      <div>
+        <img class="lazyload"
+        src="{{ block.settings.collection_image | img_url: "x650" }}"
+        data-src="{{ block.settings.collection_image | img_url: "x650" }}"
+        data-sizes="auto"
+        alt="" />
+      </div>
+      {% endunless %}
+      {% endif %}
+      {% endfor %}
+    </div>
+    <div class="text-content">
+      {% unless section.settings.ls_title == blank %}
+      <h2>{{ section.settings.ls_title }}</h2>
+      {% endunless %}
+      {% unless section.settings.ls_paragraph == blank %}
+      {{ section.settings.ls_paragraph }}
+      {% endunless %}
+      {% unless section.settings.ls_primary_button == blank %}
+      {% unless section.settings.ls_primary-button-url == blank %}
+      <a href="{{ section.settings.ls_primary-button-url }}/" class="btn btn_primary">{% include 'icon-explore' %}{{ section.settings.ls_primary_button }}</a>
+      {% endunless %}
+      {% endunless %}
+      {% unless section.settings.ls_secondary_button == blank %}
+      {% unless section.settings.ls_secondary-button-url == blank %}
+      <a href="{{ section.settings.ls_secondary-button-url }}/" class="btn btn_secondary">{% include 'icon-view-collection' %}{{ section.settings.ls_secondary_button }}</a>
+      {% endunless %}
+      {% endunless %}
+    </div>
+  </div>
+  {% unless section.settings.ls_vertical-text == blank %}
+  <span class="vertical-text">{{ section.settings.ls_vertical-text }}</span>
+  {% endunless %}
+</section>
+
+{% schema %}
+{
+  "name": "Single Collection",
+  "class": "index-section index_collection-section",
+  "max_blocks": 3, 
+  "settings": [
+  {
+    "type": "richtext",
+    "id": "title",
+    "label": "Title",
+    "default": "<p>Title</p>"
+  },
+  {
+    "type": "richtext",
+    "id": "paragraph",
+    "label": "Paragraph",
+    "default": "<p>Paragraph</p>"
+  },
+  {
+    "type": "text",
+    "id": "primary_button",
+    "label": "Button Text(Primary)",
+    "default": "Explore collection"
+  },
+  {
+    "type": "url",
+    "id": "primary-button-url",
+    "label": "Button URL(Primary)"
+  },
+  {
+    "type": "text",
+    "id": "secondary_button",
+    "label": "Button Text(Secondary)",
+    "default": "View All Collections"
+  },
+  {
+    "type": "url",
+    "id": "secondary-button-url",
+    "label": "Button URL(Secondary)"
+  },
+  {
+    "type": "text",
+    "id": "horizontal-text",
+    "label": "Horizontal Text",
+    "default": "Inspired By"
+  },
+  {
+    "type": "text",
+    "id": "vertical-text",
+    "label": "Vertical Text",
+    "default": "Collection"
+  },
+  {
+    "type": "header",
+    "content": "Collection Content(2)"
+  },
+  {
+    "type": "richtext",
+    "id": "ls_title",
+    "label": "Title",
+    "default": "<p>Title</p>"
+  },
+  {
+    "type": "richtext",
+    "id": "ls_paragraph",
+    "label": "Paragraph",
+    "default": "<p>Paragraph</p>"
+  },
+  {
+    "type": "text",
+    "id": "ls_primary_button",
+    "label": "Button Text(Primary)",
+    "default": "Explore collection"
+  },
+  {
+    "type": "url",
+    "id": "ls_primary-button-url",
+    "label": "Button URL(Primary)"
+  },
+  {
+    "type": "text",
+    "id": "ls_secondary_button",
+    "label": "Button Text(Secondary)",
+    "default": "View All Collections"
+  },
+  {
+    "type": "url",
+    "id": "ls_secondary-button-url",
+    "label": "Button URL(Secondary)"
+  },
+  {
+    "type": "text",
+    "id": "ls_vertical-text",
+    "label": "Vertical Text",
+    "default": "Collection"
+  }
+  ],
+  "blocks": [
+  {
+    "type": "slide-image",
+    "name": "Image (Dark Side)",
+    "settings": [
+    {
+      "type": "image_picker",
+      "id": "collection_image",
+      "label": "Collection Image"
+    }
+    ]
+  },
+  {
+    "type": "slide2-image",
+    "name": "Image (Light Side)",
+    "settings": [
+    {
+      "type": "image_picker",
+      "id": "collection_image",
+      "label": "Slide Image (Two)"
+    }
+    ]
+  }
+  ],
+  "presets": [
+  {
+    "name": "Single Collection",
+    "category": "Collection"
+  }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

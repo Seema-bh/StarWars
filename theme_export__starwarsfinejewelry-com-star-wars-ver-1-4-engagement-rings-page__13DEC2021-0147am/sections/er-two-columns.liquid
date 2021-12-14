@@ -1,0 +1,59 @@
+{% if section.settings.enable_section %}
+<section class="section-wrapper section-spacing">
+  <div class="page-width">
+    <div class="grid">
+      <div class="grid__item medium-up--one-half">
+        {% assign image_1 = section.settings.banner_image_1 | img_url: 'master' %}
+        <div class="image-wrapper image-wrapper">
+          <img class="lazyload wow animate__fadeInDown" data-wow-duration="5s" data-wow-delay="0.5s" 
+               src="{{ image_1 }}"
+               data-src="{{ image_1 }}" 
+               data-sizes="auto" 
+               alt="" />
+        </div>
+      </div>
+      <div class="grid__item medium-up--one-half">
+        {% assign image_2 = section.settings.banner_image_2 | img_url: 'master' %}
+        <div class="image-wrapper image-wrapper">
+          <img class="lazyload wow animate__fadeInRight" data-wow-duration="5s" data-wow-delay="0.5s" 
+               src="{{ image_2 }}"
+               data-src="{{ image_2 }}" 
+               data-sizes="auto" 
+               alt="" />
+        </div>
+      </div>
+    </div> 
+  </div>
+</section>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Two columns",
+	"class": "er-two-columns",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_section",
+        "label": "Enable section",
+		"default": true
+      },
+	  {
+        "type": "image_picker",
+        "id": "banner_image_1",
+        "label": "Banner 1"
+      },
+	  {
+        "type": "image_picker",
+        "id": "banner_image_2",
+        "label": "Banner 2"
+      }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

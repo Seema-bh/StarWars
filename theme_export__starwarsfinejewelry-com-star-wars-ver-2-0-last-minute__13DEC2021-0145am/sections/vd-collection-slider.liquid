@@ -1,0 +1,73 @@
+<div class="section-wrapper">
+  <div class="page-width">
+    <div class="vd-collection-slider">
+      {% for block in section.blocks %}
+      <div class="collection-item text-center">
+        <img class="lazyload"
+             src="{{ block.settings.image | img_url: 'master' }}"
+             data-src="{{ block.settings.image | img_url:"master" }}"
+             data-sizes="auto"
+             alt="" />
+        {% if block.settings.subtitle != blank %}
+        <p>{{ block.settings.subtitle }}</p>
+        {% endif %}
+        {% if block.settings.title != blank %}
+        <h3>{{ block.settings.title }}</h3>
+        {% endif %}
+        {% if block.settings.button_label != blank and block.settings.button_link != blank %}
+        <a href="{{ block.settings.button_link }}" class="btn">{{ block.settings.button_label }}</a>
+        {%- endif -%}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Collection slider",
+	"class": "vd-collection-slider-section",
+    "settings": [],
+	"blocks": [
+      {
+        "type": "block",
+        "name": "Block",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "subtitle",
+            "label": "Subtitle",
+            "default": "Subtitle"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Title"
+          },
+          {
+            "type": "text",
+            "id": "button_label",
+            "label": "Button label"
+          },
+          {
+            "type": "url",
+            "id": "button_link",
+            "label": "Button link"
+          }
+        ]
+      }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,75 @@
+<div class="section-wrapper" style="background: {{ section.settings.background_color }};">
+  <div class="page-width">
+    <div class="content text-center">
+      {% assign localName = request.locale.name | handle %}
+      {% if localName == "english"%}
+      {% if section.settings.text != blank %}
+      {{ section.settings.text }}
+      {% endif %}
+      {% else %}
+      {% if section.settings.text_japanese != blank %}
+      {{ section.settings.text_japanese }}
+      {% endif %}
+      {% endif %}
+      {% assign localName = request.locale.name | handle %}
+      {% if localName == "english"%}
+      {% if section.settings.button_text != blank and section.settings.button_link != blank %}
+      <a href="{{ section.settings.button_link }}/" class="btn">{{ section.settings.button_text }}</a>
+      {% endif %}
+      {% else %}
+      {% if section.settings.button_text_japanese != blank and section.settings.button_link != blank %}
+      <a href="{{ section.settings.button_link }}/" class="btn">{{ section.settings.button_text_japanese }}</a>
+      {% endif %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Content",
+	"class": "content-section",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background color",
+        "default": "#F9F5F4"
+      },
+	  {
+        "type": "richtext",
+        "id": "text",
+        "label": "text",
+		"default": "<p>Text goes here.</p>"
+      },
+	  {
+        "type": "richtext",
+        "id": "text_japanese",
+        "label": "text (Japanese)",
+		"default": "<p>ローズゴールドからブラックロジウム、ブルーサファイアからブラックダイアモンドまで、Star Wars™ファインジュエリーのスタイルから、あなたの人生の次章になる指輪をこのバレンタインに、「彼と彼女」のダイアモンドリングから見つけませんか？</p>"
+      },
+	  {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button"
+      },
+	  {
+        "type": "text",
+        "id": "button_text_japanese",
+        "label": "Button (Japanese)",
+		"default": "Explore all his and hers"
+      },
+	  {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button link"
+      }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

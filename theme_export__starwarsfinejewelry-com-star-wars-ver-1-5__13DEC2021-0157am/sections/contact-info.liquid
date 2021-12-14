@@ -1,0 +1,87 @@
+{% assign localName = request.locale.name | handle %}
+<div class="contact__info--section">
+  <div class="top-heading">
+    {% if localName == 'english' %}
+    {% if section.settings.heading != blank %}
+    <h2>{{ section.settings.heading }}</h2>
+    {% endif %}
+    {% else %}
+    {% if section.settings.heading-ja != blank %}
+    <h2>{{ section.settings.heading-ja }}</h2>
+    {% endif %}
+    {% endif %}
+    {% if section.settings.sub-heading != blank %}
+    <h5>{{ section.settings.sub-heading }}</h5>
+    {% endif %}
+  </div>
+  <div class="contact-info">
+    {% for block in section.blocks %}
+    <div class="contact-details">
+      {% if block.settings.content-svg != blank %}
+      <div class="info_svg">
+        {{ block.settings.content-svg }}
+      </div>
+      {% elsif block.settings.content-img != blank %}
+      <img src="{{ block.settings.content-img | img_url: 'master' }}" alt="Star war" />
+      {% endif %}
+      <h5>{{ block.settings.contact-via }}</h5>
+      {% if forloop.index == 1 %}
+      <p><a href="mailto:{{ block.settings.contact-info }}">{{ block.settings.contact-info }}</a></p>
+      {% else %}
+      <p><a href="tel:{{ block.settings.contact-info }}">{{ block.settings.contact-info }}</a></p>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Contact Info",
+  "settings": [
+  {
+    "type": "text",
+    "id": "heading",
+    "label": "Heading"
+  },
+  {
+    "type": "text",
+    "id": "heading-ja",
+    "label": "Heading in JA",
+    "default": "はるか遠くの銀河で…"
+  },
+  {
+    "type": "text",
+    "id": "sub-heading",
+    "label": "Sub-heading"
+  }
+  ],
+  "blocks": [
+  {
+    "type": "contact-details",
+    "name": "Contact Details",
+    "settings": [
+    {
+      "type": "html",
+      "id": "content-svg",
+      "label": "Svg Icon"
+    },
+    {
+      "type": "image_picker",
+      "id": "content-img",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "contact-via",
+      "label": "Contact Via"
+    },
+    {
+      "type": "text",
+      "id": "contact-info",
+      "label": "Contact Info"
+    }
+    ]
+  }
+  ]
+}
+{% endschema %}

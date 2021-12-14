@@ -1,0 +1,54 @@
+<section data-section-id="{{ section.id }}" data-section-type="starwars-newarrivals-section">
+  <div class="page-width">
+    {% assign collection = collections[section.settings.new-arrivals] %}
+    <div class="section-header">
+      {% unless section.settings.title == blank %}
+      <h2>{{ section.settings.title }}</h2>
+      {% endunless %}
+      {% unless section.settings.subtitle == blank %}
+      <a href="{{ collection.url }}">{{ section.settings.subtitle }}<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28"><defs><style>.ra-a,.ra-b{fill:none;}.ra-b{stroke:#242424;stroke-width:1.5px;}</style></defs><rect class="ra-a" width="28" height="28"></rect><g transform="translate(5.001 6)"><path class="ra-b" d="M5.487,6.66l7.356,7.356L5.149,21.711" transform="translate(5.874 -6.66)"></path><path class="ra-b" d="M5.526,13.837H23.867" transform="translate(-5.526 -6.66)"></path></g></svg></a>
+      {% endunless %}
+    </div>
+    <div class="sw__collection-slider">
+      {% unless section.settings.new-arrivals == blank %}
+      {% for product in collection.products limit: 30 %}
+      {% if product.available %}
+      {% include 'product-card-grid', product: product, max_height: 220 %}
+      {% endif %}
+      {% endfor %}
+      {% endunless %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection Slider",
+  "class": "index-section index_new-arrivals-section",
+  "settings": [
+  {
+    "type": "text",
+    "id": "title",
+    "label": "Title",
+    "default": "Title"
+  },
+  {
+    "type": "text",
+    "id": "subtitle",
+    "label": "Button Label",
+    "default": "Subtitle"
+  },
+  {
+    "type": "collection",
+    "id": "new-arrivals",
+    "label": "Collection"
+  }
+  ],
+  "presets": [
+  {
+    "name": "Collection Slider",
+    "category": "Collection"
+  }
+  ]
+}
+{% endschema %}

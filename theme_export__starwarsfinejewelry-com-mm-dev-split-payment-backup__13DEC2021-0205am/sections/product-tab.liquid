@@ -1,0 +1,178 @@
+<section class="sw__product-tabs" data-section-type="sw-product-tabs" data-section-id="{{ section.id }}">
+  <div class="page-width">
+    <div class="product-tabs">
+      <ul class="tabs">
+        <li data-tab="tab-1" class ="active">Description</li>
+        <li data-tab="tab-2">Specifications</li>
+        <li data-tab="tab-3">About the Collection</li>
+        <li data-tab="tab-4">Authenticity</li>
+        <li data-tab="tab-5">Shipping & returns</li>
+        <li data-tab="tab-6">Warranty</li>
+      </ul>
+      <div class="tab-details">
+        <div class="tab__heading--small active">       
+          <h3>Description</h3> 
+          {% include 'icon-plus' %}
+          {% include 'icon-minus' %}
+        </div>
+        <div id="tab-1" class="tab_content current">
+          {{ product.description }}
+          <p class="product-single__sku">SKU # <span class="variant-sku">{{ product.selected_or_first_available_variant.sku }}</span></p>
+        </div>
+        <div class="tab__heading--small">       
+          <h3>Specifications</h3>  
+          {% include 'icon-plus' %}
+          {% include 'icon-minus' %}
+        </div>
+        <div id="tab-2" class="tab_content">
+          <div class="metafield-info">
+            {% assign Metal = product.metafields.global.Metal %}
+            {% if Metal != 0 and Metal != blank %}
+            <p>Metal : {{ Metal }}</p>
+            {% endif %}
+            
+            {% assign weight = product.metafields.global['Diamond Total Weight'] %}
+            {% if weight != 0 and weight != blank %}
+            <p>Diamond Total Weight : {{ weight }}</p>
+            {% endif %}
+            
+            {% assign Gemstone = product.metafields.global['Gemstone'] %}
+            {% if Gemstone != 0 and Gemstone != blank %}
+            <p>Gemstone : {{ Gemstone }}</p>
+            {% endif %}
+            
+            {% assign Romantic = product.metafields.global['Romantic description'] %}
+            {% if Romantic != 0 and Romantic != blank %}
+            <p>Romantic : {{ Romantic }}</p>
+            {% endif %}
+            
+            {% assign Chain = product.metafields.global['Chain Information'] %}
+            {% if Chain != 0 and Chain != blank %}
+            <p>Chain : {{ Chain }}</p>
+            {% endif %}
+          </div>
+          
+          {% assign specTag = product.tags | join: '' %}        
+          {% if specTag contains 'spec--' %}
+          <table class="">
+            <tbody>
+              {% for tag in product.tags %}
+              {% if tag contains 'spec--' %}
+              {% assign tagName = tag | split:'--' | last %}
+              {% assign tagFirst = tagName | split:':' | first %}
+              {% assign tagLast = tagName | split:':' | last %}
+              {% if tagLast != blank %}
+              <tr>
+                <td class="first">{{ tagFirst | replace: '_',' ' }}</td>
+                <td class="last">{{ tagLast | replace: '-', ' ' | replace:'_',' ' }}</td>
+              </tr>
+              {% endif %}
+              {% endif %}
+              {% endfor %}      
+            </tbody>
+          </table>
+          {% endif %}
+        </div>
+        <div class="tab__heading--small">       
+          <h3>About the Collection</h3>   
+          {% include 'icon-plus' %}
+          {% include 'icon-minus' %}
+        </div>
+        <div id="tab-3" class="tab_content">
+          {% for collection in product.collections %}
+          {% if collection.title contains 'Friendship' or collection.title contains 'The Mandalorian' or collection.title contains 'Into the Galaxy' or collection.title contains 'Forces of the Galaxy' or collection.title contains 'Celestial Love' or collection.title contains 'Balance of Nature' or collection.title contains 'Balance of the Force' %}
+          {% if collection.description contains '<!-- split -->' %}
+          {{ collection.description | split: '<!-- split -->' | last }}
+          {% else %}
+          {{ collection.description }}
+          {% endif %}
+          {% endif %}
+          {% endfor %}
+        </div>
+        <div class="tab__heading--small">       
+          <h3>Authenticity</h3>   
+          {% include 'icon-plus' %}
+          {% include 'icon-minus' %}
+        </div>
+        <div id="tab-4" class="tab_content">
+          {% unless section.settings.authenticity_content == blank %}
+          {{ section.settings.authenticity_content }}
+          {% endunless %}
+        </div>
+        <div class="tab__heading--small">       
+          <h3> Shipping & returns</h3>   
+          {% include 'icon-plus' %}
+          {% include 'icon-minus' %}
+        </div>
+        <div id="tab-5" class="tab_content">
+          {% unless section.settings.shipping_content == blank %}
+          {% comment %}
+          <h2>{{ product.title }}</h2>
+          <p class="product-single__sku">SKU # <span class="variant-sku">{{ product.selected_or_first_available_variant.sku }}</span></p>
+          {% endcomment %}
+          {{ section.settings.shipping_content }}
+          {% endunless %}
+        </div>
+        <div class="tab__heading--small">       
+          <h3>Warranty</h3>   
+          {% include 'icon-plus' %}
+          {% include 'icon-minus' %}
+        </div>
+        <div id="tab-6" class="tab_content">
+          <p>Star Wars™ Fine Jewelry provides a 1-year warranty on all your fine jewelry purchased from <a href="/">starwarsfinejewelry.com</a>. The warranty covers manufacturers defects in material or workmanship but it does not cover neglect or abuse.</p>
+          <h5>WARRANTY EXCEPTIONS & EXCLUSIONS</h5>
+          <p class="no-margin">The Star Wars™ Fine Jewelry warranty does NOT cover the following items:</p>
+          <ol>
+            <li><p>Any damage to your jewelry purchase due to negligence or abuse. (For Example: If a stone is lost due to bent, damaged, or worn out prongs, Star Wars™ Fine Jewelry is not responsible for the replacement of the stone or the re-tipping of the prongs. If the jewelry was neglected and abused and the warranty becomes void.)</p></li>
+            <li><p>If another jeweler performs any repair or resizing work on an item purchased from <a href="/">starwarsfinejewelry.com</a>. we will not be held responsible for any loss or defect and the warranty becomes null and void.</p></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <div class="product-box-image">
+      
+      {% if product.type == 'Bracelet' %}
+      <div class="packaging-txt">
+        <p>NOTE: Bracelets will ship inside branded Star Wars<sup>TM</sup> Packaging with a bracelet pillow, not a light up box.</p>
+      </div>
+      {% else %}
+      <div class="">
+        <img class="lazyload" data-src="{{ section.settings.desktop_image | img_url:"master" }}" data-sizes="auto">
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Tab Content",
+  "settings": [
+  {
+    "type": "html",
+    "id": "authenticity_content",
+    "label": "Authenticity Tab Content"
+  },
+  {
+    "type": "html",
+    "id": "shipping_content",
+    "label": "Shipping Tab Content"
+  },
+  {
+    "type": "header",
+    "content": "Packaging image"
+  },
+  {
+    "type": "image_picker",
+    "id": "desktop_image",
+    "label": "Desktop packaging image"
+  }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

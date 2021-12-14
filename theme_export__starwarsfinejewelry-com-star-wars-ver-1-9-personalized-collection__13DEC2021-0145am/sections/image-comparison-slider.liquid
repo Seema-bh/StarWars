@@ -1,0 +1,60 @@
+<div class="comparison-slider-wrapper">
+  <!-- Comparison Slider - this div contain the slider with the individual images captions -->
+  <div class="comparison-slider">
+    <div class="small--hide">
+      <img class="lazyload" data-src="https://cdn.shopify.com/s/files/1/0465/8787/1396/files/Group_32282_2x_454f60fa-c24a-49cb-a5a3-7da1e3e7745e.jpg?v=1620127611" alt="Kyber crystal radiance night">
+    </div>
+    <div class="medium-up--hide">
+      <img class="lazyload" data-src="https://cdn.shopify.com/s/files/1/0465/8787/1396/files/Group_32284_2x_3a6c7ade-bded-43b4-ae47-a52295a6102d.jpg?v=1620127612" alt="Kyber crystal radiance night">
+    </div>
+    <!-- Div containing the image layed out on top from the left -->
+    <div class="resize">
+      <div class="small--hide">
+        <img class="lazyload" data-src="https://cdn.shopify.com/s/files/1/0465/8787/1396/files/Group_32281_2x_4757ee54-08f0-470c-af83-2904a669a686.jpg?v=1620127611" alt="Kyber crystal radiance day">
+      </div>
+      <div class="medium-up--hide">
+        <img class="lazyload" data-src="https://cdn.shopify.com/s/files/1/0465/8787/1396/files/Group_32283_2x_2d473c2c-3671-4828-a23f-b1c03cdfcfaa.jpg?v=1620127612" alt="Kyber crystal radiance night">
+      </div>
+    </div>
+    <!-- Divider where user will interact with the slider -->
+    <div class="divider"></div>
+    <p class="preview-text">
+      SWIPE TO PREVIEW
+    </p>
+  </div>
+  <!-- All global captions if exist can go on the div bellow -->
+</div>
+
+{% schema %}
+  {
+    "name": "Image-comparison-slider",
+    "settings": [
+	  {
+        "type": "image_picker",
+        "id": "image1",
+        "label": "Desktop image 1"
+      },
+      {
+        "type": "image_picker",
+        "id": "image2",
+        "label": "Desktop image 2"
+      },
+	  {
+        "type": "image_picker",
+        "id": "image3",
+        "label": "Mobile image 1"
+      },
+      {
+        "type": "image_picker",
+        "id": "image4",
+        "label": "Mobile image 2"
+      }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

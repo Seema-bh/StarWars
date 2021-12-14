@@ -1,0 +1,17 @@
+{% assign localName = request.locale.name | handle %}
+{% if localName != 'english' %}
+<style>
+  .sw__header .site-header__icons-wrapper .iWishView,.sw__header .site-header__icons-wrapper .site-header__icon.site-header__search-toggle, .sw__nav .site-header__search-toggle,.index_features-section .grid .grid__item:nth-child(2),.sw__product-desc .product-form .btn-wishlist,.sw__collection-slider a.iWishAddColl,.grid-product__content .iWishAddColl .iwish-collection, .sw__collection-slider .iWishAddColl .iwish-collection,.iwish-custom-add-to-wishlist,#shopify-section-1622804421a3b287d0{
+    display:none !important;
+  }
+  .sw__product-desc .product-form .add-to-cart-wrapper {
+    width: 100%;
+  }
+  @media(min-width:767px){
+    .index_features-section .grid {
+      display: flex;
+      justify-content: center;
+    }
+  }
+</style>
+{% endif %}

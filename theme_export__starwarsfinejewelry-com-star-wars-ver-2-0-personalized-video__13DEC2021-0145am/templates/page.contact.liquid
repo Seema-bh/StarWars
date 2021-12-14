@@ -1,0 +1,96 @@
+{% assign localName = request.locale.name | handle %}
+<section class="sw__contact-section">
+  <div id="contact-page">
+    <div class="page-width">
+      <div class="grid">
+        <div class="grid__item medium-up--five-sixths medium-up--push-one-twelfth">
+          <div class="section-header text-center ">
+            <h2>{{ page.title }}</h2>
+          </div>
+          <div class="mm-contact-us">
+            <div class="mm-form">
+              <div class="contact-form form-vertical">
+                {%- assign formId = 'ContactForm' -%}
+                {% form 'contact', id: formId %}
+                {% include 'form-status', form: form, form_id: formId %}
+                
+                <div class="grid grid--half-gutters">
+                  <div class="grid__item medium-up--one-half">
+                    <label for="{{ formId }}-name">{{ 'contact.form.name' | t }}</label>
+                    <input type="text" id="{{ formId }}-name" name="contact[{{ 'contact.form.name' | t }}]" value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}">
+                  </div>
+                  <div class="grid__item medium-up--one-half">
+                    <label for="{{ formId }}-email">{{ 'contact.form.email' | t }} </label>
+                    <input
+                    type="email"
+                    id="{{ formId }}-email"
+                    name="contact[email]"
+                    autocorrect="off"
+                    autocapitalize="off"
+                    value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                    aria-required="true"
+                    {%- if form.errors contains 'email' -%}
+                    class="input--error"
+                    aria-invalid="true"
+                    aria-describedby="{{ formId }}-email-error"
+                    {%- endif -%}
+                    >
+                    {%- if form.errors contains 'email' -%}
+                    <span id="{{ formId}}-email-error" class="input-error-message">
+                      <span class="visually-hidden">{{ 'general.accessibility.error' | t }} </span>
+                      {% include 'icon-error' %}
+                      <span>{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}.</span>
+                    </span>
+                    {%- endif -%}
+                  </div>
+                </div>
+                <div class="rowone_equalcol">
+                  {% if localName == 'english' %}
+                  <label for="{{ formId }}-nature">Nature of Your Enquiry</label>
+                  {% else %}
+                  <label for="{{ formId }}-nature">お問い合わせ内容</label>
+                  {% endif %}
+                  <select id="{{ formId }}-nature" name="contact[nature]">
+                    {% if localName == 'english' %}
+                    <option value="" disabled selected>Nature of Enquiry</option>
+                    <option value="Sales">Sales</option>
+                    <option value="Complaints">Complaints</option>
+                    <option value="Suggestions">Suggestions</option>
+                    <option value="Other">Other</option>
+                    {% else %}
+                    <option value="" disabled selected>お問い合わせ内容</option>
+                    <option value="Sales">Sales</option>
+                    <option value="Complaints">Complaints</option>
+                    <option value="Suggestions">Suggestions</option>
+                    <option value="Other">Other</option>
+                    {% endif %}
+                  </select>
+                </div>
+                {% if localName == 'english' %}
+                <label for="{{ formId }}-subject">Subject</label>
+                {% else %}
+                <label for="{{ formId }}-subject">件名</label>
+                {% endif %}                
+                <input type="text" id="{{ formId }}-v" name="contact[subject]" value="{% if form[subject] %}{{ form[subject] }}{% elsif customer %}{{ customer.name }}{% endif %}">
+                {% if localName == 'english' %}
+                <label for="{{ formId }}-message">{{ 'contact.form.message' | t }}</label>
+                {% else %}
+                <label for="{{ formId }}-message">内容</label>
+                {% endif %} 
+                
+                <textarea rows="10" id="{{ formId }}-message" name="contact[body]">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+                
+                <input type="submit" class="btn btn_style1" value="{{ 'contact.form.submit' | t }}">
+                
+                {% endform %}
+              </div>
+            </div>
+            <div class="mm-details">
+              {% section 'contact-info' %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

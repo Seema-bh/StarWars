@@ -1,0 +1,147 @@
+<style>
+  p.corona-info {
+    padding: 10px 10px 10px 20px;
+    background: #FEEFB3;
+    text-transform: none;
+    letter-spacing: 0.5px;
+    align-items: center;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #9F6000;
+  }
+  .total-line--shipping b{
+    color: #323232;
+    font-size:14px;
+  }
+  /*---------------------------------------------------------------------------------------
+  Stylesheet for single click discount
+  ---------------------------------------------------------------------------------------*/
+  .discount-title {
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 20px;
+  }
+  .tag__button {
+    background: transparent;
+  }
+  .tag__button:hover {
+    border-width: 0px;
+  }
+  #discount-wrapper {
+    display: none;
+  }
+  .discount-button-wrapper {
+    display: flex;
+    clear: both;
+    padding-bottom: 20px;
+    padding-top: 15px;
+  }
+  @media(max-width: 1200px) and (min-width: 1000px){
+    .discount-button-wrapper {
+      display: block;
+    }
+  }
+  @media(max-width: 767px){
+    .discount-button-wrapper .field__input-btn {
+      display: none;
+    }
+  }
+  .discount-button-wrapper .svg-wrapper {
+    margin-right: 7px;
+  }
+  .discount-button-wrapper .discount-wrapper {
+    flex-grow: 1;
+  }
+  .discount-button-wrapper .section__discount {
+    background: #ebebeb;
+    padding: 0;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+  }
+  .discount-button-wrapper .section__discount-code {
+    display: flex;
+    padding: 10px 13px;
+  }
+  .discount-button-wrapper .discount-code-wrapper {
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .discount-code-wrapper .code-button{
+    flex: 0 0 80%;
+  }
+  .discount-button-wrapper .field__input-btn {
+    visibility: hidden;
+    opacity: 0;
+  }
+  .discount-button-wrapper .code-off, .discount-button-wrapper #apply-discount {
+    margin-bottom: 0;
+    font-size: 13px;
+    line-height: 1;
+    font-weight: 700;
+  }
+  .discount-button-wrapper .code-off {
+    color: #707070;
+  }
+  .discount-button-wrapper #apply-discount {
+    color: #000;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .discount-button-wrapper #apply-discount span:last-child {
+    display: none;
+  }
+  .discount-button-wrapper .applied-discount span:first-child {
+    display: none;
+  }
+  .discount-button-wrapper .applied-discount span:last-child {
+    display: inline-block !important;
+  }
+  .discount-button-wrapper .applied-discount #apply-discount {
+    pointer-events: none;
+  }
+  .discount-button-wrapper .code-button a {
+    font-size: 10px;
+    letter-spacing: 0.1px;
+    line-height: 14px;
+    color: #197bbd;
+  }
+  .discount-button-wrapper .discount-details h5 {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 0;
+  }
+  .discount-button-wrapper .section__discount-description {
+    padding: 10px 13px 15px;
+    border-top: 1px solid #fff;
+    display: none;
+  }
+  .discount-button-wrapper .details ul {
+    padding-left: 15px;
+    margin-bottom: 0;
+  }
+  .discount-button-wrapper .details li {
+    font-size: 10px;
+    line-height: 15px;
+  }
+  .discount-button-wrapper .disabled-discount #apply-discount {
+    pointer-events: none;
+    color: #aeaeae;
+  }
+  .section--shipping-method .expedited-infor{
+    background: #e5e5e5;
+    color: #000;
+    padding: 5px 10px;
+    margin-top: 5px;
+    border-radius: 4px;
+    font-size: 16px;
+    display:none;
+  }
+  .show-expedited-shipping .expedited-infor{
+    display:inline-block !important;
+  }
+</style>

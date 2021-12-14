@@ -1,0 +1,47 @@
+{% unless section.settings.hide_section == true %}
+<div class="page-width text-center">
+  {% assign localName = request.locale.name | handle %}
+  {% if localName == "english"%}
+  {% unless section.settings.paragraph == blank %}
+  {{ section.settings.paragraph }}
+  {% endunless %}
+  {% else %}
+  {% unless section.settings.paragraph_japanese == blank %}
+  {{ section.settings.paragraph_japanese }}
+  {% endunless %}
+  {% endif %}
+</div>
+{% endunless %}
+
+{% schema %}
+  {
+    "name": "Text Section",
+	"class": "index-section themepage-text-section cl-text-section",
+    "settings": [
+	  {
+        "type": "checkbox",
+        "id": "hide_section",
+        "label": "Hide Section",
+        "default": false
+      },
+      {
+        "type": "richtext",
+        "id": "paragraph",
+        "label": "Paragraph",
+        "default": "<p>Paragraph</p>"
+      },
+      {
+        "type": "richtext",
+        "id": "paragraph_japanese",
+        "label": "Paragraph (Japanese)",
+        "default": "<p>”神聖な愛”は、約束の力とギャラクシーでの混乱に堪えれる愛の絆をえがいたコレクション。Princess Leia™の勇気あるリーダーシップと共に、悪党だが英雄的なHan Solo™にインスピレーションを受けたコレクション。この特別な絆は大義の為のレジリエンスと愛情を表しています。このコレクションは魅力さと勇ましさ、そして大胆さを象徴するアイコンです。</p>"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
