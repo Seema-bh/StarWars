@@ -1,0 +1,84 @@
+{% if section.settings.show_section == true %}
+<section>
+  <div class="page-width">
+    {% if section.settings.title != blank %}
+    <h2 class="text-center">{{ section.settings.title }}</h2>
+    {% endif %}
+    <div class="grid grid--no-gutters">
+      <div class="grid__item medium-up--one-half">
+        {% if section.settings.image != blank %}
+        <div class="image-wrapper">
+          <img class="lazyload"
+               src="{{ section.settings.image | img_url: 'master' }}"
+               data-src="{{ section.settings.image | img_url:"master" }}"
+               data-sizes="auto"
+               alt="" />
+        </div>
+        {% endif %}
+      </div>
+      <div class="grid__item medium-up--one-half">
+        <div class="section-content">
+          {% if section.blocks.size > 0 %}
+          {% for block in section.blocks %}
+          <div class="step">
+            <span>Step</span>
+            {% if block.settings.step_info != blank %}
+            <p>{{ block.settings.step_info }}</p>
+            {% endif %}
+          </div>
+          {% endfor %}
+          {% else %}
+          {% include 'no-blocks' %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Crystal radiance steps",
+	"class": "crystal-radiance-steps-section",
+    "settings": [
+	  {
+        "type": "checkbox",
+        "id": "show_section",
+        "label": "Show Section",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "Heading"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image",
+        "info": "Recommended size: 633px * 646px"
+      }
+    ],
+    "blocks":[
+      {
+        "type": "step",
+        "name": "Step",
+        "settings": [
+          {
+            "type": "textarea",
+            "id": "step_info",
+            "label": "Step"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

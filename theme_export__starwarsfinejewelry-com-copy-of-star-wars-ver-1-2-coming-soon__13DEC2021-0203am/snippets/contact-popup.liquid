@@ -1,0 +1,106 @@
+<div id="{{ link.title | handleize }}" class="sw__contact-popup mfp-hide">
+  <div class="sw__contact-wrapper">
+    <div class="contact_popup_left">
+      {% unless section.settings.heading == blank %}
+      <h3>{{ section.settings.heading }}</h3>
+      {% endunless %}
+      {% unless section.settings.sub-heading == blank %}
+      <p>{{ section.settings.sub-heading }}</p>
+      {% endunless %}
+      <ul>
+        {% unless section.settings.write-us == blank %}
+        <li><span>Email us</span><br><p><a href="mailto:{{ section.settings.write-us }}">{{ section.settings.write-us }}</a></p></li>
+        {% endunless %}
+         {% unless section.settings.call-us == blank or section.settings.store-timing == blank %}
+        <li><span>call us</span><br><p><a href="tel:{{ section.settings.call-us }}">{{ section.settings.call-us }}</a><br>
+          {{ section.settings.store-timing }}</p></li>
+        {% endunless %}
+<!--         {% unless section.settings.store-timing == blank %}
+        <li><span>OUR TIMINGS</span><br><p>{{ section.settings.store-timing }}</p></li>
+        {% endunless %} -->
+      </ul>
+      {% unless section.settings.store-timing == nil %}
+      <img class="lazyload"
+           src="{{ section.settings.content-img | img_url: 'master' }}"
+           data-src="{{ section.settings.content-img | img_url: 'master' }}"
+           data-sizes="auto"
+           alt="" />
+      {% endunless %}
+    </div>
+    <div class="contact_popup_right">
+      {% unless section.settings.heading1 == blank %}
+      <h3>{{ section.settings.heading1 }}</h3>
+      {% endunless %}
+      {% unless section.settings.sub-heading1 == blank %}
+      <p>{{ section.settings.sub-heading1 }}</p>
+      {% endunless %}
+      {%- assign formId = 'ContactPopup' -%}
+      {% form 'contact', id: formId %}
+      {% include 'form-status', form: form, form_id: formId %}
+      
+          
+      <select id="{{ formId }}-request" name="contact[request]">
+        <option value="" disabled selected>Select your request type:</option>
+        <option value="Request pricing">Request pricing</option>
+        <option value="Product Information">Product Information</option>
+        <option value="Order Status">Order Status</option>
+        <option value="Returns">Returns</option>
+         <option value="Request a digital catalog">Request a digital catalog</option>
+      </select>
+      
+      <input type="text"
+             id="{{ formId }}-name"
+             name="contact[First {{ 'contact.form.name' | t }}]"
+             placeholder="Enter your first {{ 'contact.form.name' | t }}"
+             value="{% if form[firstname] %}{{ form[firstname] }}{% elsif customer %}{{ customer.firstname }}{% endif %}">
+      
+      <input type="text"
+             id="{{ formId }}-lname"
+             name="contact[Last {{ 'contact.form.name' | t }}]"
+             placeholder="Enter your last {{ 'contact.form.name' | t }}"
+             value="{% if form[firstname] %}{{ form[lastname] }}{% elsif customer %}{{ customer.lastname }}{% endif %}">
+      
+      
+      <input type="email"
+             id="{{ formId }}-email"
+             name="contact[email]"
+             placeholder="Enter your {{ 'contact.form.email' | t }} address"
+             autocorrect="off"
+             autocapitalize="off"
+             value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+             aria-required="true"
+             {%- if form.errors contains 'email' -%}
+             class="input--error"
+             aria-invalid="true"
+             aria-describedby="{{ formId }}-email-error"
+             {%- endif -%}
+             >
+      {%- if form.errors contains 'email' -%}
+      <span id="{{ formId}}-email-error" class="input-error-message">
+        <span class="visually-hidden">{{ 'general.accessibility.error' | t }} </span>
+        {% include 'icon-error' %}
+        <span>{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}.</span>
+      </span>
+      {%- endif -%}
+  
+      <input type="tel" id="{{ formId }}-phone" required placeholder="Enter your phone Number" name="contact[phone]" pattern="[0-9\-]*" value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}">
+
+      
+      
+      <input type="text"
+             id="{{ formId }}-v"
+             name="contact[subject]"
+             placeholder="Subject"
+             value="{% if form[subject] %}{{ form[subject] }}{% elsif customer %}{{ customer.name }}{% endif %}">
+      
+      <textarea rows="5"
+                id="{{ formId }}-message"
+                placeholder="Your message"
+                name="contact[body]">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+
+      <input type="submit" class="btn btn_style1" value="submit">
+      {% endform %}
+      <p>©2020. RENAISSANCE GLOBAL, ALL RIGHT RESERVED</p>
+    </div>
+  </div>
+</div>
